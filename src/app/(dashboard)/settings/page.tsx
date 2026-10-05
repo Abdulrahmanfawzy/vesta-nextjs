@@ -1,6 +1,7 @@
 'use client'
 import CustomSelect from "@/components/common/CustomSelector";
 import CustomTabs from "@/components/common/CustomTabs";
+import DashboardHeader from "@/components/layout/DashboardHeader";
 import { useState } from "react";
 
 const tabs = [
@@ -30,19 +31,22 @@ const Page = () => {
     const [selectedStatus, setSelectedStatus] = useState("");
 
     return (
+      <>
+        <DashboardHeader pageName="Settings" />
         <div className="flex flex-col gap-6 ml-34.5 mt-26">
-            <CustomTabs tabs={tabs} />
-            <CustomSelect
-                options={status}
-                value={selectedStatus}
-                onChange={setSelectedStatus}
-                getOptionLabel={(status) => status.name} 
-                getOptionValue={(status) => status.id}
-                placeholder="All status"
-                className="w-45"  // style it as you like
-            />
+          <CustomTabs tabs={tabs} />
+          <CustomSelect
+            options={status}
+            value={selectedStatus}
+            onChange={setSelectedStatus}
+            getOptionLabel={(status) => status.name}
+            getOptionValue={(status) => status.id}
+            placeholder="All status"
+            className="w-45" // style it as you like
+          />
         </div>
-    )
+      </>
+    );
 }
 
 export default Page;

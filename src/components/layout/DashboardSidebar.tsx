@@ -33,7 +33,7 @@ function AppSidebar() {
   return (
     <Sidebar
       collapsible="none"
-      className="h-screen w-31 bg-app-primary text-white"
+      className="h-screen  w-31 bg-app-primary text-white"
     >
       {/* Logo */}
       <SidebarHeader className="items-center p-2.5">

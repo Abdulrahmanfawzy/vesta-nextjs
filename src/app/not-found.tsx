@@ -1,68 +1,21 @@
-import React from "react";
+import Link from "next/link";
 
 function NotFound() {
   return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        minHeight: "100vh",
-        color: "#000",
-        background: "#fff",
-        margin: 0,
-        fontFamily: "sans-serif",
-      }}
-    >
-      <style>{`
-        body {
-          color: #000;
-          background: #fff;
-          margin: 0;
-        }
-
-        .next-error-h1 {
-          border-right: 1px solid rgba(0, 0, 0, 0.3);
-        }
-
-        @media (prefers-color-scheme: dark) {
-          body {
-            color: #fff;
-            background: #000;
-          }
-
-          .next-error-h1 {
-            border-right: 1px solid rgba(255, 255, 255, 0.3);
-          }
-        }
-      `}</style>
-
-      <h1
-        className="next-error-h1"
-        style={{
-          display: "inline-block",
-          margin: "0 20px 0 0",
-          padding: "0 23px 0 0",
-          fontSize: "24px",
-          fontWeight: 500,
-          verticalAlign: "top",
-          lineHeight: "49px",
-        }}
-      >
-        404
-      </h1>
-
-      <div style={{ display: "inline-block" }}>
-        <h2
-          style={{
-            fontSize: "14px",
-            fontWeight: 400,
-            lineHeight: "49px",
-            margin: 0,
-          }}
-        >
-          This page could not be found.
+    <div className="flex justify-center items-center  text-app-primary">
+      <div className="text-center">
+        <h1 className="m-0 text-7xl font-bold tracking-tight sm:text-8xl">
+          404
+        </h1>
+        <h2 className="mb-4 mt-3 text-2xl font-semibold sm:text-3xl">
+          Page not found
         </h2>
+        <p className="mb-6">
+          The page you are looking for does not exist or has been moved.
+        </p>
+        <Link href="/" className="underline hover:text-app-primary">
+          Go back home
+        </Link>
       </div>
     </div>
   );

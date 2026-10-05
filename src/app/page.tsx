@@ -1,5 +1,12 @@
+import DashboardHeader from "@/components/layout/DashboardHeader";
+
 function page() {
-  return <div>Home</div>;
+  return (
+    <>
+      <DashboardHeader pageName="overview" />
+      <div className="h-[2500px]">Home</div>;
+    </>
+  );
 }
 
 export default page;

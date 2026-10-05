@@ -1,13 +1,17 @@
 import { Bell } from "lucide-react";
+import DashboardSidebarInMobile from "./DashboardSidebarInMobile";
 
-export default function DashboardHeader() {
+export default function DashboardHeader({ pageName }: { pageName: string }) {
   return (
-    <header className="flex w-full! items-center justify-between rounded-lg bg-white border border-app-neutral-light px-1 py-1">
+    <header className="flex w-full items-center justify-between bg-white">
       {/* Left */}
-      <div>
-        <h1 className="text-lg font-semibold text-gray-900">Overview</h1>
-
-        {/* <p className="text-lg font-medium text-orange-500">Hello John !</p> */}
+      <div className="flex items-center">
+        <div className="md:hidden ">
+          <DashboardSidebarInMobile />
+        </div>
+        <h1 className="text-4xl  font-semibold text-app-primary capitalize">
+          {pageName}
+        </h1>
       </div>
 
       {/* Right */}
@@ -16,7 +20,7 @@ export default function DashboardHeader() {
         <button
           type="button"
           aria-label="Notifications"
-          className="flex size-9 items-center justify-center rounded-full border border-gray-300 bg-white text-gray-700 transition hover:bg-gray-50"
+          className="flex size-7 items-center justify-center rounded-full border border-gray-300 bg-white text-gray-700 transition hover:bg-gray-50"
         >
           <Bell size={17} strokeWidth={1.7} />
         </button>
