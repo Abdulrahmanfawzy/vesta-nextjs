@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   ChartNoAxesColumn,
+  LogOutIcon,
   RotateCcw,
   Settings,
   SquareChartGantt,
@@ -74,8 +75,11 @@ function AppSidebar() {
       </SidebarContent>
 
       {/* Log out */}
-      <SidebarFooter className="items-center p-2.5 pb-6">
-        <Button>Log Out</Button>
+      <SidebarFooter className="items-center  p-2.5 pb-6">
+        <Button variant={"destructive"}>
+          <LogOutIcon />
+          Log Out
+        </Button>
       </SidebarFooter>
     </Sidebar>
   );
