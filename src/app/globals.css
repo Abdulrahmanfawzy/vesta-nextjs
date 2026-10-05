@@ -202,48 +202,7 @@
   * {
     @apply border-border outline-ring/50;
   }
-  body {
-    @apply bg-background text-foreground;
-  }
   html {
     @apply font-sans;
   }
 }
-
-/* figma Colors */
-
-/*
-primary = #161C36
-success = #51E247CC
-error = #E80000CC
-    #EAA360
-    #E7ECFC
-    #6380CE
-    #FEF1E8
-    #DC8540
-    #E6F6EC
-    #378666
-    #FCE8EA
-    #D14E1F
-    #5E6061
-    #F2F2F2
-    #4B9876
-    #ECF9F0
-    #FEEDE0
-    #E48A4B
-    #FCE8EB
-    #FF000980
-    #4B9876
-    #E48A4B
-    #FEEDE0
-    #2841B1
-    #687EA0
-    #F83C3C
-    #EF8B70
-    #F8AE5D
-    #D8D8D8
-    #161C36
-
-
-
-*/

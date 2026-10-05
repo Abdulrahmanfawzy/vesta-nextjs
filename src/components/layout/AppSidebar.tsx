@@ -1,11 +1,8 @@
-import Image from "next/image";
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarFooter,
-  SidebarHeader,
-} from "../ui/sidebar";
+"use client";
 import Logo from "@/assets/images/logo.svg";
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   ChartNoAxesColumn,
   RotateCcw,
@@ -13,57 +10,74 @@ import {
   SquareChartGantt,
 } from "lucide-react";
 import { Button } from "../ui/button";
-import Link from "next/link";
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+} from "@/components/ui/sidebar";
 
 const menuItems = [
-  {
-    label: "Overview",
-    icon: SquareChartGantt,
-    href: "/",
-  },
-  {
-    label: "Analysis",
-    icon: ChartNoAxesColumn,
-    href: "/analysis",
-  },
-  {
-    label: "Returns",
-    icon: RotateCcw,
-    href: "/returns",
-  },
-  {
-    label: "Settings",
-    icon: Settings,
-    href: "/settings",
-  },
+  { label: "Overview", icon: SquareChartGantt, href: "/" },
+  { label: "Analysis", icon: ChartNoAxesColumn, href: "/analysis" },
+  { label: "Returns", icon: RotateCcw, href: "/returns" },
+  { label: "Settings", icon: Settings, href: "/settings" },
 ];
 
 function AppSidebar() {
+  const pathname = usePathname();
+
   return (
-    <>
-      <Sidebar side="left" className="*:bg-app-primary *:items-between w-35">
-        <SidebarHeader className="w-30 h-30">
-          <Image loading={"eager"} src={Logo} alt="Vesta Logo" />
-        </SidebarHeader>
+    <Sidebar
+      collapsible="none"
+      className="h-screen w-31 bg-app-primary text-white"
+    >
+      {/* Logo */}
+      <SidebarHeader className="items-center p-2.5">
+        <div className="relative h-28 w-28">
+          <Image
+            loading="eager"
+            src={Logo}
+            alt="vesta logo"
+            width={40}
+            height={40}
+            className="h-full w-full"
+          />
+        </div>
+      </SidebarHeader>
 
-        <SidebarContent className="*:text-white gap-8">
-          {menuItems.map(({ href, icon: Icon, label }, i) => {
-            return (
-              <Link href={href} key={i}>
-                <div className="flex flex-col gap-2 justify-centers items-center">
+      {/* Links */}
+      <SidebarContent className="justify-center p-2.5">
+        <SidebarMenu className="gap-8">
+          {menuItems.map(({ href, icon: Icon, label }, i) => (
+            <SidebarMenuItem key={i}>
+              <SidebarMenuButton
+                asChild
+                isActive={pathname === href}
+                className="h-auto flex-col justify-center gap-2 p-0 text-base font-normal text-white
+                  hover:bg-transparent hover:text-app-accent-peach
+                  active:bg-transparent active:text-app-accent-peach
+                  data-[active=true]:bg-transparent data-[active=true]:font-normal data-[active=true]:text-app-accent-peach
+                  [&>svg]:size-5.75!"
+              >
+                <Link href={href}>
                   <Icon />
-                  <p>{label}</p>
-                </div>
-              </Link>
-            );
-          })}
-        </SidebarContent>
+                  <span>{label}</span>
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          ))}
+        </SidebarMenu>
+      </SidebarContent>
 
-        <SidebarFooter>
-          <Button>Log Out</Button>
-        </SidebarFooter>
-      </Sidebar>
-    </>
+      {/* Log out */}
+      <SidebarFooter className="items-center p-2.5 pb-6">
+        <Button>Log Out</Button>
+      </SidebarFooter>
+    </Sidebar>
   );
 }
 
