@@ -2,7 +2,7 @@ import Link from "next/link";
 
 function NotFound() {
   return (
-    <div className="flex justify-center items-center  text-app-primary">
+    <div className="flex justify-center h-screen items-center  text-app-primary">
       <div className="text-center">
         <h1 className="m-0 text-7xl font-bold tracking-tight sm:text-8xl">
           404

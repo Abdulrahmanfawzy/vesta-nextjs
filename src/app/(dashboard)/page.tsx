@@ -1,10 +1,11 @@
 import DashboardHeader from "@/components/layout/DashboardHeader";
+import Overview from "@/features/overview/pages/Overview";
 
 function page() {
   return (
     <>
       <DashboardHeader pageName="overview" />
-      <div className="h-[2500px]">Home</div>;
+      <Overview />
     </>
   );
 }

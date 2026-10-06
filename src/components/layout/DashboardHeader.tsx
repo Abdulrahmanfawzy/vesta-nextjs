@@ -3,7 +3,7 @@ import DashboardSidebarInMobile from "./DashboardSidebarInMobile";
 
 export default function DashboardHeader({ pageName }: { pageName: string }) {
   return (
-    <header className="flex w-full items-center justify-between bg-white">
+    <header className="flex h-20 w-full items-center border-b border-app-neutral-light justify-between mb-6 bg-white">
       {/* Left */}
       <div className="flex items-center">
         <div className="md:hidden ">
