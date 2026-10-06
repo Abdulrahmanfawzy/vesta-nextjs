@@ -21,7 +21,8 @@ const Page = () => {
         <div className="mt-26 w-full min-w-0 px-4.5">
             <CustomTabs tabs={tabs} />
         </div>
-    )
+      </>
+    );
 }
 
 export default Page;
