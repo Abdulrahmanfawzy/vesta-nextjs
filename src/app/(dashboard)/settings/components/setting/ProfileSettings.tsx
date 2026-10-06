@@ -2,10 +2,10 @@ import Image from "next/image";
 import { ImagePlus, Eye, EyeOff } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import manImage from "../../../../assets/images/man.jpg";
+import manImage from "../../../../../assets/images/man.jpg";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ProfileFormData, profileSchema } from "../schema/profile.schema";
+import { ProfileFormData, profileSchema } from "../../schema/profile.schema";
 import { useState } from "react";
 
 interface ProfileSettingsProps {

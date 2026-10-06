@@ -1,4 +1,4 @@
-import { policies } from "../types/settings.types";
+import { policies } from "../../types/settings.types";
 import PolicyRow from "./PolicyRow";
 
 const ReturnRefundSettings = () => (

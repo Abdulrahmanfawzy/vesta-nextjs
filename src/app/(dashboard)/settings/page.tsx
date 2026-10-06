@@ -1,8 +1,8 @@
 
 import CustomTabs from "@/components/common/CustomTabs";
 
-import HelpCenterTab from "./components/HelpCenterTab";
-import SettingTab from "./components/SettingTab";
+import HelpCenterTab from "./components/HelpCenter/HelpCenterTab";
+import SettingTab from "./components/setting/SettingTab";
 
 const tabs = [
     {

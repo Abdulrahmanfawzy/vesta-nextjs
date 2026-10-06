@@ -1,4 +1,4 @@
-import pdfIcon from "../../../../assets/images/ImportPdf.svg";
+import pdfIcon from "../../../../../assets/images/ImportPdf.svg";
 import Image from "next/image";
 interface PolicyRowProps {
   title: string;
