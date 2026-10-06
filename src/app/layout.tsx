@@ -2,8 +2,9 @@ import { Inter } from "next/font/google";
 import "@/app/globals.css";
 import { cn } from "@/lib/utils";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
+// layout
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">

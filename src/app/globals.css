@@ -7,6 +7,8 @@
 @theme inline {
   /* Primary */
   --color-app-primary: var(--color-primary);
+  --color-brand-navy: #111a3e;
+  --color-brand-field: #e8eef3;
 
   /* Success */
   --color-app-success: var(--color-success);

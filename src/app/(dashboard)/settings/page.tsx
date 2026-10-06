@@ -1,52 +1,26 @@
-'use client'
-import CustomSelect from "@/components/common/CustomSelector";
 import CustomTabs from "@/components/common/CustomTabs";
-import DashboardHeader from "@/components/layout/DashboardHeader";
-import { useState } from "react";
+
+import HelpCenterTab from "./components/HelpCenter/HelpCenterTab";
+import SettingTab from "./components/setting/SettingTab";
 
 const tabs = [
-    {
-        value: 'setting', label: 'Setting', content: <div>Setting Content</div>
-    },
-    {
-        value: 'Help center', label: 'Help Center', content: <div>Help Center Content</div>
-    }
-]
-const status = [
   {
-    id: "1",
-    name: "completed",
+    value: "setting",
+    label: "Setting",
+    content: <SettingTab />,
   },
   {
-    id: "2",
-    name: "pending",
-  },
-   {
-    id: "3",
-    name: "rejected",
+    value: "Help center",
+    label: "Help Center",
+    content: <HelpCenterTab />,
   },
 ];
-
 const Page = () => {
-    const [selectedStatus, setSelectedStatus] = useState("");
-
-    return (
-      <>
-        <DashboardHeader pageName="Settings" />
-        <div className="flex flex-col gap-6 ml-34.5 mt-26">
-          <CustomTabs tabs={tabs} />
-          <CustomSelect
-            options={status}
-            value={selectedStatus}
-            onChange={setSelectedStatus}
-            getOptionLabel={(status) => status.name}
-            getOptionValue={(status) => status.id}
-            placeholder="All status"
-            className="w-45" // style it as you like
-          />
-        </div>
-      </>
-    );
-}
+  return (
+    <div className="mt-26 w-full min-w-0 px-4.5">
+      <CustomTabs tabs={tabs} />
+    </div>
+  );
+};
 
 export default Page;
