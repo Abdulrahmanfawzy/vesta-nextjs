@@ -20,7 +20,7 @@ const CustomTabs = ({tabs,defaultValue,className}: CustomTabsProps) => {
   return (
     <Tabs
       defaultValue={defaultValue ?? tabs[0]?.value}
-      className={className}
+      className={`w-full min-w-0 ${className ?? ""}`}
     >
       <TabsList className="flex h-auto w-full justify-start! gap-8 rounded-none border-0 bg-transparent p-0">
         {tabs.map((tab) => (
@@ -58,7 +58,7 @@ const CustomTabs = ({tabs,defaultValue,className}: CustomTabsProps) => {
         <TabsContent
           key={tab.value}
           value={tab.value}
-          className="mt-6"
+          className="mt-6 w-full min-w-0"
         >
           {tab.content}
         </TabsContent>
