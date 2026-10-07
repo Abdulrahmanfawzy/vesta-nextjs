@@ -23,8 +23,6 @@ export default function ReturnsTabs() {
         </TabsList>
         <SelectFilter />
       </div>
-
-     
     </Tabs>
   );
 }

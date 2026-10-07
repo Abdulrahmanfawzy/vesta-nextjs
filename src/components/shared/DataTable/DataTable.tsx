@@ -51,9 +51,6 @@ const DataTable = ({
           </TableRow>
         ))}
       </TableBody>
-     
-
-
     </Table>
   );
 };

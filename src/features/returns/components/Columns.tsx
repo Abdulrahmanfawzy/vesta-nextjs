@@ -1,7 +1,6 @@
 "use client";
 
 import { createColumnHelper } from "@tanstack/react-table";
-import { returnRequests } from "@/features/returns/constants/Constants";
 import { type DataTableFeatures } from "./data-table-features";
 import { MoreHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -30,10 +29,10 @@ export type ReturnRequest = {
 const columnHelper = createColumnHelper<DataTableFeatures, ReturnRequest>();
 
 export const columns = columnHelper.columns([
-   columnHelper.accessor("image", {
+  columnHelper.accessor("image", {
     header: "Image",
     cell: ({ row }) => {
-      return <img src={row.original.image} alt="" width={80} height={80} />;
+      return <img src={row.original.image} alt="this image Return Request " className="mx-auto" width={60} height={60} />;
     },
   }),
   columnHelper.accessor("status", {
@@ -78,6 +77,4 @@ export const columns = columnHelper.columns([
       );
     },
   }),
-
- 
 ]);
