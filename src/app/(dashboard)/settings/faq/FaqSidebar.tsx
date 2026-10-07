@@ -29,6 +29,7 @@ const FaqSidebar = ({
       aria-label="FAQ sections"
       className="mt-4 flex w-full flex-col items-stretch gap-1"
     >
+        <h1 className="text-2xl font-bold text-app-primary leading-[150%] tracking-[-2.2%] mb-6">Categories</h1>
       {faqSections.map((item) => (
         <button
           key={item.value}
@@ -41,7 +42,7 @@ const FaqSidebar = ({
             focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-app-primary/40 ${
               selectedSection === item.value
                 ? "border border-accent-orange bg-app-accent-peach/10 font-semibold text-app-accent-peach"
-                : "border border-transparent font-medium text-primary hover:bg-app-accent-peach/5"
+                : "border border-transparent font-medium text-app-primary hover:bg-app-accent-peach/5"
             }`}
         >
           {item.label}

@@ -23,8 +23,10 @@ const FqaPage = ({ }: IProps) => {
           onSectionChange={setSelectedSection}
         />
         <div className="flex w-full flex-col gap-6">
+          <h1 className="text-2xl font-bold text-app-primary leading-[150%] tracking-[-2.2%] mb-6 mt-3">Frequently Asked Questions</h1>
+
           <FaqContent  />
-          <div className="mt-8">
+          <div className="my-12">
             <p className="text-base font-bold text-app-black-80">Still have questions ?</p>
             <p className="text-sm text-app-neutral-dark-60">
               Contact our
