@@ -12,7 +12,17 @@ export const forgotPasswordSchema = z.object({
 export const otpSchema = z.object({
   otp: z.string().regex(/^\d{4}$/, "Enter the 4-digit code"),
 })
+export const resetPasswordSchema = z
+  .object({
+    password: z.string().min(8, "Password must be at least 8 characters"),
+    confirmPassword: z.string().min(1, "Confirm your password"),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords do not match",
+    path: ["confirmPassword"],
+  })
 
+export type ResetPasswordValues = z.infer<typeof resetPasswordSchema>
 export type LoginValues = z.infer<typeof loginSchema>
 export type ForgotPasswordValues = z.infer<typeof forgotPasswordSchema>
 export type OtpValues = z.infer<typeof otpSchema>
