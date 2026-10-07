@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { FormStatus } from "@/components/forms/form-status"
 import { otpSchema, type OtpValues } from "@/schemas/auth"
-
+import { useRouter } from "next/navigation"
 const OTP_LENGTH = 4
 
 function OtpBoxes({
@@ -82,7 +82,7 @@ function OtpBoxes({
 export function OtpForm() {
   const [error, setError] = React.useState<string | null>(null)
   const [success, setSuccess] = React.useState<string | null>(null)
-
+  const router = useRouter()
   const {
     control,
     handleSubmit,
@@ -96,8 +96,8 @@ export function OtpForm() {
     setError(null)
     setSuccess(null)
     try {
-      // TODO: await verifyOtpAction(values)
-      setSuccess("Verified successfully")
+      
+      router.push("/reset-password")
     } catch (e) {
       setError(e instanceof Error ? e.message : "Invalid or expired code")
     }
