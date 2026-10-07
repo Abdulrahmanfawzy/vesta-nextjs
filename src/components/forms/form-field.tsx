@@ -27,8 +27,11 @@ export function FormField<T extends FieldValues>({
       control={control}
       name={name}
       render={({ field, fieldState }) => (
-        <div className="flex flex-col gap-3">
-          <Label htmlFor={fieldId} className="text-xl font-normal sm:text-2xl">
+        <div className="flex flex-col gap-[calc(var(--u)*6)] font-[family-name:var(--font-open-sans)]">
+          <Label
+            htmlFor={fieldId}
+            className="text-[length:max(calc(var(--u)*28),16px)] font-normal leading-[calc(var(--u)*42)]"
+          >
             {label}
           </Label>
           <Input
@@ -36,14 +39,18 @@ export function FormField<T extends FieldValues>({
             {...field}
             id={fieldId}
             className={cn(
-              "h-14 rounded-xl border-0 bg-brand-field px-5 text-base sm:h-16 md:text-lg",
+              "h-[max(calc(var(--u)*65),44px)] rounded-[calc(var(--u)*20)] border-0 bg-brand-field px-[calc(var(--u)*29)] py-0 text-[length:max(calc(var(--u)*20),14px)] md:text-[length:max(calc(var(--u)*20),14px)]",
               className
             )}
             aria-invalid={fieldState.invalid}
             aria-describedby={fieldState.error ? `${fieldId}-error` : undefined}
           />
           {fieldState.error && (
-            <p id={`${fieldId}-error`} role="alert" className="text-sm text-destructive">
+            <p
+              id={`${fieldId}-error`}
+              role="alert"
+              className="text-[length:max(calc(var(--u)*16),12px)] text-destructive"
+            >
               {fieldState.error.message}
             </p>
           )}
