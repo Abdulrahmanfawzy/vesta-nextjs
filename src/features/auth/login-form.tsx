@@ -34,7 +34,11 @@ export function LoginForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} noValidate className="flex flex-col gap-8 sm:gap-10">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      noValidate
+      className="flex flex-col gap-[calc(var(--u)*32)]"
+    >
       <FormField
         control={control}
         name="email"
@@ -55,7 +59,7 @@ export function LoginForm() {
         />
         <Link
           href="/forgot-password"
-          className="absolute right-0 top-full mt-2 text-sm text-muted-foreground hover:underline"
+          className="absolute right-0 top-full mt-[calc(var(--u)*8)] text-[length:max(calc(var(--u)*16),12px)] text-muted-foreground hover:underline"
         >
           Forgot password?
         </Link>
@@ -66,7 +70,7 @@ export function LoginForm() {
       <Button
         type="submit"
         disabled={isSubmitting}
-        className="mx-auto h-14 w-full max-w-[345px] rounded-xl bg-brand-navy text-lg font-semibold text-white hover:bg-brand-navy/90 sm:mt-[30px] sm:h-20"
+        className="mx-auto mt-[calc(var(--u)*37)] h-[max(calc(var(--u)*80),48px)] w-[calc(var(--u)*345)] min-w-40 max-w-full rounded-[calc(var(--u)*20)] bg-brand-navy font-[family-name:var(--font-open-sans)] text-[length:max(calc(var(--u)*24),16px)] font-bold text-white hover:bg-brand-navy/90"
       >
         {isSubmitting ? "Logging in..." : "Login"}
       </Button>

@@ -10,7 +10,7 @@ export const forgotPasswordSchema = z.object({
 })
 
 export const otpSchema = z.object({
-  otp: z.string().regex(/^\d{6}$/, "Enter the 6-digit code"),
+  otp: z.string().regex(/^\d{4}$/, "Enter the 4-digit code"),
 })
 
 export type LoginValues = z.infer<typeof loginSchema>
