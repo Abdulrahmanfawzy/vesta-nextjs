@@ -43,6 +43,10 @@
   --color-app-neutral: var(--color-neutral);
   --color-app-neutral-light: var(--color-neutral-light);
 
+  /* Opacity colors */
+  --color-app-black-80: var(--color-black-80);
+  --color-app-neutral-dark-60: var(--color-neutral-dark-60);
+
   /* Accent */
   --color-app-accent-peach: var(--color-accent-peach);
   --color-app-accent-orange: var(--color-accent-orange);
@@ -127,6 +131,10 @@
   --color-neutral-dark: #5e6061;
   --color-neutral: #d8d8d8;
   --color-neutral-light: #f2f2f2;
+
+  /* Opacity colors */
+  --color-black-80: #000000cc;
+  --color-neutral-dark-60: #5e606199;
 
   /* Accent */
   --color-accent-peach: #ef8b70;
