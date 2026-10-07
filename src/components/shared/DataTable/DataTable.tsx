@@ -7,19 +7,47 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-const DataTable = ({ column, data }: { column: string; data: string }) => {
+import { Column, ReturnRequest } from "@/features/returns/types/types";
+const DataTable = ({
+  column,
+  data,
+}: {
+  column: Column[];
+  data: ReturnRequest[];
+}) => {
   return (
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead className="w-[100px]">{column}</TableHead>
-          <TableHead className="text-right">Amount</TableHead>
+          {column.map((item: Column) => (
+            <TableHead
+              key={item.accessorKey}
+              className="w-[100px] text-[22px] text-primary font-semibold "
+            >
+              {item.header}
+            </TableHead>
+          ))}
         </TableRow>
       </TableHeader>
       <TableBody>
-        <TableRow>
-          <TableCell className="font-medium"> {data}</TableCell>
-        </TableRow>
+        {data.map((item: ReturnRequest) => (
+          <TableRow key={item.id}>
+            <TableCell className="font-medium">
+              <img
+                className="w-20 h-20"
+                src={item.image.src}
+                alt={item.returnRequestId}
+              />{" "}
+            </TableCell>
+            <TableCell className="font-medium">
+              {item.returnRequestId}{" "}
+            </TableCell>
+            <TableCell className="font-medium">{item.orderId} </TableCell>
+            <TableCell className="font-medium">
+              {item.returnRequestId}{" "}
+            </TableCell>
+          </TableRow>
+        ))}
       </TableBody>
     </Table>
   );
