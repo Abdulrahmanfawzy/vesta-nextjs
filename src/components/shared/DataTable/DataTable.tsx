@@ -1,3 +1,4 @@
+import { Pagination } from "@/components/ui/pagination";
 import {
   Table,
   TableBody,
@@ -22,7 +23,7 @@ const DataTable = ({
           {column.map((item: Column) => (
             <TableHead
               key={item.accessorKey}
-              className="w-[100px] text-[22px] text-primary font-semibold "
+              className="w-25 text-[22px] text-primary font-semibold "
             >
               {item.header}
             </TableHead>
@@ -36,19 +37,23 @@ const DataTable = ({
               <img
                 className="w-20 h-20"
                 src={item.image.src}
-                alt={item.returnRequestId}
+                alt="this Image Product Refund "
               />{" "}
             </TableCell>
             <TableCell className="font-medium">
-              {item.returnRequestId}{" "}
+              {item.ReturnRequestID}{" "}
             </TableCell>
             <TableCell className="font-medium">{item.orderId} </TableCell>
-            <TableCell className="font-medium">
-              {item.returnRequestId}{" "}
-            </TableCell>
+            <TableCell className="font-medium">{item.itemID}</TableCell>
+            <TableCell className="font-medium">{item.RequestDate}</TableCell>
+            <TableCell className="font-medium">{item.status}</TableCell>
+            <TableCell className="font-medium">{item.Action}</TableCell>
           </TableRow>
         ))}
       </TableBody>
+     
+
+
     </Table>
   );
 };
