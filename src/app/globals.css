@@ -7,8 +7,8 @@
 @theme inline {
   /* Primary */
   --color-app-primary: var(--color-primary);
-  --color-brand-navy: #111A3E;
-  --color-brand-field: #E8EEF3;
+  --color-brand-navy: #111a3e;
+  --color-brand-field: #e8eef3;
 
   /* Success */
   --color-app-success: var(--color-success);
@@ -46,6 +46,9 @@
   /* Accent */
   --color-app-accent-peach: var(--color-accent-peach);
   --color-app-accent-orange: var(--color-accent-orange);
+
+  --color-border-color: var(--border-color);
+  --shadow-card-shadow: var(--card-shadow);
 
   /* Shadcn  */
   --font-heading: var(--font-sans);
@@ -93,14 +96,12 @@
 :root {
   /* Primary */
   --color-primary: #161c36;
-
   /* Success */
   --color-success: #51e247cc;
   --color-success-dark: #378666;
   --color-success-medium: #4b9876;
   --color-success-light: #e6f6ec;
   --color-success-background: #ecf9f0;
-
   /* Error */
   --color-error: #e80000cc;
   --color-error-dark: #d14e1f;
@@ -131,6 +132,8 @@
   --color-accent-peach: #ef8b70;
   --color-accent-orange: #f8ae5d;
 
+  --border-color: #fffbf8;
+  --card-shadow: rgba(0, 0, 0, 0.1) 0px 0.5px 0.5px 0.5px;
   /* Shadcn */
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
@@ -198,7 +201,4 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
-}
-
-@layer base {
 }
