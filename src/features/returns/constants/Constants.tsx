@@ -1,14 +1,14 @@
 import { TableList } from "../types/types";
-import Tyer from "@/assets/Tyres.png"
-import Shoes from "@/assets/Shoes.png"
-import Mug from "@/assets/Mug.png"
-import Lovset from "@/assets/Lovset.png"
-import sweetbant from "@/assets/sweetbant.png"
+import Tyer from "@/assets/Tyres.png";
+import Shoes from "@/assets/Shoes.png";
+import Mug from "@/assets/Mug.png";
+import Lovset from "@/assets/Lovset.png";
+import sweetbant from "@/assets/sweetbant.png";
 import { ReturnRequest } from "../components/Columns";
 export const TabsLabel: TableList[] = [
-  { id: 1, value: "Return Requests", label: "Return Requests" },
-  { id: 2, value: "Refunds", label: "Refunds" },
-  { id: 3, value: "Exchange Requests", label: "Exchange Requests" },
+  { id: 1, value: "return", label: "Return Requests" },
+  { id: 2, value: "refunds", label: "Refunds" },
+  { id: 3, value: "exchange-requests", label: "Exchange Requests" },
 ];
 export const STATUSES: TableList[] = [
   { id: 1, value: "all", label: "All Status" },
@@ -25,7 +25,7 @@ export const Column = [
   { header: "Request Date", accessorKey: "RequestDate" },
   { header: "Status", accessorKey: "status" },
   { header: "Action", accessorKey: "Action" },
-]
+];
 export const returnRequests: ReturnRequest[] = [
   {
     id: "1",
@@ -34,13 +34,13 @@ export const returnRequests: ReturnRequest[] = [
     orderId: "#8965445534",
     itemID: "#1111112236",
     RequestDate: "28-05-2026",
-    status: "Accepted" ,
+    status: "Accepted",
     Action: "viewed",
   },
 
   {
     id: "2",
-    image:Shoes.src ,
+    image: Shoes.src,
     ReturnRequestID: "#9999987658",
     orderId: "#8965445535",
     itemID: "#1111112237",
