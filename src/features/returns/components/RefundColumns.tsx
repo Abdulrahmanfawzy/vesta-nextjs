@@ -15,52 +15,57 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { type RefundOrder } from "@/features/refund/types/types";
 
-// Shape of data from Constants.tsx → returnRequests
-export type ReturnRequest = {
-  id: string;
-  image: string;
-  ReturnRequestID: string;
-  orderId: string;
-  itemID: string;
-  RequestDate: string;
-  status: "Accepted" | "Pending" | "Rejected";
-  Action: string;
-};
+// Column definitions for the Refund page
+// Uses RefundOrder from RefundState.ts — includes customer object (name, email, image)
+const columnHelper = createColumnHelper<DataTableFeatures, RefundOrder>();
 
-const columnHelper = createColumnHelper<DataTableFeatures, ReturnRequest>();
-
-export const columns = columnHelper.columns([
-  // Product image
-  columnHelper.accessor("image", {
-    header: "Order Image",
-    cell: ({ row }) => (
-      <div className="flex items-center justify-center">
-        <Image
-          src={row.original.image}
-          alt="Order item"
-          width={48}
-          height={48}
-          className="h-12 w-12 rounded-md object-cover"
-        />
-      </div>
-    ),
-  }),
-
-  columnHelper.accessor("ReturnRequestID", {
-    header: "Return Request ID",
+export const refundColumns = columnHelper.columns([
+  // Customer avatar + name + email
+  columnHelper.accessor("customer", {
+    header: "Customer",
+    cell: ({ row }) => {
+      const customer = row.original.customer;
+      return (
+        <div className="flex items-center gap-3">
+          <Image
+            src={
+              typeof customer.image === "string"
+                ? customer.image
+                : (customer.image as { src: string }).src
+            }
+            alt={customer.name}
+            width={40}
+            height={40}
+            className="h-10 w-10 rounded-full object-cover"
+          />
+          <div>
+            <p className="font-medium">{customer.name}</p>
+            <p className="text-sm text-gray-500">{customer.email}</p>
+          </div>
+        </div>
+      );
+    },
   }),
 
   columnHelper.accessor("orderId", {
     header: "Order ID",
   }),
 
-  columnHelper.accessor("itemID", {
-    header: "Item ID",
-  }),
-
   columnHelper.accessor("RequestDate", {
     header: "Request Date",
+  }),
+
+  columnHelper.accessor("refundReason", {
+    header: "Refund Reason",
+  }),
+
+  columnHelper.accessor("refundAmount", {
+    header: "Amount",
+    cell: ({ row }) => (
+      <span className="font-medium">${row.original.refundAmount.toFixed(2)}</span>
+    ),
   }),
 
   // Status badge
@@ -96,7 +101,7 @@ export const columns = columnHelper.columns([
             <DropdownMenuItem
               onClick={() => navigator.clipboard.writeText(record.id)}
             >
-              Copy Request ID
+              Copy Order ID
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem>View Details</DropdownMenuItem>

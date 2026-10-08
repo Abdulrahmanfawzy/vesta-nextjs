@@ -16,22 +16,21 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+
 import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { features, type DataTableFeatures } from "./data-table-features";
+  features,
+  type DataTableFeatures,
+} from "@/features/returns/components/data-table-features";
 import { Button } from "@/components/ui/button";
-import { DataTablePagination } from "./DataTablePagination";
+import { DataTablePagination } from "../../../features/returns/components/DataTablePagination";
+import { useSearchParams } from "next/navigation";
 
 interface DataTableProps<TData extends RowData> {
   columns: ColumnDef<DataTableFeatures, TData>[];
   data: TData[];
 }
 
-const STATUS_FILTERS = [
+export const STATUS_FILTERS = [
   { label: "All", value: "" },
   { label: "Pending", value: "pending" },
   { label: "Rejected", value: "rejected" },
@@ -46,6 +45,9 @@ export function DataTable<TData extends RowData>({
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     [],
   );
+  const searchParams = useSearchParams();
+  const status = searchParams.get("status");
+  console.log(status);
 
   const table = useTable({
     features,
@@ -59,37 +61,8 @@ export function DataTable<TData extends RowData>({
     },
   });
 
-  const statusColumn = table.getColumn("status");
-  const activeStatus = (statusColumn?.getFilterValue() as string) ?? "";
-
   return (
     <div className="w-full space-y-10 mt-5">
-      {/* Toolbar */}
-      <div className="flex flex-wrap items-center gap-2">
-        <div className="flex items-center gap-1.5">
-          {STATUS_FILTERS.map((filter) => (
-            <Button
-              key={filter.label}
-              size="sm"
-              className={` ${
-                filter.label.includes("Pending") ||
-                filter.label.includes("Rejected") ||
-                filter.label.includes("Accepted") ||
-                filter.label.includes("All")
-                  ? "px-8"
-                  : ""
-              }`}
-              variant={activeStatus === filter.value ? "default" : "outline"}
-              onClick={() =>
-                statusColumn?.setFilterValue(filter.value || undefined)
-              }
-            >
-              {filter.label}
-            </Button>
-          ))}
-        </div>
-      </div>
-      {/* Table */}
       <div className="w-full overflow-x-auto rounded-md ">
         <Table className="w-full text-sm  ">
           <TableHeader
@@ -127,7 +100,11 @@ export function DataTable<TData extends RowData>({
                   {row.getVisibleCells().map((cell) => (
                     <TableCell
                       key={cell.id}
-                      className="px-3 py-1.5 border-0 text-center text-app-primary text-base"
+                      className={
+                        cell.getValue() === "Accepted"
+                          ? " text-app-success px-3 py-1.5 border-0 text-center w-fit - text-base"
+                          : " text-white px-3 py-1.5 border-0 text-center text-app-primary text-base"
+                      }
                     >
                       <table.FlexRender cell={cell} />
                     </TableCell>
