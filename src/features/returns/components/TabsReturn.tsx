@@ -9,7 +9,10 @@ export default function ReturnsTabs() {
       <div className="flex items-center justify-between gap-4 container mx-auto">
         <TabsList className="h-auto gap-8 rounded-none bg-transparent p-0">
           {TabsLabel.map((tab) => (
-            <Link href={"/returns/refund"} key={tab.value}>
+            <Link
+              href={`/returns${tab.value === "return" ? "" : `/${tab.value}`}`}
+              key={tab.value}
+            >
               <TabsTrigger
                 value={tab.value}
                 className="rounded-none ] border-0 bg-transparent px-0 py-2 text-[20px] font-semibold text-muted-foreground shadow-none
