@@ -9,7 +9,7 @@ import TabReturn from "@/features/returns/components/TabsReturn";
 
 const Refund = () => {
   return (
-    <div className="flex flex-col gap-4 container mx-auto">
+    <div className="flex flex-col gap-4 container mx-auto px-3 sm:px-6 py-2 sm:py-4">
       <DashboardHeader pageName="Refunds" />
       <TabReturn />
       <RefundStats />

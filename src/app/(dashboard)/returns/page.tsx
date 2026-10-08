@@ -15,7 +15,7 @@ const ReturnPage = async ({ searchParams }: ReturnParm) => {
   console.log(status);
 
   return (
-    <div className="flex flex-col gap-4 container mx-auto">
+    <div className="flex flex-col gap-4 container mx-auto px-3 sm:px-6 py-2 sm:py-4">
       <DashboardHeader pageName="Returns" />
       <TabReturn />
       <div className="w-full flex justify-end">
