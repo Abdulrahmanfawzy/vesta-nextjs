@@ -69,13 +69,12 @@ const products = [
     trend: data3,
   },
 ];
-
-function TopReturnedProducts() {
+function ReturnsByProduct() {
   return (
-    <ChartsCard title="TOP RETURNED PRODUCTS">
-      <ProductTableChart products={products} />;
+    <ChartsCard title="RETURNS BY PRODUCT">
+      <ProductTableChart products={products} />
     </ChartsCard>
   );
 }
 
-export default TopReturnedProducts;
+export default ReturnsByProduct;
