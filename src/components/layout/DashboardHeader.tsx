@@ -1,15 +1,21 @@
 import { Bell } from "lucide-react";
+import { cn } from "@/lib/utils";
 import DashboardSidebarInMobile from "./DashboardSidebarInMobile";
-
-export default function DashboardHeader({ pageName }: { pageName: string }) {
+interface DashboardHeaderProps {
+  pageName: string;
+  icon?: React.ReactNode;
+  className?: string;
+}
+export default function DashboardHeader({ pageName, icon, className }: DashboardHeaderProps) {
   return (
-    <header className="flex h-20 w-full items-center border-b border-app-neutral-light justify-between mb-6 bg-white">
+    <header className={`flex h-20 w-full items-center border-b border-app-neutral-light justify-between mb-6 bg-white `}>
       {/* Left */}
       <div className="flex items-center">
         <div className="md:hidden ">
           <DashboardSidebarInMobile />
         </div>
-        <h1 className="text-4xl  font-semibold text-app-primary capitalize">
+        {icon && <div className="mr-2">{icon}</div>}
+        <h1 className={cn("text-4xl  font-semibold  text-app-primary capitalize", className)}>
           {pageName}
         </h1>
       </div>

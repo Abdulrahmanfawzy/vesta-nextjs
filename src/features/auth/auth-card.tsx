@@ -6,11 +6,11 @@ export function AuthCard({
   children: React.ReactNode
 }) {
   return (
-    <div className="w-full max-w-[819px]">
-      <h1 className="mb-8 text-center text-4xl font-bold leading-[60px] text-white sm:mb-14 sm:text-5xl">
+    <div className="w-[calc(var(--u)*819)] max-w-full">
+      <h1 className="mb-[calc(var(--u)*51)] text-center font-[family-name:var(--font-inter)] text-[length:max(calc(var(--u)*48),28px)] font-bold leading-[calc(var(--u)*72)] text-white">
         {title}
       </h1>
-      <section className="rounded-[45px] border border-brand-navy bg-white px-6 pb-10 pt-10 sm:px-16 sm:pb-[72px] sm:pt-20">
+      <section className="rounded-[calc(var(--u)*45)] border border-brand-navy bg-white px-[calc(var(--u)*65)] pb-[calc(var(--u)*72)] pt-[calc(var(--u)*71)]">
         {children}
       </section>
     </div>

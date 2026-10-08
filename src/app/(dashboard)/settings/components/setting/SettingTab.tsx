@@ -10,6 +10,7 @@ const SettingTab = () => {
   const [selectedSetting, setSelectedSetting] = useState<SettingSection>("profile");
 
   return (
+    
     <div className="flex w-full min-w-0 gap-8">
       <SettingSidebar
         selectedSetting={selectedSetting}
