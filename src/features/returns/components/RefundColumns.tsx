@@ -2,19 +2,9 @@
 
 import { createColumnHelper } from "@tanstack/react-table";
 import { type DataTableFeatures } from "../../returns/components/data-table-features";
-import { MoreHorizontal } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
 
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { type RefundOrder } from "@/features/refund/types/types";
 import RefundDetailsDialog from "@/features/refund/components/RefundDialog";
 
@@ -88,23 +78,24 @@ export const refundColumns = columnHelper.columns([
     header: "Refund Date",
   }),
 
-  // Action dropdown
+  // Action column with modernized RefundDetailsDialog
   columnHelper.accessor("Action", {
     header: "Action",
     cell: ({ row }) => {
       const record = row.original;
       return (
         <RefundDetailsDialog
-                refund={{
-                  ...record,
-                  productName: record.orderId,
-                  refundAmount: 100, 
-                  refundReason:"return refund",
-                  refundDate: "2022-01-01",
-                  RequestDate: record.OrderDate,
-                  image: (record.customer.image as string),
-                }}
-              />
+          refund={{
+            ...record,
+            productName: `Order ${record.orderId}`,
+            refundAmount: record.refundAmount,
+            refundReason: record.refundReason,
+            refundDate: record.refundDate,
+            RequestDate: record.OrderDate,
+            image: record.customer.image,
+            customer: record.customer,
+          }}
+        />
       );
     },
   }),
