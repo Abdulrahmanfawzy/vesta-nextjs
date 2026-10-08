@@ -26,19 +26,30 @@ const funnelData = [
   },
   {
     name: "Shipped Back",
-    value: 400,
-    percentage: 40,
+    value: 500,
+    percentage: 50,
     color: "var(--color-app-accent-orange)",
   },
   {
     name: "Refunded",
-    value: 200,
-    percentage: 20,
-    color: "var(--color-app-neutral-light)",
+    value: 300,
+    percentage: 30,
+    color: "var(--color-app-neutral)",
   },
 ];
 
-const CustomShape = (props: any) => {
+// Custom Shape for Funnel card
+type FunnelShapeProps = {
+  x?: number;
+  y?: number;
+  width?: number;
+  height?: number;
+  upperWidth?: number;
+  lowerWidth?: number;
+  fill?: string;
+};
+
+const CustomShape = (props: FunnelShapeProps) => {
   const { x, y, width, height, upperWidth, lowerWidth, fill } = props;
 
   return (
@@ -46,7 +57,7 @@ const CustomShape = (props: any) => {
       x={x}
       y={y}
       width={width}
-      height={height}
+      height={height ? height - 4 : 0}
       upperWidth={upperWidth}
       lowerWidth={lowerWidth}
       fill={fill}

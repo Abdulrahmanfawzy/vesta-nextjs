@@ -1,3 +1,4 @@
+import FinancialImpactChart from "../components/FinancialImpactChart";
 import ReturnByCustomer from "../components/ReturnByCustomer";
 import ReturnByReason from "../components/ReturnByReason";
 import ReturnFunnel from "../components/ReturnFunnel";
@@ -21,6 +22,9 @@ function Analysis() {
       </div>
       <div className="col-span-12   md:col-span-6  lg:col-span-4">
         <ReturnFunnel />
+      </div>
+      <div className="col-span-12   md:col-span-6  lg:col-span-4">
+        <FinancialImpactChart />
       </div>
     </div>
   );
