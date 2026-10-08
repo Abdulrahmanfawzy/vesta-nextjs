@@ -1,7 +1,7 @@
 "use client";
 
 import { createColumnHelper } from "@tanstack/react-table";
-import { type DataTableFeatures } from "./data-table-features";
+import { type DataTableFeatures } from "../../returns/components/data-table-features";
 import { MoreHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -23,6 +23,12 @@ const columnHelper = createColumnHelper<DataTableFeatures, RefundOrder>();
 
 export const refundColumns = columnHelper.columns([
   // Customer avatar + name + email
+  columnHelper.accessor("orderId", {
+    header: "Order ID",
+  }),
+  columnHelper.accessor("OrderDate", {
+    header: "Order Date",
+  }),
   columnHelper.accessor("customer", {
     header: "Customer",
     cell: ({ row }) => {
@@ -38,7 +44,7 @@ export const refundColumns = columnHelper.columns([
             alt={customer.name}
             width={40}
             height={40}
-            className="h-10 w-10 rounded-full object-cover"
+            className="w-12 h-12 object-contain"
           />
           <div>
             <p className="font-medium">{customer.name}</p>
@@ -49,14 +55,6 @@ export const refundColumns = columnHelper.columns([
     },
   }),
 
-  columnHelper.accessor("orderId", {
-    header: "Order ID",
-  }),
-
-  columnHelper.accessor("RequestDate", {
-    header: "Request Date",
-  }),
-
   columnHelper.accessor("refundReason", {
     header: "Refund Reason",
   }),
@@ -64,7 +62,9 @@ export const refundColumns = columnHelper.columns([
   columnHelper.accessor("refundAmount", {
     header: "Amount",
     cell: ({ row }) => (
-      <span className="font-medium">${row.original.refundAmount.toFixed(2)}</span>
+      <span className="font-medium">
+        ${row.original.refundAmount.toFixed(2)}
+      </span>
     ),
   }),
 
@@ -81,6 +81,10 @@ export const refundColumns = columnHelper.columns([
             : "closed"; // Rejected → closed
       return <Badge variant={variant}>{status}</Badge>;
     },
+  }),
+  //RefundDate
+  columnHelper.accessor("refundDate", {
+    header: "Refund Date",
   }),
 
   // Action dropdown

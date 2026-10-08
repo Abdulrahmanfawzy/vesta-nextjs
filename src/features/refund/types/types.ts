@@ -23,8 +23,7 @@ export interface RefundStat {
 export interface RefundOrder {
   id: string;
   orderId: string;
-  RequestDate: string;
-
+  OrderDate: string;
   customer: {
     name: string;
     email: string;

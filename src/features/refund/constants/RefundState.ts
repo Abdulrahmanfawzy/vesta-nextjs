@@ -26,6 +26,7 @@ export const refundStats: RefundStat[] = [
     trend: "positive",
     tone: "indigo",
     icon: "wallet",
+
   },
   {
     id: "completed",
@@ -63,7 +64,7 @@ export const refundOrdersData: RefundOrder[] = [
   {
     id: "1",
     orderId: "#ORD987657",
-    RequestDate: "May 21, 2025",
+    OrderDate: "May 21, 2025",
     customer: {
       name: "Ahmed Saad",
       email: "Ahmed.Saad@gmail.com",
@@ -78,7 +79,7 @@ export const refundOrdersData: RefundOrder[] = [
   {
     id: "2",
     orderId: "#ORD987658",
-    RequestDate: "May 20, 2025",
+    OrderDate: "May 20, 2025",
     customer: {
       name: "Sara Mohamed",
       email: "Sara.Mohamed@gmail.com",
@@ -93,7 +94,7 @@ export const refundOrdersData: RefundOrder[] = [
   {
     id: "3",
     orderId: "#ORD987659",
-    RequestDate: "May 19, 2025",
+    OrderDate: "May 19, 2025",
     customer: {
       name: "Mayar Ahmed",
       email: "Mayar.Ahmed@gmail.com",
@@ -108,7 +109,7 @@ export const refundOrdersData: RefundOrder[] = [
   {
     id: "4",
     orderId: "#ORD987660",
-    RequestDate: "May 18, 2025",
+    OrderDate: "May 18, 2025",
     customer: {
       name: "Yara Mosaad",
       email: "Yara.Mosaad@gmail.com",
@@ -123,7 +124,7 @@ export const refundOrdersData: RefundOrder[] = [
   {
     id: "5",
     orderId: "#ORD987661",
-    RequestDate: "May 17, 2025",
+    OrderDate: "May 17, 2025",
     customer: {
       name: "Maya Sayed",
       email: "Maya.Sayed@gmail.com",

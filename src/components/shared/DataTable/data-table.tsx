@@ -103,7 +103,7 @@ export function DataTable<TData extends RowData>({
                       className={
                         cell.getValue() === "Accepted"
                           ? " text-app-success px-3 py-1.5 border-0 text-center w-fit - text-base"
-                          : " text-white px-3 py-1.5 border-0 text-center text-app-primary text-base"
+                          : "  px-3 py-1.5 border-0 text-center text-app-primary text-base"
                       }
                     >
                       <table.FlexRender cell={cell} />
