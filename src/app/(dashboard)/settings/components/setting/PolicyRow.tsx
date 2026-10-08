@@ -7,7 +7,7 @@ interface PolicyRowProps {
 export default function PolicyRow({ title }: PolicyRowProps) {
   return (
     <div className="flex w-full h-14 items-center justify-between border-b border-[#D8D8D8] pl-1 pr-4" >
-      <span className="text-md text-[#000000CC]">
+      <span className="text-md text-app-black-80">
         {title}
       </span>
 
