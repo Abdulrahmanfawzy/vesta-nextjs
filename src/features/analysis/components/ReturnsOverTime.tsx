@@ -1,5 +1,5 @@
-import ChartsCard from "@/components/common/charts/ChartsCard";
 import PerformanceChart from "@/components/common/charts/PerformanceChart";
+import ChartsCard from "@/components/common/charts/ChartsCard";
 
 const data = [
   { date: "May 1", returns: 120 },
@@ -11,10 +11,9 @@ const data = [
   { date: "May 30", returns: 280 },
   { date: "Jun 1", returns: 330 },
 ];
-
-export default function ReturnsPerformance() {
+function ReturnsOverTime() {
   return (
-    <ChartsCard title="RETURNS PERFORMANCE">
+    <ChartsCard title="RETURNS OVER TIME">
       <PerformanceChart
         data={data}
         dataKey="returns"
@@ -30,3 +29,5 @@ export default function ReturnsPerformance() {
     </ChartsCard>
   );
 }
+
+export default ReturnsOverTime;
