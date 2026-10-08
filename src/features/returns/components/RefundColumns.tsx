@@ -16,6 +16,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { type RefundOrder } from "@/features/refund/types/types";
+import RefundDetailsDialog from "@/features/refund/components/RefundDialog";
 
 // Column definitions for the Refund page
 // Uses RefundOrder from RefundState.ts — includes customer object (name, email, image)
@@ -93,24 +94,17 @@ export const refundColumns = columnHelper.columns([
     cell: ({ row }) => {
       const record = row.original;
       return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <MoreHorizontal className="h-4 w-4" />
-              <span className="sr-only">Open menu</span>
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(record.id)}
-            >
-              Copy Order ID
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>View Details</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <RefundDetailsDialog
+                refund={{
+                  ...record,
+                  productName: record.orderId,
+                  refundAmount: 100, 
+                  refundReason:"return refund",
+                  refundDate: "2022-01-01",
+                  RequestDate: record.OrderDate,
+                  image: (record.customer.image as string),
+                }}
+              />
       );
     },
   }),

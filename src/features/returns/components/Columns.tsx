@@ -15,6 +15,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import RefundDetailsDialog from "@/features/refund/components/RefundDialog";
 
 // Shape of data from Constants.tsx → returnRequests
 export type ReturnRequest = {
@@ -84,24 +85,44 @@ export const columns = columnHelper.columns([
     cell: ({ row }) => {
       const record = row.original;
       return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <MoreHorizontal className="h-4 w-4" />
-              <span className="sr-only">Open menu</span>
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(record.id)}
-            >
-              Copy Request ID
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>View Details</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        // <DropdownMenu>
+        //   <DropdownMenuTrigger asChild>
+        //     <Button variant="ghost" className="h-8 w-8 p-0">
+        //       
+        //       <span className="sr-only">Open menu</span>
+        //     </Button>
+        //   </DropdownMenuTrigger>
+        //   <DropdownMenuContent align="end">
+        //     <DropdownMenuLabel>Actions</DropdownMenuLabel>
+
+        //     <DropdownMenuSeparator />
+        //     <DropdownMenuItem >
+        //       <RefundDetailsDialog
+        //         refund={{
+        //           ...record,
+        //           productName: record.orderId,
+        //           refundAmount: 100, 
+        //           refundReason:"return refund",
+        //           refundDate: "2022-01-01",
+        //           RequestDate: record.RequestDate,
+        //           image: record.image,
+        //         }}
+        //       />
+        //     </DropdownMenuItem>
+        //   </DropdownMenuContent>
+        // </DropdownMenu>
+
+        <RefundDetailsDialog
+                refund={{
+                  ...record,
+                  productName: record.orderId,
+                  refundAmount: 100, 
+                  refundReason:"return refund",
+                  refundDate: "2022-01-01",
+                  RequestDate: record.RequestDate,
+                  image: record.image,
+                }}
+              />
       );
     },
   }),
