@@ -49,9 +49,9 @@ export function DataTablePagination<TData extends RowData>({
   };
 
   return (
-    <div className="flex flex-wrap items-center justify-between gap-3 px-1 py-1 text-sm text-muted-foreground">
+    <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between px-1 py-1 text-sm text-muted-foreground">
       {/* Result count */}
-      <p className="text-xs">
+      <p className="text-xs text-center sm:text-left">
         Showing{" "}
         <span className="font-medium text-foreground">
           {totalRows === 0 ? 0 : pageIndex * pageSize + 1}
@@ -65,7 +65,7 @@ export function DataTablePagination<TData extends RowData>({
         results
       </p>
 
-      <div className="flex flex-wrap items-center gap-4">
+      <div className="flex flex-wrap items-center justify-center sm:justify-end gap-3 sm:gap-4">
         {/* Rows per page */}
         <div className="flex items-center gap-2">
           <span className="text-xs whitespace-nowrap">Rows per page</span>
