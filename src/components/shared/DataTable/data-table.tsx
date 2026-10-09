@@ -103,7 +103,7 @@ export function DataTable<TData extends RowData>({
                     {row.getVisibleCells().map((cell) => (
                       <TableCell
                         key={cell.id}
-                        className="px-4 py-3 text-xs sm:text-sm text-foreground align-middle whitespace-nowrap"
+                        className="px-4 py-3 text-xs sm:text-sm text-app-primary align-middle whitespace-nowrap"
                       >
                         <table.FlexRender cell={cell} />
                       </TableCell>

@@ -1,6 +1,7 @@
 'use client'
 import CustomSelect from "@/components/common/CustomSelector"
 import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
 import { useState } from "react"
 
 
@@ -40,11 +41,16 @@ const SendUsMessage = () => {
                 </div>
                 <div className="flex flex-col gap-2">
                     <label htmlFor="message" className="text-sm font-medium text-app-primary">Message</label>
-                    <textarea id="message"
+                    <Textarea id="message"
                         name="message"
-                        rows={4}
+                        rows={6}
                         placeholder="Describe your issue here..."
-                        className="border border-app-neutral-light rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-app-primary placeholder:text-gray-400"></textarea>
+                        className="border border-gray-200 rounded-lg p-2
+                        
+                        focus-visible:border-gray-200! focus-visible:ring-2! focus-visible:ring-primary/20!
+                        placeholder:text-gray-400">
+
+                        </Textarea>
                 </div>
                 <button type="submit" className="bg-app-primary  mx-auto text-white font-semibold py-3 px-12 rounded-lg hover:bg-app-primary/80 transition-all duration-300">Send Message</button>
             </form>

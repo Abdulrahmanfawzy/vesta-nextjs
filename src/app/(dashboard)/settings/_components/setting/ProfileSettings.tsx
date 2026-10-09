@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import manImage from "../../../../../assets/images/man.jpg";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ProfileFormData, profileSchema } from "../../schema/profile.schema";
+import { ProfileFormData, profileSchema } from "../../../../../schemas/profile.schema";
 import { useState } from "react";
 
 interface ProfileSettingsProps {
