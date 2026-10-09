@@ -16,10 +16,10 @@ function Overview() {
       <div className="col-span-12 order-3 md:col-span-6 lg:order-0 lg:col-span-4">
         <ReturnReason />
       </div>
-      <div className="col-span-12 order-5 md:col-span-12 lg:order-none lg:col-span-8">
+      <div className="col-span-12 order-5 md:col-span-12 lg:order-0 lg:col-span-8">
         <TopReturnedProducts />
       </div>
-      <div className="col-span-12 order-4 md:col-span-6 lg:order-none lg:col-span-4">
+      <div className="col-span-12 order-4 md:col-span-6 lg:order-0 lg:col-span-4">
         <QuickActions />
       </div>
     </div>
