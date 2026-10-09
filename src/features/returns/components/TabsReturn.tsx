@@ -11,8 +11,8 @@ export default function TabReturn() {
 
   // Synchronize active tab based on current pathname
   const getActiveTab = () => {
-    if (pathname.includes("exchange")) return "exchange-requests";
-    if (pathname.includes("refund")) return "refunds";
+    if (pathname.includes("exchange")) return "exchangeReturn";
+    if (pathname.includes("refund")) return "refund";
     return "return";
   };
 
@@ -22,9 +22,9 @@ export default function TabReturn() {
     switch (value) {
       case "return":
         return <Undo2 className="h-4 w-4 shrink-0" />;
-      case "refunds":
+      case "refund":
         return <RotateCcw className="h-4 w-4 shrink-0" />;
-      case "exchange-requests":
+      case "exchangeReturn":
         return <ArrowLeftRight className="h-4 w-4 shrink-0" />;
       default:
         return null;
