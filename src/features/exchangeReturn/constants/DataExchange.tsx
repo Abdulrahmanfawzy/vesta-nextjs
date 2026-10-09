@@ -21,7 +21,7 @@ export const headerTableExchange = [
   { accessorKey: "Action", header: "Action" },
 ] satisfies { accessorKey: keyof ExchangeType; header: string }[];
 
-export const CloumnsExchange: ExchangeType[] = [
+export const DataExchange: ExchangeType[] = [
   {
     exchangeId: "#EX-10482",
     orderId: "#ORD-58291",

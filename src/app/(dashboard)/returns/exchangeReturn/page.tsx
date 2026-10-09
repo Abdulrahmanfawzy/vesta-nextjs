@@ -1,10 +1,9 @@
 import DashboardHeader from "@/components/layout/DashboardHeader";
 import ButtonsSearch from "@/components/shared/DataTable/ButtonsSearch";
 import { DataTable } from "@/components/shared/DataTable/data-table";
-import { SelectFilter } from "@/components/shared/DataTable/SelectFilter";
 import TabReturn from "@/features/returns/components/TabsReturn";
-import { refundColumns } from "@/features/refund/components/RefundColumns";
-import { refundOrdersData } from "@/features/refund/constants/RefundState";
+import { ExchangeColumns } from "@/features/exchangeReturn/components/ColumnsExchange";
+import { DataExchange } from "@/features/exchangeReturn/constants/DataExchange";
 
 const ExchangeReturnPage = () => {
   return (
@@ -12,7 +11,7 @@ const ExchangeReturnPage = () => {
       <DashboardHeader pageName="Exchange Requests" />
       <TabReturn />
       <ButtonsSearch />
-      <DataTable columns={refundColumns} data={refundOrdersData} />
+      <DataTable columns={ExchangeColumns} data={DataExchange} />
     </div>
   );
 };

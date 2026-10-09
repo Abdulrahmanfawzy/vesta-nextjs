@@ -4,8 +4,6 @@ import { createColumnHelper } from "@tanstack/react-table";
 import { type DataTableFeatures } from "../../returns/components/data-table-features";
 import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
-
-import { type RefundOrder } from "@/features/refund/types/types";
 import RefundDetailsDialog from "@/features/refund/components/RefundDialog";
 import { ExchangeType } from "../types/types.Exchange";
 
