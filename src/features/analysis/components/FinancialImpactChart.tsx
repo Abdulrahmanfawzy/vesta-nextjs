@@ -2,7 +2,6 @@
 import ChartsCard from "@/components/common/charts/ChartsCard";
 import FinancialCardList from "./FinancialCardList";
 import {
-  CartesianGrid,
   Line,
   LineChart,
   ResponsiveContainer,
@@ -46,11 +45,11 @@ function FinancialImpactChart() {
   return (
     <ChartsCard title="FINANCIAL IMPACT">
       <FinancialCardList />
-      <div className="mt-2 h-64 w-full">
+      <div className="h-64 w-full">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart
             data={chartData}
-            margin={{ top: 10, right: 10, bottom: 0, left: 0 }}
+            margin={{ top: 5, right: 10, bottom: 0, left: 0 }}
           >
             <XAxis
               dataKey="date"

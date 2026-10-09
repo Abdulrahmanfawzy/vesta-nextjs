@@ -1,14 +1,13 @@
-// components/reports/ReportCard.tsx
-import * as React from "react";
 import CardTitle from "@/components/common/charts/CardTitle";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
+import { ReactNode } from "react";
 
 type ChartsCardProps = {
   title: string;
-  children: React.ReactNode;
   className?: string;
   contentClassName?: string;
+  children: ReactNode;
 };
 
 export default function ChartsCard({
