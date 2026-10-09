@@ -93,8 +93,8 @@ export const ExchangeColumns = columnHelper.columns([
           refund={{
             ...record,
             productName: `Order ${record.orderId}`,
-            refundAmount: record.priceDifference,
             refundReason: record.exchangeReason,
+            status: record.exchangeSettingsStatus,
             // refundDate: record.refundDate,
             RequestDate: record.orderId,
             image: record.image,

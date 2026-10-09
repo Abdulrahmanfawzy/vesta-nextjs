@@ -10,9 +10,12 @@ const ExchangeReturnPage = () => {
     <div className="flex flex-col gap-4 container mx-auto px-3 sm:px-6 py-2 sm:py-4">
       <DashboardHeader pageName="Exchange Requests" />
       <TabReturn />
-      <ButtonsSearch />
+      <div className="my-6" >
+        <ButtonsSearch />
+      </div>
       <DataTable columns={ExchangeColumns} data={DataExchange} />
     </div>
+
   );
 };
 
