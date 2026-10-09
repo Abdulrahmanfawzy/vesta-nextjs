@@ -25,7 +25,7 @@ const SettingSidebar = ({
   selectedSetting,
   onSettingChange,
 }: SettingSidebarProps) => (
-  <aside className="min-h-screen w-60 shrink-0 border-r border-r-[#E5E7EB] pr-6 shadow-[4px_0_8px_-6px_#00000040]">
+  <aside className="min-h-screen w-60 shrink-0 border-r pr-6  border-app-neutral-light">
     <nav
       aria-label="Settings sections"
       className="mt-4 flex w-full flex-col items-stretch gap-1"

@@ -1,11 +1,11 @@
 import DashboardHeader from "@/components/layout/DashboardHeader"
 import { ArrowLeft } from "lucide-react"
 import Link from "next/link"
-import TicketHeader from "./components/TicketHeader"
-import Conversation from "./components/Conversation"
-import TicketInformation from "./components/TicketInformation"
-import RelatedInformation from "./components/RelatedInformation"
-import QuickActions from "./components/QuickActions"
+import TicketHeader from "./_components/TicketHeader"
+import Conversation from "./_components/Conversation"
+import TicketInformation from "./_components/TicketInformation"
+import RelatedInformation from "./_components/RelatedInformation"
+import QuickActions from "./_components/QuickActions"
 
 interface IProps {
 

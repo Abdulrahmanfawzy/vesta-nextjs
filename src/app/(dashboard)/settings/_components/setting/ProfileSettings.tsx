@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import manImage from "../../../../../assets/images/man.jpg";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ProfileFormData, profileSchema } from "../../schema/profile.schema";
+import { ProfileFormData, profileSchema } from "../../../../../schemas/profile.schema";
 import { useState } from "react";
 
 interface ProfileSettingsProps {
@@ -56,6 +56,7 @@ const ProfileSettings = ({ isActive }: ProfileSettingsProps) => {
             <Input
               id="name"
               type="text"
+              placeholder="Enter your name"
               {...register("name")}
               className="w-full"
             />
@@ -71,6 +72,7 @@ const ProfileSettings = ({ isActive }: ProfileSettingsProps) => {
             <Input
               id="email"
               type="email"
+              placeholder="Enter your email"
               {...register("email")}
               className="w-full"
             />
@@ -87,7 +89,9 @@ const ProfileSettings = ({ isActive }: ProfileSettingsProps) => {
             <label htmlFor="phone">Phone</label>
             <Input
               id="phone"
-              type="text"
+              type="phone"
+              placeholder="010 1234 5678"
+
               {...register("phone")}
               className="w-full"
             />
@@ -101,7 +105,8 @@ const ProfileSettings = ({ isActive }: ProfileSettingsProps) => {
             <label htmlFor="identity">Your Id</label>
             <Input
               id="identity"
-              type="text"
+              type="number"
+              placeholder="Enter your Id"
               {...register("identity")}
               className="w-full"
             />
@@ -120,6 +125,7 @@ const ProfileSettings = ({ isActive }: ProfileSettingsProps) => {
               <Input
                 id="password"
                 type={showPassword ? "text" : "password"}
+                placeholder="Enter your password.."
                 {...register("password")}
                 className="w-full"
               />
@@ -149,6 +155,7 @@ const ProfileSettings = ({ isActive }: ProfileSettingsProps) => {
               <Input
                 id="confirmPassword"
                 type="password"
+                placeholder="Repeat your password.."
                 {...register("confirmPassword")}
                 className="w-full"
               />
