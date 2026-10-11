@@ -11,7 +11,7 @@ interface IProps {
 const ContactSupportPage=({}:IProps)=> {
   return (
     <div>
-        <DashboardHeader pageName="Contact Support" />
+        <DashboardHeader pageName="Contact Support" className="text-2xl" />
         <div className="flex w-full min-w-0 gap-8 mb-8">
           
           <GetInTouchComponent />

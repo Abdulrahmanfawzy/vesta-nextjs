@@ -12,14 +12,18 @@ interface TabItem {
 
 interface CustomTabsProps {
   tabs: TabItem[];
+   value?: string;
   defaultValue?: string;
   className?: string;
+  onValueChange?: (value: string) => void;
 }
 
-const CustomTabs = ({tabs,defaultValue,className}: CustomTabsProps) => {
+const CustomTabs = ({tabs,value,defaultValue,className,onValueChange}: CustomTabsProps) => {
   return (
     <Tabs
+    value={value}
       defaultValue={defaultValue ?? tabs[0]?.value}
+       onValueChange={onValueChange}
       className={`w-full min-w-0 ${className ?? ""}`}
     >
       <TabsList className="flex h-auto w-full justify-start! gap-8 rounded-none border-0 bg-transparent p-0">

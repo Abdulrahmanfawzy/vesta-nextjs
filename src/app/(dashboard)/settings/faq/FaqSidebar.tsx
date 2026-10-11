@@ -24,7 +24,7 @@ const FaqSidebar = ({
   selectedSection,
   onSectionChange,
 }: FaqSidebarProps) => (
-  <aside className="w-60 shrink-0 border-r border-r-[#E5E7EB] pr-6 shadow-[4px_0_8px_-6px_#00000040]">
+  <aside className="w-60 shrink-0 border-r  pr-6 border-app-neutral-light">
     <nav
       aria-label="FAQ sections"
       className="mt-4 flex w-full flex-col items-stretch gap-1"
