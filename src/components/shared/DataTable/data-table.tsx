@@ -71,7 +71,7 @@ export function DataTable<TData extends RowData>({
       {/* Responsive Card Container with horizontal scroll wrapper */}
       <div className="w-full rounded-2xl border border-border/70 bg-card shadow-xs overflow-hidden">
         <div className="w-full overflow-x-auto scrollbar-thin">
-          <Table className="w-full min-w-[720px] text-sm">
+          <Table className="w-full min-w-180 text-sm">
             <TableHeader className="bg-muted/40 border-b border-border/60">
               {table.getHeaderGroups().map((headerGroup) => (
                 <TableRow

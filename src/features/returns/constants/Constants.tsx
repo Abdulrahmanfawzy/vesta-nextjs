@@ -7,8 +7,8 @@ import sweetbant from "@/assets/sweetbant.png";
 import { ReturnRequest } from "../components/Columns";
 export const TabsLabel: TableList[] = [
   { id: 1, value: "return", label: "Return Requests" },
-  { id: 2, value: "refunds", label: "Refunds" },
-  { id: 3, value: "exchange-requests", label: "Exchange Requests" },
+  { id: 2, value: "refund", label: "Refunds" },
+  { id: 3, value: "exchangeReturn", label: "Exchange Requests" },
 ];
 export const STATUSES: TableList[] = [
   { id: 1, value: "all", label: "All Status" },
