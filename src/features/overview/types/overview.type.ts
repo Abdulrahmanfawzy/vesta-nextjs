@@ -17,7 +17,7 @@ interface Performance {
 }
 
 interface ChartData {
-  date: Date;
+  date: string;
   total: number;
 }
 

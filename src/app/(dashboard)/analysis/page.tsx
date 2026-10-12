@@ -2,7 +2,7 @@ import DashboardHeader from "@/components/layout/DashboardHeader";
 import FinancialImpactChart from "@/features/analysis/components/FinancialImpactChart";
 import ReturnByCustomer from "@/features/analysis/components/ReturnByCustomer";
 import ReturnByReason from "@/features/analysis/components/ReturnByReason";
-import ReturnFunnel from "@/features/analysis/components/ReturnFunnel";
+import ReturnFunnel from "@/features/analysis/components/ReturnFunnel/ReturnFunnel";
 import ReturnsByProduct from "@/features/analysis/components/ReturnsByProduct";
 import ReturnsOverTime from "@/features/analysis/components/ReturnsOverTime";
 

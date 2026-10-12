@@ -1,9 +1,9 @@
 import ChartsCard from "@/components/common/charts/ChartsCard";
 import ProductTableChart from "@/components/common/charts/ProductTableChart";
-import { returnByProducts } from "../api/analysis.api";
+import { getReturnByProducts } from "../api/analysis.api";
 
 async function ReturnsByProduct() {
-  const { data } = await returnByProducts();
+  const { data } = await getReturnByProducts();
 
   return (
     <ChartsCard

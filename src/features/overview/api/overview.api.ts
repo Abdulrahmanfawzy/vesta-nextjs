@@ -1,6 +1,6 @@
 import { OverviewResponse } from "../types/overview.type";
 
-export async function getOverViewReturn(): Promise<OverviewResponse> {
+export async function getOverviewReturn(): Promise<OverviewResponse> {
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}overview`,

@@ -1,5 +1,5 @@
 import DashboardHeader from "@/components/layout/DashboardHeader";
-import { getOverViewReturn } from "./services/overview.services";
+import { getOverviewReturn } from "./api/overview.api";
 import ReturnSummary from "./components/ReturnSummary";
 import ReturnsPerformance from "./components/ReturnsPerformance";
 import ReturnReason from "./components/ReturnReason";
@@ -7,7 +7,7 @@ import TopReturnedProducts from "./components/TopReturnedProducts";
 import QuickActions from "./components/QuickActions";
 
 async function OverviewContent() {
-  const overview = await getOverViewReturn();
+  const overview = await getOverviewReturn();
   return (
     <>
       <DashboardHeader pageName="overview" />
