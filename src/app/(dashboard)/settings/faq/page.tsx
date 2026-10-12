@@ -15,7 +15,7 @@ const FqaPage = ({ }: IProps) => {
   const [selectedSection, setSelectedSection] = useState<FAQSection>("All");
   return (
     <div>
-      <DashboardHeader pageName="FQA" />
+      <DashboardHeader pageName="FQA" className="text-2xl" />
 
       <div  className="flex w-full min-w-0 gap-8">
         <FaqSidebar

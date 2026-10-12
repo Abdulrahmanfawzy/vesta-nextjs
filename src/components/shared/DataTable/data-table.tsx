@@ -71,7 +71,7 @@ export function DataTable<TData extends RowData>({
       {/* Responsive Card Container with horizontal scroll wrapper */}
       <div className="w-full rounded-2xl border border-border/70 bg-card shadow-xs overflow-hidden">
         <div className="w-full overflow-x-auto scrollbar-thin">
-          <Table className="w-full min-w-[720px] text-sm">
+          <Table className="w-full min-w-180 text-sm">
             <TableHeader className="bg-muted/40 border-b border-border/60">
               {table.getHeaderGroups().map((headerGroup) => (
                 <TableRow
@@ -103,7 +103,7 @@ export function DataTable<TData extends RowData>({
                     {row.getVisibleCells().map((cell) => (
                       <TableCell
                         key={cell.id}
-                        className="px-4 py-3 text-xs sm:text-sm text-foreground align-middle whitespace-nowrap"
+                        className="px-4 py-3 text-xs sm:text-sm text-app-primary align-middle whitespace-nowrap"
                       >
                         <table.FlexRender cell={cell} />
                       </TableCell>
