@@ -2,19 +2,19 @@
 
 import * as React from "react"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Button } from "@/components/ui/button"
 import { FormField } from "@/components/forms/form-field"
 import { FormStatus } from "@/components/forms/form-status"
 import { forgotPasswordSchema, type ForgotPasswordValues } from "@/schemas/auth"
-import router from "next/dist/shared/lib/router/router"
-import { useRouter } from "next/dist/client/components/navigation"
+import { forgotPasswordRequest } from "@/lib/auth-api"
 
 export function ForgotPasswordForm() {
+  const router = useRouter()
   const [error, setError] = React.useState<string | null>(null)
   const [success, setSuccess] = React.useState<string | null>(null)
-   const router = useRouter()
 
   const {
     control,
@@ -29,16 +29,24 @@ export function ForgotPasswordForm() {
     setError(null)
     setSuccess(null)
     try {
-      // TODO: await forgotPasswordAction(values)
-      // setSuccess("If this email exists, a verification code has been sent.")
-      router.push("/verify-otp")
+      const json = await forgotPasswordRequest(values)
+
+      // show the server message, then go to the OTP page
+      setSuccess(json?.message ?? "Verification code sent.")
+      setTimeout(() => {
+        router.push(`/verify-otp?email=${encodeURIComponent(values.email)}`)
+      }, 1500)
     } catch (e) {
       setError(e instanceof Error ? e.message : "Something went wrong")
     }
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} noValidate className="flex flex-col gap-6">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      noValidate
+      className="flex flex-col gap-[calc(var(--u)*32)]"
+    >
       <FormField
         control={control}
         name="email"
@@ -52,13 +60,16 @@ export function ForgotPasswordForm() {
 
       <Button
         type="submit"
-        disabled={isSubmitting}
-        className="mx-auto mt-4 h-12 w-full max-w-[345px] rounded-lg bg-brand-navy text-base font-semibold text-white hover:bg-brand-navy/90 sm:h-14"
+        disabled={isSubmitting || Boolean(success)}
+        className="mx-auto mt-[calc(var(--u)*37)] h-[calc(var(--u)*80)] w-[calc(var(--u)*345)] max-w-full rounded-[calc(var(--u)*20)] bg-brand-navy font-[family-name:var(--font-open-sans)] text-[length:calc(var(--u)*24)] font-bold text-white hover:bg-brand-navy/90"
       >
         {isSubmitting ? "Sending..." : "Send code"}
       </Button>
 
-      <Link href="/" className="text-center text-sm text-muted-foreground hover:underline">
+      <Link
+        href="/login"
+        className="text-center text-[length:calc(var(--u)*16)] text-muted-foreground hover:underline"
+      >
         Back to login
       </Link>
     </form>
