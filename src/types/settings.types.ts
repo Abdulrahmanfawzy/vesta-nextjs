@@ -1,39 +1,29 @@
 import type { LucideIcon } from "lucide-react";
 
+
+
 export interface SidebarItem {
   label: string;
   icon: LucideIcon;
   active?: boolean;
 }
 
-export interface Policy {
-  id: string;
-  title: string;
-  fileUrl?: string;
+
+
+//--------------------------------------------------------- 
+
+export interface ReturnPoliciesData {
+  return_policy: string;
+  return_period: string;
+  conditions: string;
+  refund_policy: string;
+  exchange_policy: string;
+  shipping_policy: string;
 }
-export const policies: Policy[] = [
-  {
-    id: "return-policy",
-    title: "Return policy",
-  },
-  {
-    id: "return-period",
-    title: "Return period",
-  },
-  {
-    id: "accepted-return-conditions",
-    title: "Accepted return conditions",
-  },
-  {
-    id: "refund-policy",
-    title: "Refund policy",
-  },
-  {
-    id: "exchange-policy",
-    title: "Exchange policy",
-  },
-  {
-    id: "return-shipping",
-    title: "Who pays return shipping?",
-  },
-];
+
+export interface ReturnPoliciesResponse {
+  success: boolean;
+  message: string;
+  data: ReturnPoliciesData;
+}
+//--------------------------------------------------------- 
