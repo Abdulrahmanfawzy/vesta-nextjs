@@ -1,13 +1,19 @@
 import { Handbag } from "lucide-react";
 import ChartsCard from "@/components/common/charts/ChartsCard";
+import { OverviewResponse } from "../types/overview.type";
 
-function ReturnSummary() {
+function ReturnSummary({
+  summary,
+}: {
+  summary: OverviewResponse["data"]["summary"];
+}) {
+  //
   const stats = [
-    { value: "1,248", label: "Total Returns" },
-    { value: "8.45%", label: "Return Rate (%)" },
-    { value: "1,102", label: "Approved Returns" },
-    { value: "96", label: "Rejected Returns" },
-    { value: "50", label: "Pending Returns" },
+    { value: summary.total_returns, label: "Total Returns" },
+    { value: summary.return_rate, label: "Return Rate (%)" },
+    { value: summary.approved_returns, label: "Approved Returns" },
+    { value: summary.rejected_returns, label: "Rejected Returns" },
+    { value: summary.pending_returns, label: "Pending Returns" },
   ];
 
   return (

@@ -1,39 +1,40 @@
-"use client";
 import ReasonChart from "@/components/common/charts/ReasonChart";
 import ChartsCard from "@/components/common/charts/ChartsCard";
+import { OverviewResponse } from "../types/overview.type";
 
-const returnReasons = [
+const ReasonsColors = [
   {
-    name: "Product Defect",
-    value: 45,
     color: "var(--color-app-primary)",
   },
   {
-    name: "Wrong Size",
-    value: 30,
     color: "var(--color-app-accent-peach)",
   },
   {
-    name: "Wrong Product",
-    value: 10,
     color: "var(--color-app-accent-orange)",
   },
   {
-    name: "Customer Changed Mind",
-    value: 8,
     color: "var(--color-app-neutral-light)",
   },
   {
-    name: "Other",
-    value: 7,
     color: "var(--color-app-neutral)",
   },
 ];
 
-function ReturnReason() {
+function ReturnReason({
+  reasons,
+}: {
+  reasons: OverviewResponse["data"]["reasons"];
+}) {
+  //
+  const reasonData = reasons.map((reason, index) => ({
+    name: reason.reason,
+    value: reason.count,
+    color: ReasonsColors[index % ReasonsColors.length].color,
+  }));
+
   return (
     <ChartsCard title="RETURN REASONS">
-      <ReasonChart ReturnData={returnReasons} />
+      <ReasonChart ReturnData={reasonData} />
     </ChartsCard>
   );
 }
