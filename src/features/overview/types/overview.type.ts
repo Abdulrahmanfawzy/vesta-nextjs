@@ -1,3 +1,5 @@
+import { ProductTable } from "@/types/global.type";
+
 export interface OverviewResponse {
   success: string;
   message: string;
@@ -5,7 +7,7 @@ export interface OverviewResponse {
     summary: Summary;
     performance: Performance;
     reasons: Reason[];
-    top_products: TopProduct[];
+    top_products: ProductTable[];
   };
 }
 
@@ -37,14 +39,4 @@ interface Summary {
   approved_returns: number;
   rejected_returns: number;
   pending_returns: number;
-}
-
-interface TopProduct {
-  product_id: number;
-  product_name: string;
-  product_image_url: string;
-  total_quantity_returned: string;
-  number_of_returns: number;
-  return_rate: string;
-  trend: number[];
 }

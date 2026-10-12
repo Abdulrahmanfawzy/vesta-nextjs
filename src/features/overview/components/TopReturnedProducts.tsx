@@ -1,14 +1,17 @@
 import ChartsCard from "@/components/common/charts/ChartsCard";
 import ProductTableChart from "@/components/common/charts/ProductTableChart";
-import { OverviewResponse } from "../types/overview.type";
+import { ProductTable } from "@/types/global.type";
 
 function TopReturnedProducts({
   topReturnedProducts,
 }: {
-  topReturnedProducts: OverviewResponse["data"]["top_products"];
+  topReturnedProducts: ProductTable[];
 }) {
   return (
-    <ChartsCard title="TOP RETURNED PRODUCTS">
+    <ChartsCard
+      title="TOP RETURNED PRODUCTS"
+      contentClassName="overflow-x-auto! w-full! min-w-xl"
+    >
       <ProductTableChart products={topReturnedProducts} />
     </ChartsCard>
   );

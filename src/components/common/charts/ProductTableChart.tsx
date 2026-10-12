@@ -1,10 +1,10 @@
 "use client";
-import { OverviewResponse } from "@/features/overview/types/overview.type";
-import Image, { StaticImageData } from "next/image";
+import { ProductTable } from "@/types/global.type";
+import Image from "next/image";
 import { Line, LineChart, ResponsiveContainer } from "recharts";
 
 type ProductTableChartProps = {
-  products: OverviewResponse["data"]["top_products"];
+  products: ProductTable[];
 };
 
 function ProductTableChart({ products }: ProductTableChartProps) {
@@ -34,7 +34,9 @@ function ProductTableChart({ products }: ProductTableChartProps) {
                 <div className="flex items-center gap-3">
                   <div className="relative h-8 w-8 shrink-0">
                     <Image
-                      src={product.product_image_url}
+                      src={
+                        product.product_image_url || product.product_image || ""
+                      }
                       alt={product.product_name}
                       fill
                       sizes="24px"
