@@ -1,3 +1,5 @@
+import { ChartReason } from "@/types/global.type";
+
 export interface AnalysisResponse<T> {
   success: string;
   message: string;
@@ -38,20 +40,14 @@ export interface ReturnCustomer {
   segments: CustomerSegment[];
 }
 
-interface CustomerSegment {
+interface CustomerSegment extends ChartReason {
   key: string;
-  label: string;
-  count: number;
-  percentage: number;
   segment: string;
 }
 
 // Return by reason
-export interface ReturnByReason {
+export interface ReturnByReason extends ChartReason {
   key: string;
-  label: string;
-  count: number;
-  percentage: number;
   reason: string;
 }
 

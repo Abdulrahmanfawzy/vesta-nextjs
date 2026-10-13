@@ -8,9 +8,8 @@ function ReturnReason({
 }: {
   reasons: OverviewResponse["data"]["reasons"];
 }) {
-  //
   const reasonData = reasons.map((reason, index) => ({
-    name: reason.reason,
+    name: reason.label,
     value: reason.count,
     color: chartColors[index % chartColors.length],
   }));

@@ -1,4 +1,4 @@
-import { ProductTable } from "@/types/global.type";
+import { ChartReason, ProductTable } from "@/types/global.type";
 
 export interface OverviewResponse {
   success: string;
@@ -6,7 +6,7 @@ export interface OverviewResponse {
   data: {
     summary: Summary;
     performance: Performance;
-    reasons: Reason[];
+    reasons: ChartReason[];
     top_products: ProductTable[];
   };
 }
@@ -25,12 +25,6 @@ interface Comparison {
   previous_period_total: number;
   percentage_change: string;
   trend: string;
-}
-
-interface Reason {
-  reason: string;
-  count: number;
-  percentage: string;
 }
 
 interface Summary {

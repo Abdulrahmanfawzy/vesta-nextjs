@@ -34,9 +34,7 @@ function ProductTableChart({ products }: ProductTableChartProps) {
                 <div className="flex items-center gap-3">
                   <div className="relative h-8 w-8 shrink-0">
                     <Image
-                      src={
-                        product.product_image_url || product.product_image || ""
-                      }
+                      src={product.product_image}
                       alt={product.product_name}
                       fill
                       sizes="24px"
@@ -61,9 +59,14 @@ function ProductTableChart({ products }: ProductTableChartProps) {
               <td className="w-1/4  py-1.5">
                 <div className="h-12 w-full">
                   <ResponsiveContainer width="100%" height="100%">
-                    <LineChart data={product.trend}>
+                    <LineChart
+                      data={product.trend.map((value) => ({
+                        value,
+                      }))}
+                    >
                       <Line
                         type="monotone"
+                        dataKey={"value"}
                         stroke="#171b3a"
                         strokeWidth={2}
                         dot={false}

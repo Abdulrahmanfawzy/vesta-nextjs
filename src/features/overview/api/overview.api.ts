@@ -2,16 +2,13 @@ import { OverviewResponse } from "../types/overview.type";
 
 export async function getOverviewReturn(): Promise<OverviewResponse> {
   try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}overview`,
-      {
-        method: "GET",
-        cache: "no-cache",
-        headers: {
-          "content-type": "application/json",
-        },
+    const response = await fetch(`${process.env.API}overview`, {
+      method: "GET",
+      cache: "no-cache",
+      headers: {
+        "content-type": "application/json",
       },
-    );
+    });
     const data = await response.json();
     if (response.ok) {
       return data;

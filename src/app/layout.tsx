@@ -18,7 +18,12 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body className={cn(inter.className)}>
-        <NextTopLoader color="#d14e1f" height={3} speed={200} />
+        <NextTopLoader
+          color="#d14e1f"
+          height={3}
+          speed={200}
+          showSpinner={false}
+        />
         {children}
       </body>
     </html>

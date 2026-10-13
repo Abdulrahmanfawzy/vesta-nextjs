@@ -7,3 +7,9 @@ export interface ProductTable {
   return_rate: string;
   trend: number[];
 }
+
+export interface ChartReason {
+  label: string;
+  count: number;
+  percentage: number;
+}
