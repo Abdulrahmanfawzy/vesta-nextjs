@@ -1,4 +1,10 @@
-import DashboardHeader from "@/components/layout/DashboardHeader"
+import type { Metadata } from "next";
+import DashboardHeader from "@/components/layout/DashboardHeader";
+
+export const metadata: Metadata = {
+  title: "Contact Support",
+  description: "Get in touch with the Vesta support team for assistance with return management operations.",
+};
 import GetInTouchComponent from "./getInTouchComponent"
 import SendUsMessage from "./sendUsMessage"
 

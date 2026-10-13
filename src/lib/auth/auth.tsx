@@ -1,22 +1,13 @@
-import NextAuth, { CredentialsSignin, type DefaultSession } from "next-auth"
+import NextAuth, { CredentialsSignin } from "next-auth"
 import Credentials from "next-auth/providers/credentials"
 import { loginSchema } from "@/schemas/auth"
 
 declare module "next-auth" {
   interface User {
     accessToken?: string
-    phone?: string
-    role?: string
-    avatar?: string | null
   }
   interface Session {
     accessToken?: string
-    user: {
-      id: string
-      phone?: string
-      role?: string
-      avatar?: string | null
-    } & DefaultSession["user"]
   }
 }
 
@@ -68,9 +59,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           id: String(user?.id ?? parsed.data.email),
           name: user?.name,
           email: user?.email ?? parsed.data.email,
-          phone: user?.phone,
-          role: user?.role,
-          avatar: user?.avatar,
           accessToken,
         }
       },
@@ -78,20 +66,11 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   ],
   callbacks: {
     jwt({ token, user }) {
-      if (user) {
-        token.accessToken = user.accessToken
-        token.phone = user.phone
-        token.role = user.role
-        token.avatar = user.avatar
-      }
+      if (user) token.accessToken = user.accessToken
       return token
     },
     session({ session, token }) {
       session.accessToken = token.accessToken as string | undefined
-      session.user.id = token.sub ?? ""
-      session.user.phone = token.phone as string | undefined
-      session.user.role = token.role as string | undefined
-      session.user.avatar = token.avatar as string | null | undefined
       return session
     },
   },

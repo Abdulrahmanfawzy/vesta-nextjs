@@ -1,22 +1,10 @@
 "use client";
-import Image, { StaticImageData } from "next/image";
+import { ProductTable } from "@/types/global.type";
+import Image from "next/image";
 import { Line, LineChart, ResponsiveContainer } from "recharts";
 
-type TrendData = {
-  x: number;
-  value: number;
-};
-
-type ProductReturn = {
-  product: string;
-  image: StaticImageData;
-  returns: number;
-  rate: string;
-  trend: TrendData[];
-};
-
 type ProductTableChartProps = {
-  products: ProductReturn[];
+  products: ProductTable[];
 };
 
 function ProductTableChart({ products }: ProductTableChartProps) {
@@ -38,40 +26,47 @@ function ProductTableChart({ products }: ProductTableChartProps) {
 
         <tbody className="text-base text-app-primary">
           {products.map((product) => (
-            <tr key={product.product} className="border-b border-app-neutral">
+            <tr
+              key={product.product_id}
+              className="border-b border-app-neutral"
+            >
               <td className="px-4 py-1.5">
                 <div className="flex items-center gap-3">
-                  <div className="relative h-8 w-6 shrink-0">
+                  <div className="relative h-8 w-8 shrink-0">
                     <Image
-                      src={product.image}
-                      alt={product.product}
+                      src={product.product_image}
+                      alt={product.product_name}
                       fill
                       sizes="24px"
-                      className="object-contain"
+                      className="object-cover rounded"
                     />
                   </div>
 
                   <span className="text-sm text-app-neutral-dark">
-                    {product.product}
+                    {product.product_name}
                   </span>
                 </div>
               </td>
 
               <td className="px-4  text-center py-1.5 text-sm">
-                {product.returns}
+                {product.number_of_returns}
               </td>
 
               <td className="px-4 py-1.5 text-center text-sm">
-                {product.rate}
+                {product.return_rate}
               </td>
 
               <td className="w-1/4  py-1.5">
                 <div className="h-12 w-full">
                   <ResponsiveContainer width="100%" height="100%">
-                    <LineChart data={product.trend}>
+                    <LineChart
+                      data={product.trend.map((value) => ({
+                        value,
+                      }))}
+                    >
                       <Line
                         type="monotone"
-                        dataKey="value"
+                        dataKey={"value"}
                         stroke="#171b3a"
                         strokeWidth={2}
                         dot={false}

@@ -6,6 +6,7 @@ type Reason = {
   value: number;
   color: string;
 };
+
 type ReasonChartProps = {
   ReturnData: Reason[];
 };
