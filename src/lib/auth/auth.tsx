@@ -32,7 +32,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         const parsed = loginSchema.safeParse(credentials)
         if (!parsed.success) throw new LoginError("Invalid email or password")
 
-        const res = await fetch(`${process.env.BACKEND_URL}/api/auth/login`, {
+        const res = await fetch(`${process.env.API}/api/auth/login`, {
           method: "POST",
           headers: {
             Accept: "application/json",

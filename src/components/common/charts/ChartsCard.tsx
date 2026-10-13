@@ -7,6 +7,7 @@ type ChartsCardProps = {
   title: string;
   className?: string;
   contentClassName?: string;
+
   children: ReactNode;
 };
 
@@ -14,16 +15,17 @@ export default function ChartsCard({
   title,
   className,
   contentClassName,
+
   children,
 }: ChartsCardProps) {
   return (
     <Card
       className={cn(
-        "h-full! rounded-3xl border-0 shadow-card-shadow ring-0",
+        "h-full! rounded-3xl overflow-x-auto! border-0 shadow-card-shadow ring-0",
         className,
       )}
     >
-      <CardContent className={contentClassName}>
+      <CardContent className={cn("w-full", contentClassName)}>
         {title && <CardTitle title={title} />}
         {children}
       </CardContent>

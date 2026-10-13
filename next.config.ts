@@ -1,13 +1,23 @@
-import type { NextConfig } from "next"
+import type { NextConfig } from "next";
 
-const BACKEND_URL = process.env.BACKEND_URL
+const BACKEND_URL = process.env.API;
 
 if (!BACKEND_URL) {
-  throw new Error("BACKEND_URL is not set. Add it to .env.local")
+  throw new Error("BACKEND_URL is not set. Add it to .env.local");
 }
 
 const nextConfig: NextConfig = {
-  allowedDevOrigins: process.env.DEV_ORIGINS?.split(",").map((o) => o.trim()) ?? [],
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "*",
+      },
+    ],
+  },
+
+  allowedDevOrigins:
+    process.env.DEV_ORIGINS?.split(",").map((o) => o.trim()) ?? [],
   async rewrites() {
     return [
       {
@@ -15,8 +25,8 @@ const nextConfig: NextConfig = {
         source: "/backend/:path*",
         destination: `${BACKEND_URL}/api/:path*`,
       },
-    ]
+    ];
   },
-}
+};
 
-export default nextConfig
+export default nextConfig;

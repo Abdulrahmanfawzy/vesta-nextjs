@@ -58,7 +58,11 @@ function AppSidebar() {
             <SidebarMenuItem key={i}>
               <SidebarMenuButton
                 asChild
-                isActive={pathname === href}
+                isActive={
+                  href === "/"
+                    ? pathname === "/"
+                    : pathname === href || pathname.startsWith(`${href}/`)
+                }
                 className="h-auto flex-col justify-center gap-2 p-0 text-base font-normal text-white
                   hover:bg-transparent hover:text-app-accent-peach
                   active:bg-transparent active:text-app-accent-peach
