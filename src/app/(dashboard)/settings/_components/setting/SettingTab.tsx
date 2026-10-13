@@ -15,12 +15,7 @@ import { getReturnPoliciesAction } from "@/actions/setting.actions";
 
 const SettingTab = () => {
   const [selectedSetting, setSelectedSetting] = useState<SettingSection>("profile");
-  const {
-    data,
-    isPending,
-    isError,
-    error,
-  } = useQuery({
+  const { data,isPending,isError,error} = useQuery({
     queryKey: ["return-policies"],
     queryFn: getReturnPoliciesAction,
     enabled: selectedSetting === "return_refund",
@@ -37,7 +32,8 @@ const SettingTab = () => {
       />
 
       <div className="min-w-0 flex-1">
-        <ProfileSettings isActive={selectedSetting === "profile"} />
+      
+       { selectedSetting === "profile" && <ProfileSettings />}
         {selectedSetting === "notification" && <NotificationSettings />}
         {selectedSetting === "return_refund" && (
           <>
