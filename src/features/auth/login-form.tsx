@@ -3,13 +3,13 @@
 import * as React from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
+import { signIn } from "next-auth/react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Button } from "@/components/ui/button"
 import { FormField } from "@/components/forms/form-field"
 import { FormStatus } from "@/components/forms/form-status"
 import { loginSchema, type LoginValues } from "@/schemas/auth"
-import { loginRequest, saveSession } from "@/lib/auth-api"
 
 const HOME_ROUTE = "/"
 
@@ -28,25 +28,17 @@ export function LoginForm() {
 
   const onSubmit = async (values: LoginValues) => {
     setServerError(null)
-    try {
-      const json = await loginRequest(values)
 
-      if (json?.data?.requires_2fa) {
-        router.push("/verify-otp")
-        return
-      }
+    const res = await signIn("credentials", { ...values, redirect: false })
 
-      
-      const token = json?.data?.token ?? json?.data?.access_token
-      if (!token) throw new Error("Login succeeded but no token was returned")
-
-      await saveSession(token)
-      router.push(HOME_ROUTE)
-      router.refresh()
-    } catch (e) {
-      // wrong credentials or network error: show the message, stay on this page
-      setServerError(e instanceof Error ? e.message : "Something went wrong")
+    if (res?.error) {
+      // wrong credentials: show the backend message, stay on this page
+      setServerError(res.code ?? "Invalid email or password")
+      return
     }
+
+    router.push(HOME_ROUTE)
+    router.refresh()
   }
 
   return (
