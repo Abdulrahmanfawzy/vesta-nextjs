@@ -5,7 +5,7 @@ import type { ReturnPoliciesResponse } from "@/types/settings.types";
 export const getReturnPolicies =
   async (): Promise<ReturnPoliciesResponse> => {
     const response = await fetch(
-      `${process.env.API}/settings/return-policies`,
+      `${process.env.BACKEND_URL}/api/settings/return-policies`,
       {
         headers: {
           Accept: "application/json",

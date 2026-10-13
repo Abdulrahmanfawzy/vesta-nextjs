@@ -9,7 +9,7 @@ import { ProfileFormData, profileSchema } from "../../../../../schemas/profile.s
 import { useState } from "react";
 
 interface ProfileSettingsProps {
-  isActive: boolean;
+  isActive?: boolean;
 }
 
 const ProfileSettings = ({ isActive }: ProfileSettingsProps) => {
