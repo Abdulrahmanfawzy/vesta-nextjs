@@ -1,24 +1,7 @@
 import ReasonChart from "@/components/common/charts/ReasonChart";
 import ChartsCard from "@/components/common/charts/ChartsCard";
 import { OverviewResponse } from "../types/overview.type";
-
-const ReasonsColors = [
-  {
-    color: "var(--color-app-primary)",
-  },
-  {
-    color: "var(--color-app-accent-peach)",
-  },
-  {
-    color: "var(--color-app-accent-orange)",
-  },
-  {
-    color: "var(--color-app-neutral-light)",
-  },
-  {
-    color: "var(--color-app-neutral)",
-  },
-];
+import { chartColors } from "@/constant/chartColors";
 
 function ReturnReason({
   reasons,
@@ -29,7 +12,7 @@ function ReturnReason({
   const reasonData = reasons.map((reason, index) => ({
     name: reason.reason,
     value: reason.count,
-    color: ReasonsColors[index % ReasonsColors.length].color,
+    color: chartColors[index % chartColors.length],
   }));
 
   return (

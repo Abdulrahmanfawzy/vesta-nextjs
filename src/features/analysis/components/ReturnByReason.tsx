@@ -1,5 +1,7 @@
 import ChartsCard from "@/components/common/charts/ChartsCard";
 import ReasonChart from "@/components/common/charts/ReasonChart";
+import { getReturnByReason } from "../api/analysis.api";
+import { chartColors } from "@/constant/chartColors";
 
 const returnsByReason = [
   { name: "Wrong Size", value: 20, color: "var(--color-app-primary)" },
@@ -21,10 +23,18 @@ const returnsByReason = [
   },
 ];
 
-function ReturnByReason() {
+async function ReturnByReason() {
+  const { data } = await getReturnByReason();
+
+  const ReturnData = data?.map((reason, index) => ({
+    name: reason.label,
+    value: reason.count,
+    color: chartColors[index % chartColors.length],
+  }));
+
   return (
     <ChartsCard title="RETURNS BY REASON">
-      <ReasonChart ReturnData={returnsByReason} />
+      <ReasonChart ReturnData={ReturnData} />
     </ChartsCard>
   );
 }

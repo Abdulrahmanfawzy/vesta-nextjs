@@ -10,6 +10,7 @@ import {
   Trapezoid,
 } from "recharts";
 import { ReturnsFunnel } from "../../types/analysis.types";
+import { chartColors } from "@/constant/chartColors";
 
 type Props = {
   data: ReturnsFunnel;
@@ -25,13 +26,6 @@ type FunnelShapeProps = {
   fill?: string;
 };
 
-const colors = [
-  "var(--color-app-primary)",
-  "var(--color-app-accent-peach)",
-  "var(--color-app-accent-orange)",
-  "var(--color-app-neutral)",
-];
-
 function CustomShape(props: FunnelShapeProps) {
   const { height, ...prop } = props;
 
@@ -43,7 +37,7 @@ export default function ReturnFunnelChart({ data }: Props) {
     name: stage.stage,
     value: stage.count,
     percentage: stage.conversion_rate,
-    color: colors[index % colors.length],
+    color: chartColors[index % chartColors.length],
   }));
 
   return (
