@@ -10,6 +10,7 @@ import { FormField } from "@/components/forms/form-field"
 import { FormStatus } from "@/components/forms/form-status"
 import { forgotPasswordSchema, type ForgotPasswordValues } from "@/schemas/auth"
 import { forgotPasswordRequest } from "@/lib/auth-api"
+import { clearResetFlow, saveResetFlow } from "@/lib/reset-flow"
 
 export function ForgotPasswordForm() {
   const router = useRouter()
@@ -31,11 +32,16 @@ export function ForgotPasswordForm() {
     try {
       const json = await forgotPasswordRequest(values)
 
-      // show the server message, then go to the OTP page
-      setSuccess(json?.message ?? "Verification code sent.")
-      setTimeout(() => {
-        router.push(`/verify-otp?email=${encodeURIComponent(values.email)}`)
-      }, 1500)
+      // DEV ONLY: the test backend returns the code in the response, so we
+      // auto-fill it. In a production build this is never used.
+      const devOtp =
+        process.env.NODE_ENV !== "production" ? json.data?.otp : undefined
+
+      clearResetFlow()
+      saveResetFlow({ email: values.email, otp: devOtp })
+
+      setSuccess(json.message ?? "Verification code sent.")
+      setTimeout(() => router.push("/verify-otp"), 1500)
     } catch (e) {
       setError(e instanceof Error ? e.message : "Something went wrong")
     }

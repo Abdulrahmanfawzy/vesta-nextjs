@@ -10,8 +10,9 @@ export const forgotPasswordSchema = z.object({
 })
 
 export const otpSchema = z.object({
-  otp: z.string().regex(/^\d{4}$/, "Enter the 4-digit code"),
+  otp: z.string().regex(/^\d{6}$/, "Enter the 6-digit code"),
 })
+
 export const resetPasswordSchema = z
   .object({
     password: z.string().min(8, "Password must be at least 8 characters"),
