@@ -3,7 +3,7 @@ import Logo from "@/assets/images/logo.svg";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useRouter } from "next/navigation";
+import { signOut } from "next-auth/react";
 import {
   ChartNoAxesColumn,
   LogOutIcon,
@@ -21,7 +21,6 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { clearSession } from "@/lib/auth-api";
 
 const menuItems = [
   { label: "Overview", icon: SquareChartGantt, href: "/" },
@@ -32,13 +31,7 @@ const menuItems = [
 
 function AppSidebar() {
   const pathname = usePathname();
-  const router = useRouter();
 
-  const handleLogout = async () => {
-    await clearSession(); // deletes the token cookie
-    router.replace("/login");
-    router.refresh(); // drops any cached logged-in pages
-  };
   return (
     <Sidebar
       collapsible="none"
@@ -88,7 +81,10 @@ function AppSidebar() {
 
       {/* Log out */}
       <SidebarFooter className="items-center  p-2.5 pb-6">
-        <Button variant={"destructive"} onClick={handleLogout}>
+        <Button
+          variant={"destructive"}
+          onClick={() => signOut({ callbackUrl: "/login" })}
+        >
           <LogOutIcon />
           Log Out
         </Button>

@@ -1,5 +1,11 @@
 import type { NextConfig } from "next";
 
+const BACKEND_URL = process.env.BACKEND_URL;
+
+if (!BACKEND_URL) {
+  throw new Error("BACKEND_URL is not set. Add it to .env.local");
+}
+
 const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
@@ -10,12 +16,14 @@ const nextConfig: NextConfig = {
     ],
   },
 
-  allowedDevOrigins: ["192.168.56.1"],
+  allowedDevOrigins:
+    process.env.DEV_ORIGINS?.split(",").map((o) => o.trim()) ?? [],
   async rewrites() {
     return [
       {
-        source: "/api/:path*",
-        destination: "https://smart-returns.huma-volve.com/api/:path*",
+        // "/backend/*" -> real server; "/api/auth/*" is left for NextAuth
+        source: "/backend/:path*",
+        destination: `${BACKEND_URL}/api/:path*`,
       },
     ];
   },

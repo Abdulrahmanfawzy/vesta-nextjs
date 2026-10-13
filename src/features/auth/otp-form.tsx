@@ -3,23 +3,38 @@
 import * as React from "react"
 import { Controller, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { FormStatus } from "@/components/forms/form-status"
 import { otpSchema, type OtpValues } from "@/schemas/auth"
-import { useRouter } from "next/navigation"
-const OTP_LENGTH = 4
+import { verifyOtpRequest } from "@/lib/auth-api"
+import { getResetFlow, saveResetFlow } from "@/lib/reset-flow"
+
+const OTP_LENGTH = 6
+
+const toDigits = (value: string) =>
+  Array.from({ length: OTP_LENGTH }, (_, i) => value[i] ?? "")
 
 function OtpBoxes({
+  value,
   onChange,
   invalid,
 }: {
+  value: string
   onChange: (value: string) => void
   invalid: boolean
 }) {
-  const [digits, setDigits] = React.useState<string[]>(Array(OTP_LENGTH).fill(""))
+  const [digits, setDigits] = React.useState<string[]>(() => toDigits(value))
+  const [syncedValue, setSyncedValue] = React.useState(value)
   const refs = React.useRef<Array<HTMLInputElement | null>>([])
+
+  // the value changed from outside (e.g. the code was auto-filled): sync the boxes
+  if (value !== syncedValue) {
+    setSyncedValue(value)
+    if (value !== digits.join("")) setDigits(toDigits(value))
+  }
 
   React.useEffect(() => {
     refs.current[0]?.focus()
@@ -46,15 +61,17 @@ function OtpBoxes({
 
   const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
     e.preventDefault()
-    const pasted = e.clipboardData.getData("text").replace(/\D/g, "").slice(0, OTP_LENGTH)
+    const pasted = e.clipboardData
+      .getData("text")
+      .replace(/\D/g, "")
+      .slice(0, OTP_LENGTH)
     if (!pasted) return
-    const next = Array.from({ length: OTP_LENGTH }, (_, i) => pasted[i] ?? "")
-    update(next)
+    update(toDigits(pasted))
     refs.current[Math.min(pasted.length, OTP_LENGTH - 1)]?.focus()
   }
 
   return (
-    <div className="flex justify-center gap-[calc(var(--u)*24)]">
+    <div className="flex justify-center gap-[calc(var(--u)*16)]">
       {digits.map((digit, i) => (
         <Input
           key={i}
@@ -72,7 +89,7 @@ function OtpBoxes({
           onFocus={(e) => e.target.select()}
           aria-label={`Digit ${i + 1}`}
           aria-invalid={invalid}
-          className="size-[max(calc(var(--u)*100),48px)] rounded-[calc(var(--u)*20)] border-0 bg-brand-field p-0 text-center font-[family-name:var(--font-open-sans)] text-[length:max(calc(var(--u)*40),22px)] md:text-[length:max(calc(var(--u)*40),22px)]"
+          className="size-[max(calc(var(--u)*90),44px)] rounded-[calc(var(--u)*20)] border-0 bg-brand-field p-0 text-center font-[family-name:var(--font-open-sans)] text-[length:max(calc(var(--u)*36),20px)] md:text-[length:max(calc(var(--u)*36),20px)]"
         />
       ))}
     </div>
@@ -80,25 +97,49 @@ function OtpBoxes({
 }
 
 export function OtpForm() {
-  const [error, setError] = React.useState<string | null>(null)
-  const [success, setSuccess] = React.useState<string | null>(null)
   const router = useRouter()
+  const [error, setError] = React.useState<string | null>(null)
+
   const {
     control,
     handleSubmit,
+    setValue,
     formState: { isSubmitting },
   } = useForm<OtpValues>({
     resolver: zodResolver(otpSchema),
     defaultValues: { otp: "" },
   })
 
+  // opened without going through "forgot password": send the user back.
+  // otherwise auto-fill the code if the dev backend returned one.
+  React.useEffect(() => {
+    const { email, otp } = getResetFlow()
+    if (!email) {
+      router.replace("/forgot-password")
+      return
+    }
+    if (otp) setValue("otp", otp, { shouldValidate: true })
+  }, [router, setValue])
+
   const onSubmit = async (values: OtpValues) => {
     setError(null)
-    setSuccess(null)
+
+    const { email } = getResetFlow()
+    if (!email) {
+      router.replace("/forgot-password")
+      return
+    }
+
     try {
-      
+      const { resetToken } = await verifyOtpRequest({
+        email,
+        code: values.otp,
+      })
+
+      saveResetFlow({ resetToken, otp: undefined })
       router.push("/reset-password")
     } catch (e) {
+      // wrong or expired code: show the message, stay on this page
       setError(e instanceof Error ? e.message : "Invalid or expired code")
     }
   }
@@ -117,7 +158,11 @@ export function OtpForm() {
             <Label className="justify-center text-[length:max(calc(var(--u)*28),16px)] font-normal leading-[calc(var(--u)*42)]">
               Verification code
             </Label>
-            <OtpBoxes onChange={field.onChange} invalid={fieldState.invalid} />
+            <OtpBoxes
+              value={field.value}
+              onChange={field.onChange}
+              invalid={fieldState.invalid}
+            />
             {fieldState.error && (
               <p
                 role="alert"
@@ -130,7 +175,7 @@ export function OtpForm() {
         )}
       />
 
-      <FormStatus error={error} success={success} />
+      <FormStatus error={error} />
 
       <Button
         type="submit"

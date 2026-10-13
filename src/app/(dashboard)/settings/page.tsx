@@ -9,6 +9,8 @@ export const metadata: Metadata = {
 import HelpCenterTab from "./_components/HelpCenter/HelpCenterTab";
 import SettingTab from "./_components/setting/SettingTab";
 import DashboardHeader from "@/components/layout/DashboardHeader";
+import QueryProvider from "./_components/providers/QueryProvider";
+
 
 const tabs = [
   {
@@ -22,11 +24,16 @@ const tabs = [
     content: <HelpCenterTab />,
   },
 ];
+
 const Page = () => {
   return (
     <div className="w-full min-w-0 px-4.5">
       <DashboardHeader pageName="Settings" />
-      <CustomTabs tabs={tabs} />
+      
+ <QueryProvider>
+    <CustomTabs tabs={tabs} />
+  </QueryProvider>      
+      
     </div>
   );
 };
