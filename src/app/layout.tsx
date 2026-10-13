@@ -2,6 +2,7 @@ import { Inter } from "next/font/google";
 import "@/app/globals.css";
 import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
+import QueryProvider from "./(dashboard)/settings/_components/providers/QueryProvider";
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 export const metadata: Metadata = {
   title: "Vesta",
@@ -13,7 +14,12 @@ export const metadata: Metadata = {
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={cn(inter.className)}>{children}</body>
+      <body className={cn(inter.className)}>
+         <QueryProvider>
+            {children}
+         </QueryProvider>
+      
+        </body>
     </html>
   );
 }

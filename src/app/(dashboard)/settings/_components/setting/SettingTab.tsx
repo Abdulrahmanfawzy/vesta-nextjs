@@ -32,8 +32,7 @@ const SettingTab = () => {
       />
 
       <div className="min-w-0 flex-1">
-      
-       { selectedSetting === "profile" && <ProfileSettings />}
+        <ProfileSettings isActive={selectedSetting === "profile"} />
         {selectedSetting === "notification" && <NotificationSettings />}
         {selectedSetting === "return_refund" && (
           <>
@@ -42,7 +41,7 @@ const SettingTab = () => {
             )}
 
             {isError && (
-              <p className="text-red-500">
+              <p className="text-app-error">
                 {error.message}
               </p>
             )}

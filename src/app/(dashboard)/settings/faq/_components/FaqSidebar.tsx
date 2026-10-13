@@ -1,11 +1,6 @@
-export type FAQSection =
-  | "All"
-  | "Returns"
-  | "Refunds"
-  | "Reports"
-  | "Account"
-  | "Integrations"
-  | "Billing";
+import { FAQSection } from "@/types/faq.types";
+
+
 interface FaqSidebarProps {
   selectedSection: FAQSection;
   onSectionChange: (section: FAQSection) => void;
@@ -20,10 +15,8 @@ const faqSections: { value: FAQSection; label: string }[] = [
   { value: "Integrations", label: "Integrations" },
   { value: "Billing", label: "Billing" },
 ];
-const FaqSidebar = ({
-  selectedSection,
-  onSectionChange,
-}: FaqSidebarProps) => (
+const FaqSidebar = ({selectedSection,onSectionChange,}: FaqSidebarProps) => {
+  return(
   <aside className="w-60 shrink-0 border-r  pr-6 border-app-neutral-light">
     <nav
       aria-label="FAQ sections"
@@ -50,6 +43,6 @@ const FaqSidebar = ({
       ))}
     </nav>
   </aside>
-);
+);}
 
 export default FaqSidebar;
