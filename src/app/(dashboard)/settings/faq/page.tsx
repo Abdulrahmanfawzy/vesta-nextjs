@@ -5,21 +5,23 @@ import { useState } from "react";
 import FaqContent from "./_components/FaqContent";
 import Link from "next/link";
 import { FAQSection } from "@/types/faq.types";
-import { useGetFAQs } from "@/hooks/FaqPage";
+import { useGetFAQs } from "@/hooks/useGetFaqs";
 import FaqSkeleton from "./_components/FaqSkeleton";
 import FaqError from "./_components/FaqError";
 
 
-export const metadata: Metadata = {
-  title: "FAQ",
-  description: "Frequently asked questions and guides about Vesta returns, refunds, reports, and integrations.",
-};
+
+import type { Metadata } from "next";
+// import FaqView from "./FaqView";
+// export const metadata: Metadata = {
+//   title: "FAQ",
+//   description: "Frequently asked questions and guides about Vesta returns, refunds, reports, and integrations.",
+// };
 
 
 
-}
 
-const FqaPage = ({ }: IProps) => {
+const FqaPage = () => {
   const [selectedSection, setSelectedSection] = useState<FAQSection>("All");
   const {
     data: faqs = [],

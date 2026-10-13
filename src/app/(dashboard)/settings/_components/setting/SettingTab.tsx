@@ -5,21 +5,12 @@ import NotificationSettings from "./NotificationSettings";
 import ProfileSettings from "./ProfileSettings";
 import ReturnRefundSettings from "./ReturnRefundSettings";
 import SettingSidebar, { type SettingSection } from "./SettingSidebar";
-
-import {
-  useQuery,
-
-} from '@tanstack/react-query'
-import { getReturnPoliciesAction } from "@/actions/setting.actions";
+import { useGetReturnPolicy } from "@/hooks/useGetReturnPloicy";
 
 
 const SettingTab = () => {
   const [selectedSetting, setSelectedSetting] = useState<SettingSection>("profile");
-  const { data,isPending,isError,error} = useQuery({
-    queryKey: ["return-policies"],
-    queryFn: getReturnPoliciesAction,
-    enabled: selectedSetting === "return_refund",
-  });
+  const { data,isPending,isError,error} = useGetReturnPolicy()
 
 
 
