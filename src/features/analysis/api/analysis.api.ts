@@ -7,20 +7,22 @@ import {
   ReturnsFunnel,
   ReturnsOverTime,
 } from "../types/analysis.types";
+import { getToken } from "@/lib/get-token";
 
 // 1. Return by products
 export const getReturnByProducts = async (): Promise<
   AnalysisResponse<ProductTable[]>
 > => {
+  const token = await getToken();
   try {
     const response = await fetch(
-      `${process.env.API}analytics/returns-by-product`,
+      `${process.env.API}/api/analytics/returns-by-product`,
       {
         method: "GET",
         cache: "no-cache",
         headers: {
           "content-type": "application/json",
-          authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3NtYXJ0LXJldHVybnMuaHVtYS12b2x2ZS5jb20vYXBpL2F1dGgvbG9naW4iLCJpYXQiOjE3OTE4MjIyMzQsImV4cCI6MzE3OTE4MjIyMzQsIm5iZiI6MTc5MTgyMjIzNCwianRpIjoiM1VUT2pLOWtOWHZuRG1rOSIsInN1YiI6IjEiLCJwcnYiOiJhY2MwN2UzYTk3Mzc2Y2M2YmU3ZTJlOWNhZjRlZTllNjQ5MGU0MDVhIiwidG9rZW5faWQiOiJlYTQ4ODllNy0xNDBlLTQxNWEtOTgwYS01N2Q3NjkyYjkxYTUifQ.B_sWEVjNE0tg3KnqO7RADey63ujzDG4i41X9bAysIp0`,
+          authorization: `Bearer  ${token}`,
         },
       },
     );
@@ -39,15 +41,16 @@ export const getReturnByProducts = async (): Promise<
 export const getReturnByCustomer = async (): Promise<
   AnalysisResponse<ReturnCustomer>
 > => {
+  const token = await getToken();
   try {
     const response = await fetch(
-      `${process.env.API}analytics/returns-by-customer`,
+      `${process.env.API}/api/analytics/returns-by-customer`,
       {
         method: "GET",
         cache: "no-cache",
         headers: {
           "content-type": "application/json",
-          authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3NtYXJ0LXJldHVybnMuaHVtYS12b2x2ZS5jb20vYXBpL2F1dGgvbG9naW4iLCJpYXQiOjE3OTE4MjIyMzQsImV4cCI6MzE3OTE4MjIyMzQsIm5iZiI6MTc5MTgyMjIzNCwianRpIjoiM1VUT2pLOWtOWHZuRG1rOSIsInN1YiI6IjEiLCJwcnYiOiJhY2MwN2UzYTk3Mzc2Y2M2YmU3ZTJlOWNhZjRlZTllNjQ5MGU0MDVhIiwidG9rZW5faWQiOiJlYTQ4ODllNy0xNDBlLTQxNWEtOTgwYS01N2Q3NjkyYjkxYTUifQ.B_sWEVjNE0tg3KnqO7RADey63ujzDG4i41X9bAysIp0`,
+          authorization: `Bearer  ${token}`,
         },
       },
     );
@@ -66,15 +69,16 @@ export const getReturnByCustomer = async (): Promise<
 export const getReturnOverTime = async (): Promise<
   AnalysisResponse<ReturnsOverTime>
 > => {
+  const token = await getToken();
   try {
     const response = await fetch(
-      `${process.env.API}analytics/returns-over-time`,
+      `${process.env.API}/api/analytics/returns-over-time`,
       {
         method: "GET",
         cache: "no-cache",
         headers: {
           "content-type": "application/json",
-          authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3NtYXJ0LXJldHVybnMuaHVtYS12b2x2ZS5jb20vYXBpL2F1dGgvbG9naW4iLCJpYXQiOjE3OTE4MjIyMzQsImV4cCI6MzE3OTE4MjIyMzQsIm5iZiI6MTc5MTgyMjIzNCwianRpIjoiM1VUT2pLOWtOWHZuRG1rOSIsInN1YiI6IjEiLCJwcnYiOiJhY2MwN2UzYTk3Mzc2Y2M2YmU3ZTJlOWNhZjRlZTllNjQ5MGU0MDVhIiwidG9rZW5faWQiOiJlYTQ4ODllNy0xNDBlLTQxNWEtOTgwYS01N2Q3NjkyYjkxYTUifQ.B_sWEVjNE0tg3KnqO7RADey63ujzDG4i41X9bAysIp0`,
+          authorization: `Bearer  ${token}`,
         },
       },
     );
@@ -93,15 +97,19 @@ export const getReturnOverTime = async (): Promise<
 export const getReturnFunnel = async (): Promise<
   AnalysisResponse<ReturnsFunnel>
 > => {
+  const token = await getToken();
   try {
-    const response = await fetch(`${process.env.API}analytics/return-funnel`, {
-      method: "GET",
-      cache: "no-cache",
-      headers: {
-        "content-type": "application/json",
-        authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3NtYXJ0LXJldHVybnMuaHVtYS12b2x2ZS5jb20vYXBpL2F1dGgvbG9naW4iLCJpYXQiOjE3OTE4MjIyMzQsImV4cCI6MzE3OTE4MjIyMzQsIm5iZiI6MTc5MTgyMjIzNCwianRpIjoiM1VUT2pLOWtOWHZuRG1rOSIsInN1YiI6IjEiLCJwcnYiOiJhY2MwN2UzYTk3Mzc2Y2M2YmU3ZTJlOWNhZjRlZTllNjQ5MGU0MDVhIiwidG9rZW5faWQiOiJlYTQ4ODllNy0xNDBlLTQxNWEtOTgwYS01N2Q3NjkyYjkxYTUifQ.B_sWEVjNE0tg3KnqO7RADey63ujzDG4i41X9bAysIp0`,
+    const response = await fetch(
+      `${process.env.API}/api/analytics/return-funnel`,
+      {
+        method: "GET",
+        cache: "no-cache",
+        headers: {
+          "content-type": "application/json",
+          authorization: `Bearer  ${token}`,
+        },
       },
-    });
+    );
     const data = await response.json();
     if (response.ok) {
       return data;
@@ -117,15 +125,16 @@ export const getReturnFunnel = async (): Promise<
 export const getReturnByReason = async (): Promise<
   AnalysisResponse<ReturnByReason[]>
 > => {
+  const token = await getToken();
   try {
     const response = await fetch(
-      `${process.env.API}analytics/returns-by-reason`,
+      `${process.env.API}/api/analytics/returns-by-reason`,
       {
         method: "GET",
         cache: "no-cache",
         headers: {
           "content-type": "application/json",
-          authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3NtYXJ0LXJldHVybnMuaHVtYS12b2x2ZS5jb20vYXBpL2F1dGgvbG9naW4iLCJpYXQiOjE3OTE4MjIyMzQsImV4cCI6MzE3OTE4MjIyMzQsIm5iZiI6MTc5MTgyMjIzNCwianRpIjoiM1VUT2pLOWtOWHZuRG1rOSIsInN1YiI6IjEiLCJwcnYiOiJhY2MwN2UzYTk3Mzc2Y2M2YmU3ZTJlOWNhZjRlZTllNjQ5MGU0MDVhIiwidG9rZW5faWQiOiJlYTQ4ODllNy0xNDBlLTQxNWEtOTgwYS01N2Q3NjkyYjkxYTUifQ.B_sWEVjNE0tg3KnqO7RADey63ujzDG4i41X9bAysIp0`,
+          authorization: `Bearer  ${token}`,
         },
       },
     );
@@ -144,15 +153,16 @@ export const getReturnByReason = async (): Promise<
 export const getFinancialImpact = async (): Promise<
   AnalysisResponse<FinancialImpact>
 > => {
+  const token = await getToken();
   try {
     const response = await fetch(
-      `${process.env.API}analytics/financial-impact`,
+      `${process.env.API}/api/analytics/financial-impact`,
       {
         method: "GET",
         cache: "no-cache",
         headers: {
           "content-type": "application/json",
-          authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3NtYXJ0LXJldHVybnMuaHVtYS12b2x2ZS5jb20vYXBpL2F1dGgvbG9naW4iLCJpYXQiOjE3OTE4MjIyMzQsImV4cCI6MzE3OTE4MjIyMzQsIm5iZiI6MTc5MTgyMjIzNCwianRpIjoiM1VUT2pLOWtOWHZuRG1rOSIsInN1YiI6IjEiLCJwcnYiOiJhY2MwN2UzYTk3Mzc2Y2M2YmU3ZTJlOWNhZjRlZTllNjQ5MGU0MDVhIiwidG9rZW5faWQiOiJlYTQ4ODllNy0xNDBlLTQxNWEtOTgwYS01N2Q3NjkyYjkxYTUifQ.B_sWEVjNE0tg3KnqO7RADey63ujzDG4i41X9bAysIp0`,
+          authorization: `Bearer  ${token}`,
         },
       },
     );

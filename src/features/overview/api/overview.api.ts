@@ -2,7 +2,7 @@ import { OverviewResponse } from "../types/overview.type";
 
 export async function getOverviewReturn(): Promise<OverviewResponse> {
   try {
-    const response = await fetch(`${process.env.API}overview`, {
+    const response = await fetch(`/backend/overview`, {
       method: "GET",
       cache: "no-cache",
       headers: {
