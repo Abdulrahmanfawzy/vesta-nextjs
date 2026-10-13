@@ -10,16 +10,8 @@ import {
   useQuery,
 
 } from '@tanstack/react-query'
+import { getReturnPoliciesAction } from "@/actions/setting.actions";
 
-const fetchReturnPolicies = async () => {
-  const response = await fetch("api/settings/return-policies");
-
-  if (!response.ok) {
-    throw new Error("Failed to fetch return policies");
-  }
-
-  return response.json();
-};
 
 const SettingTab = () => {
   const [selectedSetting, setSelectedSetting] = useState<SettingSection>("profile");
@@ -30,7 +22,7 @@ const SettingTab = () => {
     error,
   } = useQuery({
     queryKey: ["return-policies"],
-    queryFn: fetchReturnPolicies,
+    queryFn: getReturnPoliciesAction,
     enabled: selectedSetting === "return_refund",
   });
 

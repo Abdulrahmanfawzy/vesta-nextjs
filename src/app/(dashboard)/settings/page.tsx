@@ -23,11 +23,11 @@ const Page = () => {
   return (
     <div className="w-full min-w-0 px-4.5">
       <DashboardHeader pageName="Settings" />
-      
- <QueryProvider>
-    <CustomTabs tabs={tabs} />
-  </QueryProvider>      
-      
+
+      <QueryProvider>
+        <CustomTabs tabs={tabs} />
+      </QueryProvider>
+
     </div>
   );
 };
