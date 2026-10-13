@@ -1,6 +1,6 @@
 import type { NextConfig } from "next"
 
-const BACKEND_URL = process.env.BACKEND_URL
+const BACKEND_URL = process.env.API
 
 if (!BACKEND_URL) {
   throw new Error("BACKEND_URL is not set. Add it to .env.local")
