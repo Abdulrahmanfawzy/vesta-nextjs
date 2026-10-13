@@ -1,4 +1,10 @@
+import type { Metadata } from "next";
 import CustomTabs from "@/components/common/CustomTabs";
+
+export const metadata: Metadata = {
+  title: "Settings",
+  description: "Manage account configurations, store return policies, preferences, and help center resources.",
+};
 
 import HelpCenterTab from "./_components/HelpCenter/HelpCenterTab";
 import SettingTab from "./_components/setting/SettingTab";

@@ -1,4 +1,10 @@
+import type { Metadata } from "next";
 import DashboardHeader from "@/components/layout/DashboardHeader";
+
+export const metadata: Metadata = {
+  title: "Returns",
+  description: "Manage, review, and track customer return requests and order statuses.",
+};
 import { DataTable } from "@/components/shared/DataTable/data-table";
 import {SelectFilter} from "@/components/shared/DataTable/SelectFilter";
 import { columns, ReturnRequest } from "@/features/returns/components/Columns";

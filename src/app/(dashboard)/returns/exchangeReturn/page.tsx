@@ -1,4 +1,10 @@
+import type { Metadata } from "next";
 import DashboardHeader from "@/components/layout/DashboardHeader";
+
+export const metadata: Metadata = {
+  title: "Exchange Requests",
+  description: "View and manage item exchange requests, replacement shipments, and customer options.",
+};
 import ButtonsSearch from "@/components/shared/DataTable/ButtonsSearch";
 import { DataTable } from "@/components/shared/DataTable/data-table";
 import TabReturn from "@/features/returns/components/TabsReturn";

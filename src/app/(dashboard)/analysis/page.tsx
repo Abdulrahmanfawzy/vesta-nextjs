@@ -1,6 +1,13 @@
+import type { Metadata } from "next";
 import { Suspense } from "react";
 
 import DashboardHeader from "@/components/layout/DashboardHeader";
+
+export const metadata: Metadata = {
+  title: "Analysis",
+  description:
+    "Comprehensive analytics on returns over time, return reasons, customer behaviors, and financial impact.",
+};
 
 import FinancialImpact from "@/features/analysis/components/FinancialImpact/FinancialImpact";
 import ReturnByCustomer from "@/features/analysis/components/ReturnByCustomer";

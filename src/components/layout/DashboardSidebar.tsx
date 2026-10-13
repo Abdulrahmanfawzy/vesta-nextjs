@@ -34,11 +34,11 @@ function AppSidebar() {
   const pathname = usePathname();
   const router = useRouter();
 
-const handleLogout = async () => {
-  await clearSession();   // deletes the token cookie
-  router.replace("/login");
-  router.refresh();       // drops any cached logged-in pages
-};
+  const handleLogout = async () => {
+    await clearSession(); // deletes the token cookie
+    router.replace("/login");
+    router.refresh(); // drops any cached logged-in pages
+  };
   return (
     <Sidebar
       collapsible="none"
@@ -65,7 +65,11 @@ const handleLogout = async () => {
             <SidebarMenuItem key={i}>
               <SidebarMenuButton
                 asChild
-                isActive={pathname === href}
+                isActive={
+                  href === "/"
+                    ? pathname === "/"
+                    : pathname === href || pathname.startsWith(`${href}/`)
+                }
                 className="h-auto flex-col justify-center gap-2 p-0 text-base font-normal text-white
                   hover:bg-transparent hover:text-app-accent-peach
                   active:bg-transparent active:text-app-accent-peach
@@ -85,9 +89,9 @@ const handleLogout = async () => {
       {/* Log out */}
       <SidebarFooter className="items-center  p-2.5 pb-6">
         <Button variant={"destructive"} onClick={handleLogout}>
-  <LogOutIcon />
-  Log Out
-</Button>
+          <LogOutIcon />
+          Log Out
+        </Button>
       </SidebarFooter>
     </Sidebar>
   );
