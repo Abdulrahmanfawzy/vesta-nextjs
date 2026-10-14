@@ -13,7 +13,7 @@ interface FaqContentProps {
 }
 
 
-const FaqList = ({ faqs }: FaqContentProps) => {
+const FaqContent = ({ faqs }: FaqContentProps) => {
   return (
     <Accordion
       type="single"
@@ -39,4 +39,4 @@ const FaqList = ({ faqs }: FaqContentProps) => {
   );
 };
 
-export default FaqList;
+export default FaqContent;
