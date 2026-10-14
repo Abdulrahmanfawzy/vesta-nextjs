@@ -1,6 +1,41 @@
+"use client";
+
+import { useState } from "react";
 import { Switch } from "@/components/ui/switch";
+import { useRegisterDeviceToken } from "@/hooks/useRegisterDeviceToken";
 
 const NotificationSettings = () => {
+   const [enabled, setEnabled] = useState(false);
+
+  const {
+    mutateAsync: registerDeviceToken,
+    isPending,
+    isError,
+    error,
+  } = useRegisterDeviceToken();
+  const handleNotificationChange = async (
+    checked: boolean,
+  ) => {
+    if (!checked) {
+     
+      setEnabled(false);
+      return;
+    }
+
+   
+    const deviceToken = "a fire base device token";
+
+    if (!deviceToken) {
+      return;
+    }
+
+    try {
+      await registerDeviceToken(deviceToken);
+      setEnabled(true);
+    } catch {
+   
+    }
+  };
   return (
     <section className="flex w-full flex-col gap-6">
       <div>
@@ -24,11 +59,20 @@ const NotificationSettings = () => {
         </div>
         <Switch
           id="notifications-enabled"
-          defaultChecked
+          checked={enabled}
+          onCheckedChange={handleNotificationChange}
+          disabled={isPending}
           className="data-[state=checked]:bg-app-primary"
           aria-label="Enable notifications"
         />
       </div>
+        {isError && (
+        <p className="text-sm text-destructive">
+          {error instanceof Error
+            ? error.message
+            : "Failed to enable notifications."}
+        </p>
+      )}
     </section>
   );
 };
