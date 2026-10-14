@@ -8,10 +8,10 @@ import SettingSidebar, { type SettingSection } from "./SettingSidebar";
 import { useGetReturnPolicy } from "@/hooks/useGetReturnPloicy";
 import { toast } from "sonner";
 
-
 const SettingTab = () => {
-  const [selectedSetting, setSelectedSetting] = useState<SettingSection>("profile");
-  const { data,isPending,isError,error} = useGetReturnPolicy()
+  const [selectedSetting, setSelectedSetting] =
+    useState<SettingSection>("profile");
+  const { data, isPending, isError, error } = useGetReturnPolicy();
 
   useEffect(() => {
     if (isError) {
@@ -23,10 +23,7 @@ const SettingTab = () => {
     }
   }, [isError, error]);
 
-
-
   return (
-
     <div className="flex w-full min-w-0 gap-8">
       <SettingSidebar
         selectedSetting={selectedSetting}
@@ -38,15 +35,9 @@ const SettingTab = () => {
         {selectedSetting === "notification" && <NotificationSettings />}
         {selectedSetting === "return_refund" && (
           <>
-            {isPending && (
-              <p>Policies loading...</p>
-            )}
+            {isPending && <p>Policies loading...</p>}
 
-            {data && (
-              <ReturnRefundSettings
-                policies={data.data}
-              />
-            )}
+            {data && <ReturnRefundSettings policies={data.data} />}
           </>
         )}
       </div>

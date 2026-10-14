@@ -1,12 +1,16 @@
 "use client";
+import * as XLSX from "xlsx";
 import { Download, Eye, FileText, Package } from "lucide-react";
 import ChartsCard from "@/components/common/charts/ChartsCard";
+import Link from "next/link";
+import { ProductTable } from "@/types/global.type";
 
 const actions = [
   {
     title: "View All",
     subtitle: "Returns",
     icon: Eye,
+    href: "/returns",
   },
   {
     title: "Export",
@@ -17,26 +21,64 @@ const actions = [
     title: "View Return",
     subtitle: "Details",
     icon: FileText,
+    href: "/returns",
   },
   {
     title: "Manage Return",
     subtitle: "Requests",
     icon: Package,
+    href: "/returns?status=pending",
   },
 ];
 
-function QuickActions() {
+function QuickActions({ export_data }: { export_data: ProductTable[] }) {
+  const formattedData = export_data.map((product) => ({
+    "Product ID": product.product_id,
+    "Product Name": product.product_name,
+    "Total Quantity Returned": product.total_quantity_returned,
+    "Number of Returns": product.number_of_returns,
+    "Return Rate": product.return_rate,
+  }));
+
+  const handleExport = () => {
+    const worksheet = XLSX.utils.json_to_sheet(formattedData);
+
+    const workbook = XLSX.utils.book_new();
+
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Top Returned Products");
+
+    XLSX.writeFile(workbook, "top-returns-report.xlsx");
+  };
+
   return (
     <ChartsCard title="QUICK ACTIONS">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         {actions.map((action) => {
           const Icon = action.icon;
+          return action.href ? (
+            <Link key={action.title} href={action.href}>
+              <button
+                type="button"
+                className="flex cursor-pointer h-22 w-full flex-col items-center justify-center rounded-2xl bg-card shadow-card-shadow p-1"
+              >
+                <Icon
+                  size={33}
+                  strokeWidth={1.8}
+                  className="text-app-accent-orange"
+                />
 
-          return (
+                <span className="mt-1 flex flex-wrap justify-center items-center text-center gap-1 text-sm text-app-primary">
+                  {action.title}
+                  <span className="block">{action.subtitle}</span>
+                </span>
+              </button>
+            </Link>
+          ) : (
             <button
               key={action.title}
               type="button"
               className="flex cursor-pointer h-22 w-full flex-col items-center justify-center rounded-2xl bg-card shadow-card-shadow p-1"
+              onClick={() => handleExport()}
             >
               <Icon
                 size={33}
