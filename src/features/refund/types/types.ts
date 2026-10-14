@@ -20,19 +20,24 @@ export interface RefundStat {
   icon: StatIcon;
 }
 
-export interface RefundOrder {
-  id: string;
-  orderId: string;
-  OrderDate: string;
-  customer: {
-    name: string;
-    email: string;
-    image: StaticImageData | string;
-  };
-
-  refundReason: string;
-  refundAmount: number;
-  status: "Accepted" | "Pending" | "Rejected";
-  refundDate: string;
-  Action: string;
+export interface RefundOrder {  
+  id:number , 
+  order_id:number ,
+  order_date:string , 
+  customer:{  
+    id:number , 
+    name:string , 
+    email:string , 
+    avatar_url:string
+  } ,
+  refund_reason:string|null,
+  refund_amount:number,
+  status:string,
+  refund_date:string, 
+  action :React.ReactNode
 }
+
+
+
+
+

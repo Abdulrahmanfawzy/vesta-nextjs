@@ -12,6 +12,7 @@ type ReturnParm = {
 };
 const ReturnPage = async ({ searchParams }: ReturnParm) => {
   const param = await searchParams;
+  console.log(param);
 
   const data = await GetReturnsData(param.status || "");
 

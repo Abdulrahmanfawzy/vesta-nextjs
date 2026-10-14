@@ -4,8 +4,8 @@ import { createColumnHelper } from "@tanstack/react-table";
 import { type DataTableFeatures } from "./data-table-features";
 import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
-import RefundDetailsDialog from "@/features/refund/components/RefundDialog";
 import { ReturnRequest, ReturnStatus } from "../types/types";
+import DialogReturns from "./DialogReturns";
 
 export type { ReturnRequest };
 
@@ -14,7 +14,7 @@ const columnHelper = createColumnHelper<DataTableFeatures, ReturnRequest>();
 export const columns = columnHelper.columns([
   // Product image
   columnHelper.accessor((row) => row.items?.[0]?.product_image_url ?? "", {
-    id: "image",
+    id: "image", 
     header: "Product Image",
     cell: ({ getValue }) => {
       const image = getValue();
@@ -125,7 +125,7 @@ export const columns = columnHelper.columns([
       const item = record.items?.[0];
 
       return (
-        <RefundDetailsDialog
+        <DialogReturns
           refund={{
             id: String(record.id),
             image: item?.product_image_url ?? "",

@@ -12,7 +12,7 @@ import { useUpdateSearchParams } from "@/features/refund/hooks/UpdateSearchParam
 const SelectFilter = () => {
   const { searchParams, updateSearchParams } = useUpdateSearchParams();
   const param = searchParams.get("status") ?? "";
-  console.log(param);
+  // console.log(param);
 
   const STATUS_FILTERS = [
     { label: "All", value: "" },

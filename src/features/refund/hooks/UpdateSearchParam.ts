@@ -17,6 +17,7 @@ export function useUpdateSearchParams() {
       Object.entries(updates).forEach(([key, value]) => {
         if (value === null || value === "") {
           params.delete(key);
+          // window.location.reload()
         } else {
           params.set(key, value);
         }

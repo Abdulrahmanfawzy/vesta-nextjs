@@ -39,7 +39,7 @@ export function DataTable<TData extends RowData>({
   );
   const searchParams = useSearchParams();
   const status = searchParams.get("status");
-console.log(data);
+// console.log(data);
 
   // Filter effect by status when status exists in query params
   React.useEffect(() => {
