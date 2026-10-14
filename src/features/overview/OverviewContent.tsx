@@ -27,7 +27,7 @@ async function OverviewContent() {
           />
         </div>
         <div className="col-span-12 order-4 md:col-span-6 lg:order-0 lg:col-span-4">
-          <QuickActions />
+          <QuickActions export_data={overview.data.top_products} />
         </div>
       </div>
     </>
