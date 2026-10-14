@@ -2,10 +2,17 @@
 
 "use server";
 
-import { registerDeviceToken } from "@/api/notification.api";
+import { deleteDeviceToken, registerDeviceToken } from "@/api/notification.api";
 
 export async function registerDeviceTokenAction(
   deviceToken: string,
 ) {
   return await registerDeviceToken(deviceToken);
 }
+
+export async function deleteDeviceTokenAction(
+  deviceToken: string,
+) {
+  return await deleteDeviceToken(deviceToken);
+}
+

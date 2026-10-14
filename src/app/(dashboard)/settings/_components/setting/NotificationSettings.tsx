@@ -4,43 +4,60 @@ import { useState } from "react";
 import { Switch } from "@/components/ui/switch";
 import { useRegisterDeviceToken } from "@/hooks/useRegisterDeviceToken";
 import { toast } from "sonner";
-
+import { useNotificationPreference } from "@/hooks/useNotificationPreference";
+import { useDeleteDeviceToken } from "@/hooks/useDeleteDeviceToken";
+const DEVICE_TOKEN_KEY = "a fire base device token";
 const NotificationSettings = () => {
-   const [enabled, setEnabled] = useState(false);
+   const {
+    enabled,
+    isLoading,
+    setPreference,
+  } = useNotificationPreference();
 
-  const {
-    mutateAsync: registerDeviceToken,
-    isPending,
-  } = useRegisterDeviceToken();
-  const handleNotificationChange = async (
-    checked: boolean,
-  ) => {
-    if (!checked) {
-     
-      setEnabled(false);
-      return;
-    }
+  const registerMutation = useRegisterDeviceToken();
+  const deleteMutation = useDeleteDeviceToken();
 
-   
-    const deviceToken = "a fire base device token";
+  const isPending =
+    registerMutation.isPending || deleteMutation.isPending;
 
-    if (!deviceToken) {
-      toast.error("A device token is required to enable notifications.");
-      return;
-    }
-
+  const handleNotificationChange = async (checked: boolean) => {
     try {
-      await registerDeviceToken(deviceToken);
-      setEnabled(true);
-      toast.success("Notifications enabled successfully.");
-    } catch (error) {
-      toast.error(
-        error instanceof Error
-          ? error.message
-          : "Failed to enable notifications.",
-      );
+      if (checked) {
+        
+        const deviceToken ='a fire base device token';
+
+        if (!deviceToken) {
+          toast.error("Could not get the device token.");
+          return;
+        }
+
+        await registerMutation.mutateAsync(deviceToken);
+
+        localStorage.setItem(DEVICE_TOKEN_KEY, deviceToken);
+        setPreference(true);
+
+        toast.success("Notifications enabled successfully.");
+        return;
+      }
+
+      const deviceToken = localStorage.getItem(DEVICE_TOKEN_KEY);
+
+      if (!deviceToken) {
+        toast.error("Device token not found. Please try again.");
+        return;
+      }
+
+      await deleteMutation.mutateAsync(deviceToken);
+
+      localStorage.removeItem(DEVICE_TOKEN_KEY);
+      setPreference(false);
+
+      toast.success("Notifications disabled successfully.");
+    } catch {
+      
     }
   };
+
   return (
     <section className="flex w-full flex-col gap-6">
       <div>
@@ -66,7 +83,7 @@ const NotificationSettings = () => {
           id="notifications-enabled"
           checked={enabled}
           onCheckedChange={handleNotificationChange}
-          disabled={isPending}
+          disabled={isLoading || isPending}
           className="data-[state=checked]:bg-app-primary"
           aria-label="Enable notifications"
         />
