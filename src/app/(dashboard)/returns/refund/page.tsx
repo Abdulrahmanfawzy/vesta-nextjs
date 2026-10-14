@@ -32,9 +32,8 @@ type RefundSearchParams = {
 const Refund = async ({ searchParams }: { searchParams: Promise<RefundSearchParams> }) => {
   const params = await searchParams;
 
-  const currentPage = Math.max(1, Number(params.page     ?? 1));
-  const perPage     = Math.max(1, Number(params.per_page ?? 10));
-
+const currentPage = Math.max(1, Number(params.page ?? 1) || 1);
+const perPage = Math.max(1, Number(params.per_page ?? 10) || 10);
   const data = await GetRefundData(
     params.status    ?? "",
     params.reason    ?? "",
@@ -46,18 +45,11 @@ const Refund = async ({ searchParams }: { searchParams: Promise<RefundSearchPara
   );
 
   const counts: RefundCounts | undefined = data?.counts;
-
   // Resolve pagination from whichever envelope the API uses
-  const paginationSrc = data?.pagination ?? data?.meta ?? data;
-  const totalPages =
-    paginationSrc?.total_pages ??
-    paginationSrc?.last_page    ??
-    1;
-  const totalRows  =
-    paginationSrc?.total ??
-    paginationSrc?.count ??
-    data?.data?.length   ??
-    0;
+  const src = data?.pagination ?? data?.meta ?? data;
+  const totalPages = src?.total_pages ?? src?.last_page ?? 1;
+  const totalRows = src?.total ?? src?.count ?? data?.data?.length ?? 0;
+
 
   return (
     <div className="flex flex-col gap-4 container mx-auto px-3 sm:px-6 py-2 sm:py-4">
@@ -77,20 +69,12 @@ const Refund = async ({ searchParams }: { searchParams: Promise<RefundSearchPara
       <DataTable
         columns={refundColumns}
         data={data?.data ?? []}
-        currentPage={currentPage}
         totalPages={totalPages}
         totalRows={totalRows}
       />
 
       {/* URL-driven pagination — updates ?page and ?per_page, server re-fetches */}
-      <Suspense>
-        <ServerPagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          totalRows={totalRows}
-          perPage={perPage}
-        />
-      </Suspense>
+
     </div>
   );
 };
