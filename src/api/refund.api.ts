@@ -1,6 +1,7 @@
 import { getToken } from "@/lib/get-token";
+import { RefundApiResponse } from "@/features/refund/types/types";
 
-export const GetRefundData = async () => {
+export const GetRefundData = async (): Promise<RefundApiResponse> => {
   const token = await getToken();
   try {
     const res = await fetch(`${process.env.API}/api/refunds `, {

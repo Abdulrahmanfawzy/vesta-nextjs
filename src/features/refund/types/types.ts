@@ -20,6 +20,21 @@ export interface RefundStat {
   icon: StatIcon;
 }
 
+export interface RefundCountItem {
+  value: number;
+  percentage: number;
+}
+
+export interface RefundCounts {
+  completed?: RefundCountItem;
+  pending?: RefundCountItem;
+  rejected?: RefundCountItem;
+  refunded_amount?: RefundCountItem;
+  total_refund?: RefundCountItem;
+}
+
+export type dataCount = RefundCounts;
+
 export interface RefundOrder {  
   id:number , 
   order_id:number ,
@@ -36,6 +51,12 @@ export interface RefundOrder {
   refund_date:string, 
   action :React.ReactNode
 }
+
+export interface RefundApiResponse {
+  counts: RefundCounts;
+  data: RefundOrder[];
+}
+
 
 
 
