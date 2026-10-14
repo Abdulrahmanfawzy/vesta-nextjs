@@ -13,24 +13,50 @@ import { refundColumns } from "@/features/refund/components/RefundColumns";
 import TabReturn from "@/features/returns/components/TabsReturn";
 import { GetRefundData } from "@/api/refund.api";
 import { dataCount, RefundCounts } from "@/features/refund/types/types";
+import { ReturnsFilters } from "@/features/refund/components/SearchbyDate";
+import { Suspense } from "react";
 
 export type { dataCount };
 
-const Refund = async({searchParams}: {searchParams: Promise<{status?: string}>}) => {
+type RefundSearchParams = {
+  status?: string;
+  reason?: string;
+  search?: string;
+  date_from?: string;
+  date_to?: string;
+  page?: string;
+  per_page?: string;
+};
+
+const Refund = async ({ searchParams }: { searchParams: Promise<RefundSearchParams> }) => {
   const params = await searchParams;
-  const data = await GetRefundData();
+
+  const data = await GetRefundData(
+    params.status    ?? "",
+    params.reason    ?? "",
+    Number(params.per_page ?? 10),
+    Number(params.page     ?? 1),
+    params.search    ?? "",
+    params.date_from ?? "",
+    params.date_to   ?? ""
+  );
+
   const counts: RefundCounts | undefined = data?.counts;
-  
-  // console.log(data);
-  // console.log(params);
+
   return (
     <div className="flex flex-col gap-4 container mx-auto px-3 sm:px-6 py-2 sm:py-4">
       <DashboardHeader pageName="Refunds" />
       <TabReturn />
       <RefundStats data={counts} />
-      <div className="w-full flex justify-end">
+
+      {/* Filters row: status select (left) + reason / date-range / search (right) */}
+      <div className="w-full flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <SelectFilter />
+        <Suspense fallback={<p className="text-sm text-muted-foreground">Loading filters…</p>}>
+          <ReturnsFilters />
+        </Suspense>
       </div>
+
       <ButtonsSearch />
       <DataTable columns={refundColumns} data={data?.data ?? []} />
     </div>
