@@ -21,15 +21,26 @@ import { type DataTableFeatures } from "./data-table-features";
 
 interface DataTablePaginationProps<TData extends RowData> {
   table: ReactTable<DataTableFeatures, TData>;
+    currentPage?: number;
+  totalPages?: number;
+  totalRows?: number;
+  onPageChange?: (page: number) => void;
 }
 
 export function DataTablePagination<TData extends RowData>({
-  table,
+  table,currentPage,totalPages,totalRows:apiTotalRows,onPageChange
 }: DataTablePaginationProps<TData>) {
-  const pageIndex = table.state.pagination?.pageIndex ?? 0;
+  const pageIndex =currentPage?currentPage-1: table.state.pagination?.pageIndex ?? 0;
   const pageSize = table.state.pagination?.pageSize ?? 10;
-  const pageCount = Math.max(1, table.getPageCount());
-  const totalRows = table.getFilteredRowModel().rows.length;
+  const pageCount = Math.max(1,totalPages?? table.getPageCount());
+  const totalRows =apiTotalRows ?? table.getFilteredRowModel().rows.length;
+ const startRow =
+    totalRows === 0 ? 0 : (pageIndex * pageSize) + 1;
+
+  const endRow = Math.min(
+    pageIndex * pageSize + table.getRowModel().rows.length,
+    totalRows,
+  );
 
   // Build compact page number list with ellipsis
   const getPageNumbers = (): (number | "ellipsis")[] => {
@@ -54,11 +65,13 @@ export function DataTablePagination<TData extends RowData>({
       <p className="text-xs text-center sm:text-left">
         Showing{" "}
         <span className="font-medium text-foreground">
-          {totalRows === 0 ? 0 : pageIndex * pageSize + 1}
+          {startRow}
+          {/* {totalRows === 0 ? 0 : pageIndex * pageSize + 1} */}
         </span>
         {" – "}
         <span className="font-medium text-foreground">
-          {Math.min((pageIndex + 1) * pageSize, totalRows)}
+          {endRow}
+          {/* {Math.min((pageIndex + 1) * pageSize, totalRows)} */}
         </span>
         {" of "}
         <span className="font-medium text-foreground">{totalRows}</span>{" "}
@@ -96,7 +109,14 @@ export function DataTablePagination<TData extends RowData>({
                 href="#"
                 onClick={(e) => {
                   e.preventDefault();
-                  table.previousPage();
+                  // table.previousPage();
+                  if(pageIndex > 0){
+                    if(onPageChange){
+                      onPageChange(pageIndex)
+                    }else{
+                      table.previousPage()
+                    }
+                  }
                 }}
                 aria-disabled={!table.getCanPreviousPage()}
                 className={
@@ -119,7 +139,12 @@ export function DataTablePagination<TData extends RowData>({
                     isActive={page === pageIndex}
                     onClick={(e) => {
                       e.preventDefault();
-                      table.setPageIndex(page);
+                      // table.setPageIndex(page);
+                      if(onPageChange){
+                        onPageChange(page+1);
+                      }else{
+                        table.setPageIndex(page);
+                      }
                     }}
                     className="h-8 w-8 text-xs"
                   >
@@ -134,7 +159,14 @@ export function DataTablePagination<TData extends RowData>({
                 href="#"
                 onClick={(e) => {
                   e.preventDefault();
-                  table.nextPage();
+                  // table.nextPage();
+                  if (pageIndex + 1 < pageCount) {
+                    if (onPageChange) {
+                      onPageChange(pageIndex + 2);
+                    } else {
+                      table.nextPage();
+                    }
+                  }
                 }}
                 aria-disabled={!table.getCanNextPage()}
                 className={
