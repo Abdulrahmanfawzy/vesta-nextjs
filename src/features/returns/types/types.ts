@@ -6,15 +6,23 @@ export interface TableList {
   label: string;
 }
 
-export type ReturnStatus = "accepted" | "pending" | "rejected";
+export type ReturnStatus = "refunded" |"approved" | "pending" | "rejected" |"in_transit" |"cancelled" ;
 
 export interface ReturnRequest {
-  id: string;
-  image: StaticImageData;
-  ReturnRequestID: string;
-  orderId: string;
-  itemID: string;
-  RequestDate: string;
+  id: number;
+  created_at: string;
+  rma_no: string;
+  order_id: string;
+  reason_text: string;
   status: ReturnStatus;
-  Action: boolean;
+  reason_code: string;
+
+  items: {
+    product_image_url: string;
+    quantity: number;
+    unit_price: string;
+    variant_id: number;
+    order_item_id: number;
+    product_id: number;
+  }[];
 }

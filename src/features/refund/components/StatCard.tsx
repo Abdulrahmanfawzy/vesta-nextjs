@@ -28,6 +28,7 @@ const trendStyles: Record<TrendTone, string> = {
   neutral: "text-muted-foreground",
 };
 function StatCard({ stat }: { stat: RefundStat }) {
+  
   const Icon = icons[stat.icon];
   return (
     <Card className="rounded-xl border border-gray-300 bg-white shadow-md">

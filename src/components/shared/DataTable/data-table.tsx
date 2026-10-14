@@ -1,12 +1,12 @@
 "use client";
 
 import * as React from "react";
+import { Suspense } from "react";
 import {
   useTable,
   type ColumnDef,
   type RowData,
   type SortingState,
-  type ColumnFiltersState,
 } from "@tanstack/react-table";
 import {
   Table,
@@ -20,62 +20,41 @@ import {
   features,
   type DataTableFeatures,
 } from "@/features/returns/components/data-table-features";
-import { DataTablePagination } from "../../../features/returns/components/DataTablePagination";
+import { ServerPagination } from "@/components/shared/DataTable/ServerPagination";
 import { useSearchParams } from "next/navigation";
 import { PackageOpen } from "lucide-react";
 
 interface DataTableProps<TData extends RowData> {
   columns: ColumnDef<DataTableFeatures, TData>[];
   data: TData[];
-  currentPage?: number;
   totalPages?: number;
   totalRows?: number;
-  onPageChange?: (page: number) => void;
 }
 
 export function DataTable<TData extends RowData>({
   columns,
-  data, currentPage,
-  totalPages,
+  data,
+  totalPages = 1,
   totalRows,
-  onPageChange,
 }: DataTableProps<TData>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    [],
-  );
   const searchParams = useSearchParams();
-  const status = searchParams.get("status");
 
-  // Filter effect by status when status exists in query params
-  React.useEffect(() => {
-    if (status !== null) {
-      if (!status || status.toLowerCase() === "all") {
-        setColumnFilters((prev) => prev.filter((f) => f.id !== "status"));
-      } else {
-        setColumnFilters((prev) => [
-          ...prev.filter((f) => f.id !== "status"),
-          { id: "status", value: status },
-        ]);
-      }
-    }
-  }, [status]);
+  const currentPage = Math.max(1, Number(searchParams.get("page") ?? 1) || 1);
+  const perPage = Math.max(1, Number(searchParams.get("per_page") ?? 10) || 10);
 
   const table = useTable({
     features,
     data,
     columns,
-    onColumnFiltersChange: setColumnFilters,
     onSortingChange: setSorting,
-    state: {
-      sorting,
-      columnFilters,
-    },
+    state: { sorting },
   });
+
+  const rows = table.getRowModel().rows;
 
   return (
     <div className="w-full space-y-4">
-      {/* Responsive Card Container with horizontal scroll wrapper */}
       <div className="w-full rounded-2xl border border-border/70 bg-card shadow-xs overflow-hidden">
         <div className="w-full overflow-x-auto scrollbar-thin">
           <Table className="w-full min-w-180 text-sm">
@@ -100,8 +79,8 @@ export function DataTable<TData extends RowData>({
             </TableHeader>
 
             <TableBody>
-              {table.getRowModel().rows?.length ? (
-                table.getRowModel().rows.map((row) => (
+              {rows.length ? (
+                rows.map((row) => (
                   <TableRow
                     key={row.id}
                     data-state={row.getIsSelected() && "selected"}
@@ -140,13 +119,14 @@ export function DataTable<TData extends RowData>({
         </div>
       </div>
 
-      {/* Responsive Pagination */}
-      <div className="w-full">
-        <DataTablePagination table={table} currentPage={currentPage}
+      <Suspense fallback={null}>
+        <ServerPagination
+          currentPage={currentPage}
           totalPages={totalPages}
-          totalRows={totalRows}
-          onPageChange={onPageChange} />
-      </div>
+          totalRows={totalRows ?? data.length}
+          perPage={perPage}
+        />
+      </Suspense>
     </div>
   );
 }

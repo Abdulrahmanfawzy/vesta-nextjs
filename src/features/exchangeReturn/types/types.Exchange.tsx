@@ -1,15 +1,18 @@
-export type ExchangeStatus = "Accepted" | "Pending" | "Rejected";
+export type ExchangeStatus = "completed" | "pending" | "rejected";
 export type ExchangeType = {
-  exchangeId: string;
-  orderId: string;
-  productDelivered: string;
-  requestedProduct: string;
-  buyer: string;
-  priceDifference: string;
-  stockAvailability: string;
-  exchangeReason: string;
-  buyerNotes: string;
-  image: string;
-  exchangeSettingsStatus: ExchangeStatus;
-  Action: string;
+id: number ; 
+order_id: number ;
+product_delivered: string ;
+requested_product: string ;
+buyer: string | null ;
+price_difference: string ;
+stock_availability: string ;
+exchange_reason: string ;
+buyer_notes: string ;
+photos: string[] ;
+status: ExchangeStatus ;
+Action: string;
 };
+
+
+ 

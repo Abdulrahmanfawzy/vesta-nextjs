@@ -14,10 +14,10 @@ const columnHelper = createColumnHelper<DataTableFeatures, RefundOrder>();
 
 export const refundColumns = columnHelper.columns([
   // Customer avatar + name + email
-  columnHelper.accessor("orderId", {
+  columnHelper.accessor("order_id", {
     header: "Order ID",
   }),
-  columnHelper.accessor("OrderDate", {
+  columnHelper.accessor("order_date", {
     header: "Order Date",
   }),
   columnHelper.accessor("customer", {
@@ -28,9 +28,9 @@ export const refundColumns = columnHelper.columns([
         <div className="flex items-center gap-3">
           <Image
             src={
-              typeof customer.image === "string"
-                ? customer.image
-                : (customer.image as { src: string }).src
+              typeof customer.avatar_url === "string"
+                ? customer.avatar_url
+                : (customer.avatar_url as { src: string }).src
             }
             alt={customer.name}
             width={40}
@@ -46,15 +46,18 @@ export const refundColumns = columnHelper.columns([
     },
   }),
 
-  columnHelper.accessor("refundReason", {
+  columnHelper.accessor("refund_reason", {
     header: "Refund Reason",
+    cell: ({ row }) => (
+      <span>{row.original.refund_reason || "No reason provided"}</span>
+    ),
   }),
 
-  columnHelper.accessor("refundAmount", {
+  columnHelper.accessor("refund_amount", {
     header: "Amount",
     cell: ({ row }) => (
       <span className="font-medium">
-        ${row.original.refundAmount.toFixed(2)}
+        ${row.original.refund_amount.toFixed(2)}
       </span>
     ),
   }),
@@ -65,8 +68,8 @@ export const refundColumns = columnHelper.columns([
     cell: ({ row }) => {
       const status = row.original.status;
       const variant =
-        status === "Accepted"
-          ? "success"
+        status === "completed"
+          ? "completed"
           : status === "Pending"
             ? "pending"
             : "closed"; // Rejected → closed
@@ -74,12 +77,12 @@ export const refundColumns = columnHelper.columns([
     },
   }),
   //RefundDate
-  columnHelper.accessor("refundDate", {
+  columnHelper.accessor("refund_date", {
     header: "Refund Date",
   }),
 
   // Action column with modernized RefundDetailsDialog
-  columnHelper.accessor("Action", {
+  columnHelper.accessor("action", {
     header: "Action",
     cell: ({ row }) => {
       const record = row.original;
@@ -87,12 +90,12 @@ export const refundColumns = columnHelper.columns([
         <RefundDetailsDialog
           refund={{
             ...record,
-            productName: `Order ${record.orderId}`,
-            refundAmount: record.refundAmount,
-            refundReason: record.refundReason,
-            refundDate: record.refundDate,
-            RequestDate: record.OrderDate,
-            image: record.customer.image,
+            productName: `Order ${record.order_id}`,
+            refundAmount: record.refund_amount,
+            refundReason: record.refund_reason,
+            refundDate: record.refund_date,
+            RequestDate: record.order_date,
+            image: record.customer.avatar_url,
             customer: record.customer,
           }}
         />
