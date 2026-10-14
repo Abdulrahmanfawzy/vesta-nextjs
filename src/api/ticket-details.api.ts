@@ -6,8 +6,8 @@ import { TicketDetailsResponse } from "@/types/support-ticket.types";
 
 
 export async function getDetailsTicketsApi(ticketId:number):Promise<TicketDetailsResponse>{
-  const token = await getToken();
 
+  const token = await getToken();
   if (!token) {
     throw new Error("Unauthorized: Missing access token");
   }
@@ -36,3 +36,21 @@ export async function getDetailsTicketsApi(ticketId:number):Promise<TicketDetail
 
   return response.json() ;
 }
+
+export const closeTicket = async (ticketId: number): Promise<void> => {
+    const token = await getToken();
+  const response = await fetch(
+    `${process.env.API}/api/support/${ticketId}/close`,
+    {
+      method: "PATCH",
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error(`Failed to close ticket (${response.status})`);
+  }
+};

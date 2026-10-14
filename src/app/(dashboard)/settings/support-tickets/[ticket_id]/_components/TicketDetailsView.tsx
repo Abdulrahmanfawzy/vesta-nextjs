@@ -58,7 +58,7 @@ export default function TicketDetailsView({
         <TicketInformation  ticket={response}   />
 
         <RelatedInformation ticket={response} />
-        <QuickActions />
+        <QuickActions ticketId={response.data.id} />
       </aside>
     </main>
   );
