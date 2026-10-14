@@ -193,45 +193,6 @@ export default function SupportTicketsView() {
               columns={columns}
               data={tickets}
             />
-
-            {/* {pagination && (
-              <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
-                <p className="text-sm text-muted-foreground">
-                  {pagination.total === 0
-                    ? "No tickets found"
-                    : `Showing ${pagination.from ?? 0}–${pagination.to ?? 0} of ${pagination.total} tickets`}
-                </p>
-
-                <div className="flex items-center gap-3">
-                  <button
-                    type="button"
-                    disabled={!pagination.prev_page_url || isFetching}
-                    onClick={() =>
-                      updateQueryParams({ page: page - 1 })
-                    }
-                    className="rounded-lg border px-3 py-2 text-sm disabled:cursor-not-allowed disabled:opacity-50"
-                  >
-                    Previous
-                  </button>
-
-                  <span className="text-sm">
-                    Page {pagination.current_page} of{" "}
-                    {pagination.last_page}
-                  </span>
-
-                  <button
-                    type="button"
-                    disabled={!pagination.next_page_url || isFetching}
-                    onClick={() =>
-                      updateQueryParams({ page: page + 1 })
-                    }
-                    className="rounded-lg border px-3 py-2 text-sm disabled:cursor-not-allowed disabled:opacity-50"
-                  >
-                    Next
-                  </button>
-                </div>
-              </div>
-            )} */}
           </>
         )}
       </div>
