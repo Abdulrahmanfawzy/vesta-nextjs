@@ -13,26 +13,20 @@ const SelectFilter = () => {
   const { searchParams, updateSearchParams } = useUpdateSearchParams();
 
   const STATUS_FILTERS = [
-    { label: "All", value: "" },
+    { label: "All", value: "all" },
     { label: "Pending", value: "pending" },
     { label: "Rejected", value: "rejected" },
-    { label: "Refunded", value: "refunded" },
-    { label: "Cancelled", value: "cancelled" },
-    { label: "In Progress", value: "inprogress" },
-    { label: "Closed", value: "closed" },
-    { label: "In Transit", value: "in_transit" },
-    { label: "Approved", value: "approved" },
+    { label: "completed", value: "completed" },
   ] as const;
 
   const handleValue = (value: string) => {
-    updateSearchParams({ status: value || null });
+    updateSearchParams({ status: value === "all" ? null : value });
   };
 
+  const selectValue = searchParams.get("status") || "all";
+
   return (
-    <Select
-      value={searchParams.get("status") || ""}
-      onValueChange={handleValue}
-    >
+    <Select value={selectValue} onValueChange={handleValue}>
       <SelectTrigger className="h-10 w-45 rounded-lg bg-white text-sm text-muted-foreground">
         <SelectValue placeholder="All Status" />
       </SelectTrigger>

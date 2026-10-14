@@ -42,6 +42,10 @@ export const GetRefundData = async (
       );
     }
 
+    // Temporary: log to see exact API shape (remove once pagination fields confirmed)
+    console.log("[Refund API] full response keys:", Object.keys(data));
+    console.log("[Refund API] pagination/meta:", data.pagination ?? data.meta ?? { total: data.total, last_page: data.last_page, total_pages: data.total_pages });
+
     return data;
   } catch (error) {
     console.error("Error fetching refunds:", error);

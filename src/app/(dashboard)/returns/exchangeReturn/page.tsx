@@ -19,7 +19,7 @@ const ExchangeReturnPage = async () => {
       <DashboardHeader pageName="Exchange Requests" />
       <TabReturn />
       <div className="my-6" >
-        <ButtonsSearch />
+        <ButtonsSearch  />
       </div>
       <DataTable columns={ExchangeColumns} data={data?.data} />
     </div>
