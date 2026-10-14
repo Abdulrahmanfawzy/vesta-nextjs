@@ -1,6 +1,46 @@
+"use client";
+
+import { useState } from "react";
 import { Switch } from "@/components/ui/switch";
+import { useRegisterDeviceToken } from "@/hooks/useRegisterDeviceToken";
+import { toast } from "sonner";
 
 const NotificationSettings = () => {
+   const [enabled, setEnabled] = useState(false);
+
+  const {
+    mutateAsync: registerDeviceToken,
+    isPending,
+  } = useRegisterDeviceToken();
+  const handleNotificationChange = async (
+    checked: boolean,
+  ) => {
+    if (!checked) {
+     
+      setEnabled(false);
+      return;
+    }
+
+   
+    const deviceToken = "a fire base device token";
+
+    if (!deviceToken) {
+      toast.error("A device token is required to enable notifications.");
+      return;
+    }
+
+    try {
+      await registerDeviceToken(deviceToken);
+      setEnabled(true);
+      toast.success("Notifications enabled successfully.");
+    } catch (error) {
+      toast.error(
+        error instanceof Error
+          ? error.message
+          : "Failed to enable notifications.",
+      );
+    }
+  };
   return (
     <section className="flex w-full flex-col gap-6">
       <div>
@@ -24,7 +64,9 @@ const NotificationSettings = () => {
         </div>
         <Switch
           id="notifications-enabled"
-          defaultChecked
+          checked={enabled}
+          onCheckedChange={handleNotificationChange}
+          disabled={isPending}
           className="data-[state=checked]:bg-app-primary"
           aria-label="Enable notifications"
         />

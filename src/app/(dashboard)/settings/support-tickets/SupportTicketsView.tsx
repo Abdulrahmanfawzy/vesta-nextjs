@@ -4,40 +4,45 @@ import CustomTabs from "@/components/common/CustomTabs";
 import DashboardHeader from "@/components/layout/DashboardHeader";
 import { DataTable } from "@/components/shared/DataTable/data-table";
 import { Badge } from "@/components/ui/badge";
-import {
-  type DataTableFeatures,
-} from "@/features/returns/components/data-table-features";
+import { useSupportTickets } from "@/hooks/useSupportTickets";
+import type { SupportTicket } from "@/types/support.types";
+import type { DataTableFeatures } from "@/features/returns/components/data-table-features";
+
 import { createColumnHelper } from "@tanstack/react-table";
 import { Eye } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useMemo } from "react";
 
-type SupportTicket = {
-  ticketId: string;
-  subject: string;
-  status: "open" | "in_progress" | "resolved" | "closed";
-  createdAt: string;
-  lastUpdated: string;
-};
 
 const columnHelper = createColumnHelper<DataTableFeatures, SupportTicket>();
+const formatDate = (date: string) => {
+  return new Intl.DateTimeFormat("en-US", {
+    month: "short",
+    day: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true,
+  }).format(new Date(date));
+};
 
 const columns = columnHelper.columns([
-  columnHelper.accessor("ticketId", {
-    header: "Ticket Id",
+  columnHelper.accessor("id", {
+    header: "Ticket ID",
     cell: ({ getValue }) => (
       <span className="text-[#658DCA]">
-        {getValue()}
+        TKT-{String(getValue()).padStart(6, '0')}
       </span>
     ),
   }),
   columnHelper.accessor("subject", {
-    header: "subject",
+    header: "Subject",
   }),
   columnHelper.accessor("status", {
-    header: "status",
-    cell: ({ row }) => {
-      const status = row.original.status;
+    header: "Status",
+    cell: ({ getValue }) => {
+      const status = getValue();
       const variant =
         status === "open"
           ? "pending"
@@ -50,18 +55,20 @@ const columns = columnHelper.columns([
       return <Badge className="p-3" variant={variant}>{status.replace("_", " ")}</Badge>;
     },
   }),
-  columnHelper.accessor("createdAt", {
+  columnHelper.accessor("created_at", {
     header: "created at",
+    cell: ({ getValue }) => formatDate(getValue()),
   }),
-  columnHelper.accessor("lastUpdated", {
-    header: "last updated",
+  columnHelper.accessor("updated_at", {
+    header: "Last updated",
+    cell: ({ getValue }) => formatDate(getValue()),
   }),
   columnHelper.display({
     id: "actions",
     header: "actions",
     cell: ({ row }) => (
       <Link
-        href={`/settings/support-tickets/${row.original.ticketId}`}
+        href={`/settings/support-tickets/${row.original.id}`}
         className="flex w-full items-center justify-center"
       >
         <Eye className="w-4 h-4 text-app-neutral-dark" />
@@ -70,36 +77,7 @@ const columns = columnHelper.columns([
   }),
 ]);
 
-const supportTickets: SupportTicket[] = [
-  {
-    ticketId: "TKT-000123",
-    subject: "Issue with return report",
-    status: "open",
-    createdAt: "May 20, 2025 · 10:24 PM",
-    lastUpdated: "May 22, 2025 · 02:15 PM",
-  },
-  {
-    ticketId: "TKT-000124",
-    subject: "Unable to download monthly statement",
-    status: "in_progress",
-    createdAt: "May 24, 2025 · 09:10 AM",
-    lastUpdated: "May 25, 2025 · 11:30 AM",
-  },
-  {
-    ticketId: "TKT-000125",
-    subject: "Update account billing information",
-    status: "resolved",
-    createdAt: "May 26, 2025 · 01:45 PM",
-    lastUpdated: "May 27, 2025 · 04:20 PM",
-  },
-  {
-    ticketId: "TKT-000126",
-    subject: "Question about order fulfillment",
-    status: "closed",
-    createdAt: "May 28, 2025 · 08:05 AM",
-    lastUpdated: "May 29, 2025 · 12:00 PM",
-  },
-];
+
 
 const tabs = [
   {
@@ -134,13 +112,57 @@ export default function SupportTicketsView() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const handleTabChange = (value: string) => {
-    const params = new URLSearchParams(searchParams.toString());
-    params.set("status", value);
-    router.replace(`${pathname}?${params.toString()}`, {
+  // Read the filters and page number from the URL.
+  const status = searchParams.get("status") ?? "all";
+  const page = Math.max(
+    1,
+    Number(searchParams.get("page")) || 1,
+  );
+
+  const params = useMemo(
+    () => ({
+      page,
+      per_page: 10,
+      ...(status !== "all" ? { status } : {}),
+    }),
+    [page, status],
+  );
+  const { data, isPending, isError, error, isFetching } =
+    useSupportTickets(params);
+
+  const tickets = data?.data.tickets ?? [];
+  const pagination = data?.data.pagination;
+
+  // Update URL query params without navigating to another page.
+  const updateQueryParams = (updates: {
+    status?: string;
+    page?: number;
+  }) => {
+    const nextParams = new URLSearchParams(searchParams.toString());
+
+    if (updates.status !== undefined) {
+      if (updates.status === "all") {
+        nextParams.delete("status");
+      } else {
+        nextParams.set("status", updates.status);
+      }
+
+      // Start from page 1 whenever the filter changes.
+      nextParams.delete("page");
+    }
+
+    if (updates.page !== undefined) {
+      nextParams.set("page", String(updates.page));
+    }
+
+    const query = nextParams.toString();
+
+    router.replace(query ? `${pathname}?${query}` : pathname, {
       scroll: false,
     });
   };
+
+
 
   return (
     <div className="container mx-auto flex flex-col gap-4 px-3 py-2 sm:px-6 sm:py-4">
@@ -149,9 +171,30 @@ export default function SupportTicketsView() {
         <CustomTabs
           tabs={tabs}
           className="px-4 pt-4 border-b border-app-neutral-light mb-6"
-          onValueChange={handleTabChange}
+          onValueChange={(value) => updateQueryParams({ status: value })}
         />
-        <DataTable<SupportTicket> columns={columns} data={supportTickets} />
+        {isPending ? (
+          <p className="py-10 text-center text-sm text-muted-foreground">
+            Loading support tickets...
+          </p>
+        ) : isError ? (
+          <p className="py-10 text-center text-sm text-destructive">
+            {error.message || "Failed to load support tickets."}
+          </p>
+        ) : (
+          <>
+            {isFetching && (
+              <p className="mb-3 text-sm text-muted-foreground">
+                Updating tickets...
+              </p>
+            )}
+
+            <DataTable<SupportTicket>
+              columns={columns}
+              data={tickets}
+            />
+          </>
+        )}
       </div>
     </div>
   );

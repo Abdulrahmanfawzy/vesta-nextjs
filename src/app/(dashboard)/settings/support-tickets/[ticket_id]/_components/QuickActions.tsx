@@ -1,13 +1,15 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
+import { useCloseTicket } from "@/hooks/useCloseTicket";
 import { CheckCircle, ChevronDown, Reply, UserRound } from "lucide-react"
 
 interface IProps {
 
-
+ticketId: number;
 
 }
 
-const QuickActions = ({ }: IProps) => {
+const QuickActions = ({ ticketId}: IProps) => {
+    const { mutate: closeTicket, isPending } = useCloseTicket(ticketId);
     return (
         <Card>
             <CardHeader className="px-5 pb-3 pt-5">
@@ -41,10 +43,11 @@ const QuickActions = ({ }: IProps) => {
 
                     <button
                         type="button"
+                        onClick={() => closeTicket()}
                         className="flex h-9 w-full items-center justify-center gap-2 rounded-full border border-[#5E6061] bg-white text-sm font-medium text-[#161C36] transition hover:bg-gray-50"
                     >
                         <CheckCircle size={16} />
-                        Close Ticket
+                         {isPending ? "Closing..." : "Close Ticket"}
                     </button>
                 </div>
 

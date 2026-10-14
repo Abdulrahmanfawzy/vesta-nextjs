@@ -1,16 +1,19 @@
+import { TicketDetailsResponse } from "@/types/support-ticket.types";
 import { InformationCard, InformationRow } from "./InformationCard";
-
-const RelatedInformation = () => {
+interface RelatedInformationProps {
+    ticket: TicketDetailsResponse;
+}
+const RelatedInformation = ({ticket}:RelatedInformationProps) => {
     return (
         <InformationCard title="Related Information">
             <InformationRow label="Type">
-                <p className="font-medium text-app-primary">Report Issue</p>
+                <p className="font-medium text-app-primary"></p>
             </InformationRow>
             <InformationRow label="Category">
-                <p className="font-medium text-app-primary">Returns & Refunds</p>
+                <p className="font-medium text-app-primary">{ticket.data.category}</p>
             </InformationRow>
             <InformationRow label="Assign To">
-                <p className="font-medium text-app-primary">Support team</p>
+                <p className="font-medium text-app-primary"></p>
             </InformationRow>
         </InformationCard>
     );
