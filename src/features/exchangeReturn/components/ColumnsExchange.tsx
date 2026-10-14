@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
 import RefundDetailsDialog from "@/features/refund/components/RefundDialog";
 import { ExchangeType } from "../types/types.Exchange";
+import ExchangeDialog from "./ExchangeDialog";
 
 // Column definitions for the Refund page
 // Uses RefundOrder from RefundState.ts — includes customer object (name, email, image)
@@ -13,16 +14,16 @@ const columnHelper = createColumnHelper<DataTableFeatures, ExchangeType>();
 
 export const ExchangeColumns = columnHelper.columns([
   // Customer avatar + name + email
-  columnHelper.accessor("exchangeId", {
+  columnHelper.accessor("id", {
     header: "Exchange ID",
   }),
-  columnHelper.accessor("orderId", {
+  columnHelper.accessor("order_id", {
     header: "Order ID",
   }),
-  columnHelper.accessor("productDelivered", {
+  columnHelper.accessor("product_delivered", {
     header: "Product Delivered",
   }),
-  columnHelper.accessor("requestedProduct", {
+  columnHelper.accessor("requested_product", {
     header: "Requested Product",
   }),
   columnHelper.accessor("buyer", {
@@ -32,18 +33,14 @@ export const ExchangeColumns = columnHelper.columns([
       return (
         <div className="flex items-center gap-3">
           <Image
-            src={
-              typeof customer.image === "string"
-                ? customer.image
-                : (customer.image as { src: string }).src
-            }
-            alt={customer.requestedProduct}
+            src={customer.photos[0]}
+            alt={customer.requested_product}
             width={40}
             height={40}
             className="w-12 h-12 object-contain"
           />
           <div>
-            <p className="font-medium">{customer.requestedProduct}</p>
+            <p className="font-medium">{customer.requested_product}</p>
             <p className="text-sm text-gray-500">{customer.buyer}</p>
           </div>
         </div>
@@ -51,37 +48,35 @@ export const ExchangeColumns = columnHelper.columns([
     },
   }),
 
-  columnHelper.accessor("exchangeReason", {
+  columnHelper.accessor("exchange_reason", {
     header: "Exchange Reason",
   }),
 
-  columnHelper.accessor("priceDifference", {
+  columnHelper.accessor("price_difference", {
     header: "Amount",
     cell: ({ row }) => (
-      <span className="font-medium">
-        ${row.original.priceDifference}
-      </span>
+      <span className="font-medium">${row.original.price_difference}</span>
     ),
   }),
 
   // Status badge
-  columnHelper.accessor("exchangeSettingsStatus", {
+  columnHelper.accessor("status", {
     header: "Status",
     cell: ({ row }) => {
-      const status = row.original.exchangeSettingsStatus;
+      const status = row.original.status;
       const variant =
-        status === "Accepted"
-          ? "success"
-          : status === "Pending"
+        status === "completed"
+          ? "completed"
+          : status === "pending"
             ? "pending"
             : "closed"; // Rejected → closed
       return <Badge variant={variant}>{status}</Badge>;
     },
   }),
   //RefundDate
-//   columnHelper.accessor("refundDate", {
-//     header: "Refund Date",
-//   }),
+  //   columnHelper.accessor("refundDate", {
+  //     header: "Refund Date",
+  //   }),
 
   // Action column with modernized RefundDetailsDialog
   columnHelper.accessor("Action", {
@@ -89,20 +84,20 @@ export const ExchangeColumns = columnHelper.columns([
     cell: ({ row }) => {
       const record = row.original;
       return (
-        <RefundDetailsDialog
+        <ExchangeDialog
           refund={{
             ...record,
-            productName: `Order ${record.orderId}`,
-            refundReason: record.exchangeReason,
-            status: record.exchangeSettingsStatus,
+            productName: `Order ${record.order_id}`,
+            refundReason: record.exchange_reason,
+            status: record.status,
             // refundDate: record.refundDate,
-            RequestDate: record.orderId,
-            image: record.image,
+            RequestDate: record.order_id,
+            photos: record.photos[0],
             customer: {
-                name: record.buyer,
-                email: "",
-                image: record.image,
-            }
+              name: record.product_delivered || "Unknown",
+              email: "",
+              photos: record.photos[0],
+            },
           }}
         />
       );

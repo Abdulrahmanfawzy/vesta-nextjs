@@ -1,12 +1,14 @@
+import { getToken } from "@/lib/get-token";
+
 export const GetRefundData = async () => {
+  const token = await getToken();
   try {
     const res = await fetch(`${process.env.API}/api/refunds `, {
       headers: {
-        Authorization: ` Bearer ${process.env.AUTH_SECRET}`,
+        Authorization: ` Bearer ${token}`,
       },
       cache: "no-store",
     });
-    console.log(process.env.AUTH_SECRET);
 
     if (!res.ok) {
       const errorText = await res.text();

@@ -8,6 +8,7 @@ const badgeVariants = cva(
   {
     variants: {
       variant: {
+        completed: "border border-emerald-600 bg-emerald-50 text-emerald-700",
         refunded: "border border-emerald-600 bg-emerald-50 text-emerald-700",
         approved: "border border-emerald-600 bg-emerald-50 text-emerald-700",
         pending:

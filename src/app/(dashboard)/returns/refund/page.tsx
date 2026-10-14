@@ -28,7 +28,7 @@ const Refund = async({searchParams}: {searchParams: Promise<{status?: string}>})
         <SelectFilter />
       </div>
       <ButtonsSearch />
-      <DataTable columns={refundColumns} data={refundOrdersData} />
+      <DataTable columns={refundColumns} data={data.data} />
     </div>
   );
 };
