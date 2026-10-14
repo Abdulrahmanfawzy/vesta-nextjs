@@ -1,6 +1,6 @@
 'use client';
 import DashboardHeader from "@/components/layout/DashboardHeader";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { FAQSection } from "@/types/faq.types";
 import FaqSidebar from "./FaqSidebar";
@@ -8,6 +8,7 @@ import { useGetFAQs } from "@/hooks/useGetFaqs";
 import FaqError from "./FaqError";
 import FaqSkeleton from "./FaqSkeleton";
 import FaqContent from "./FaqContent";
+import { toast } from "sonner";
 
 export default function FaqView() {
  
@@ -16,7 +17,17 @@ export default function FaqView() {
     data: faqs = [],
     isPending,
     isError,
+    error,
   } = useGetFAQs(selectedSection);
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(
+        error instanceof Error ? error.message : "Failed to load FAQs.",
+      );
+    }
+  }, [isError, error]);
+
   return (
     <div>
       <DashboardHeader pageName="FAQ" className="text-2xl" />

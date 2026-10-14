@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Switch } from "@/components/ui/switch";
 import { useRegisterDeviceToken } from "@/hooks/useRegisterDeviceToken";
+import { toast } from "sonner";
 
 const NotificationSettings = () => {
    const [enabled, setEnabled] = useState(false);
@@ -10,8 +11,6 @@ const NotificationSettings = () => {
   const {
     mutateAsync: registerDeviceToken,
     isPending,
-    isError,
-    error,
   } = useRegisterDeviceToken();
   const handleNotificationChange = async (
     checked: boolean,
@@ -26,14 +25,20 @@ const NotificationSettings = () => {
     const deviceToken = "a fire base device token";
 
     if (!deviceToken) {
+      toast.error("A device token is required to enable notifications.");
       return;
     }
 
     try {
       await registerDeviceToken(deviceToken);
       setEnabled(true);
-    } catch {
-   
+      toast.success("Notifications enabled successfully.");
+    } catch (error) {
+      toast.error(
+        error instanceof Error
+          ? error.message
+          : "Failed to enable notifications.",
+      );
     }
   };
   return (
@@ -66,13 +71,6 @@ const NotificationSettings = () => {
           aria-label="Enable notifications"
         />
       </div>
-        {isError && (
-        <p className="text-sm text-destructive">
-          {error instanceof Error
-            ? error.message
-            : "Failed to enable notifications."}
-        </p>
-      )}
     </section>
   );
 };

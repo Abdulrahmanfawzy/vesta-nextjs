@@ -1,16 +1,27 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import NotificationSettings from "./NotificationSettings";
 import ProfileSettings from "./ProfileSettings";
 import ReturnRefundSettings from "./ReturnRefundSettings";
 import SettingSidebar, { type SettingSection } from "./SettingSidebar";
 import { useGetReturnPolicy } from "@/hooks/useGetReturnPloicy";
+import { toast } from "sonner";
 
 
 const SettingTab = () => {
   const [selectedSetting, setSelectedSetting] = useState<SettingSection>("profile");
   const { data,isPending,isError,error} = useGetReturnPolicy()
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(
+        error instanceof Error
+          ? error.message
+          : "Failed to load return policies.",
+      );
+    }
+  }, [isError, error]);
 
 
 
@@ -29,12 +40,6 @@ const SettingTab = () => {
           <>
             {isPending && (
               <p>Policies loading...</p>
-            )}
-
-            {isError && (
-              <p className="text-app-error">
-                {error.message}
-              </p>
             )}
 
             {data && (
