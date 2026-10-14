@@ -28,25 +28,29 @@ import {
   ShieldCheck,
 } from "lucide-react";
 
-export type RefundDetails = {
+export interface RefundDetails {
   id?: string;
   orderId: string;
+  order_id?: string;
   productName?: string;
-  image?: string | { src: string };
-  refundReason?: string;
   refundAmount?: number;
-  status: string;
+  refundReason?: string;
+  refundDate?: string;
   RequestDate?: string;
   OrderDate?: string;
-  refundDate?: string;
-  ReturnRequestID?: string;
-  itemID?: string;
+  status?: string;
+  image?: any;
   customer?: {
     name: string;
     email?: string;
-    image?: string | { src: string };
+    image?: any;
   };
-};
+  ReturnRequestID?: string;
+  itemID?: string;
+  reasonCode?: string;
+  quantity?: number;
+  Action?: string;
+}
 
 export interface RefundDetailsDialogProps {
   refund: RefundDetails;
@@ -58,14 +62,14 @@ export interface RefundDetailsDialogProps {
 const getStatusBadge = (status?: string) => {
   const normalized = (status || "").toLowerCase().trim();
   if (
-    normalized === "accepted" ||
+    normalized === "refunded" ||
     normalized === "completed" ||
     normalized === "approved"
   ) {
     return {
-      variant: "success" as const,
+      variant: "refunded" as const,
       icon: CheckCircle2,
-      label: status || "Accepted",
+      label: status || "refunded",
     };
   }
   if (normalized === "pending" || normalized === "inprogress") {
@@ -75,11 +79,11 @@ const getStatusBadge = (status?: string) => {
       label: status || "Pending",
     };
   }
-  if (normalized === "rejected" || normalized === "closed") {
+  if (normalized === "cancelled" || "rejected" || normalized === "closed") {
     return {
-      variant: "closed" as const,
+      variant: "rejected" as const,
       icon: AlertCircle,
-      label: status || "Rejected",
+      label: status || "rejected",
     };
   }
   return {

@@ -18,7 +18,12 @@ const SelectFilter = () => {
     { label: "All", value: "" },
     { label: "Pending", value: "pending" },
     { label: "Rejected", value: "rejected" },
-    { label: "Accepted", value: "accepted" },
+    { label: "refunded", value: "refunded" },
+    { label: "cancelled", value: "cancelled" },
+    { label: "inprogress", value: "inprogress" },
+    { label: "closed", value: "closed" },
+    { label: "in_transit", value: "in_transit" },
+    { label: "approved", value: "approved" },
   ] as const;
   const handelValue = (value: string) => {
     updateSearchParams({

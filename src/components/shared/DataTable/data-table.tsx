@@ -39,6 +39,7 @@ export function DataTable<TData extends RowData>({
   );
   const searchParams = useSearchParams();
   const status = searchParams.get("status");
+console.log(data);
 
   // Filter effect by status when status exists in query params
   React.useEffect(() => {
@@ -93,8 +94,8 @@ export function DataTable<TData extends RowData>({
             </TableHeader>
 
             <TableBody>
-              {table.getRowModel().rows?.length ? (
-                table.getRowModel().rows.map((row) => (
+              {table?.getRowModel()?.rows?.length ? (
+                table?.getRowModel()?.rows?.map((row) => (
                   <TableRow
                     key={row.id}
                     data-state={row.getIsSelected() && "selected"}
