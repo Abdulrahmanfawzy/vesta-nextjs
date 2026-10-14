@@ -1,5 +1,6 @@
 "use client";
 
+import { OverviewResponse } from "@/features/overview/types/overview.type";
 import {
   Area,
   AreaChart,
@@ -11,18 +12,10 @@ import {
   YAxis,
 } from "recharts";
 
-import { Card, CardContent } from "@/components/ui/card";
-
-type ChartData = {
-  date: string;
-  [key: string]: string | number;
-};
-
 type PerformanceChartProps = {
-  data: ChartData[];
-  dataKey: string;
+  data: OverviewResponse["data"]["performance"]["chart_data"];
+  dataKey: keyof OverviewResponse["data"]["performance"]["chart_data"][number];
   selectedIndex?: number;
-  description?: string[];
   gradientId?: string;
   strokeColor?: string;
   fillColor?: string;
@@ -32,7 +25,6 @@ export default function PerformanceChart({
   data,
   dataKey,
   selectedIndex = 0,
-  description = [],
   gradientId = "performanceChartFill",
   strokeColor = "#161C36",
   fillColor = "#D9D9D9",
@@ -42,7 +34,7 @@ export default function PerformanceChart({
   return (
     <>
       {/* Chart */}
-      <div className="h-22 w-full">
+      <div className=" min-h-37.5 h-full w-full">
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart
             data={data}
@@ -82,7 +74,7 @@ export default function PerformanceChart({
             {/* Selected vertical line */}
             {selectedPoint && (
               <ReferenceLine
-                x={selectedPoint.date}
+                x={selectedPoint.total}
                 stroke={strokeColor}
                 strokeWidth={2}
               />
@@ -104,18 +96,6 @@ export default function PerformanceChart({
           </AreaChart>
         </ResponsiveContainer>
       </div>
-
-      {/* Description */}
-      {description.length > 0 && (
-        <div className="mt-2 space-y-1 *:flex *:items-center *:gap-1 text-lg text-app-neutral-dark">
-          {description.map((item) => (
-            <p key={item}>
-              <span className="h-1.5 w-1.5 bg-black block rounded-full" />
-              {item}
-            </p>
-          ))}
-        </div>
-      )}
     </>
   );
 }

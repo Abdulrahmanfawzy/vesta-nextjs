@@ -3,6 +3,7 @@ import Logo from "@/assets/images/logo.svg";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { signOut } from "next-auth/react";
 import {
   ChartNoAxesColumn,
   LogOutIcon,
@@ -57,7 +58,11 @@ function AppSidebar() {
             <SidebarMenuItem key={i}>
               <SidebarMenuButton
                 asChild
-                isActive={pathname === href}
+                isActive={
+                  href === "/"
+                    ? pathname === "/"
+                    : pathname === href || pathname.startsWith(`${href}/`)
+                }
                 className="h-auto flex-col justify-center gap-2 p-0 text-base font-normal text-white
                   hover:bg-transparent hover:text-app-accent-peach
                   active:bg-transparent active:text-app-accent-peach
@@ -76,7 +81,10 @@ function AppSidebar() {
 
       {/* Log out */}
       <SidebarFooter className="items-center  p-2.5 pb-6">
-        <Button variant={"destructive"}>
+        <Button
+          variant={"destructive"}
+          onClick={() => signOut({ callbackUrl: "/login" })}
+        >
           <LogOutIcon />
           Log Out
         </Button>

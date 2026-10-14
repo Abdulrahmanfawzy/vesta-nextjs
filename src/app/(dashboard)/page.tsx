@@ -1,12 +1,20 @@
-import DashboardHeader from "@/components/layout/DashboardHeader";
-import Overview from "@/features/overview/pages/Overview";
+import type { Metadata } from "next";
+import OverviewSkeleton from "@/features/overview/components/OverviewSkeleton";
+import OverviewContent from "@/features/overview/OverviewContent";
 
-// this is OverView Page On Dashboard
+import { Suspense } from "react";
+
+export const metadata: Metadata = {
+  title: "Overview",
+  description: "Overview dashboard of returns, revenue impact, processing statuses, and operational metrics.",
+};
+
 function page() {
   return (
     <>
-      <DashboardHeader pageName="overview" />
-      <Overview />
+      <Suspense fallback={<OverviewSkeleton />}>
+        <OverviewContent />
+      </Suspense>
     </>
   );
 }

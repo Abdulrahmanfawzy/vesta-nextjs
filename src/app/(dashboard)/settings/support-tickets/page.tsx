@@ -1,22 +1,16 @@
-import DashboardHeader from "@/components/layout/DashboardHeader"
+import type { Metadata } from "next";
+import { Suspense } from "react";
+import SupportTicketsView from "./SupportTicketsView";
 
-interface IProps {
+export const metadata: Metadata = {
+  title: "Support Tickets",
+  description: "View and manage support tickets, inquiries, and resolution updates in Vesta.",
+};
 
-
-
-}
-
-const SupportTicketpage=({}:IProps)=> {
+export default function SupportTicketsPage() {
   return (
-    <div>
-       <DashboardHeader pageName="My Support Tickets" />
-       <div>
-
-                my support tickets content
-       </div>
-
-    </div>
-  )
+    <Suspense>
+      <SupportTicketsView />
+    </Suspense>
+  );
 }
-
-export default SupportTicketpage

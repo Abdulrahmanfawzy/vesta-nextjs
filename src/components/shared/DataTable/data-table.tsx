@@ -27,11 +27,18 @@ import { PackageOpen } from "lucide-react";
 interface DataTableProps<TData extends RowData> {
   columns: ColumnDef<DataTableFeatures, TData>[];
   data: TData[];
+  currentPage?: number;
+  totalPages?: number;
+  totalRows?: number;
+  onPageChange?: (page: number) => void;
 }
 
 export function DataTable<TData extends RowData>({
   columns,
-  data,
+  data, currentPage,
+  totalPages,
+  totalRows,
+  onPageChange,
 }: DataTableProps<TData>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -104,7 +111,7 @@ export function DataTable<TData extends RowData>({
                     {row.getVisibleCells().map((cell) => (
                       <TableCell
                         key={cell.id}
-                        className="px-4 py-3 text-xs sm:text-sm text-foreground align-middle whitespace-nowrap"
+                        className="px-4 py-3 text-xs sm:text-sm text-app-primary align-middle whitespace-nowrap"
                       >
                         <table.FlexRender cell={cell} />
                       </TableCell>
@@ -136,7 +143,10 @@ export function DataTable<TData extends RowData>({
 
       {/* Responsive Pagination */}
       <div className="w-full">
-        <DataTablePagination table={table} />
+        <DataTablePagination table={table} currentPage={currentPage}
+          totalPages={totalPages}
+          totalRows={totalRows}
+          onPageChange={onPageChange} />
       </div>
     </div>
   );

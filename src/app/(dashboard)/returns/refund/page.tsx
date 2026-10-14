@@ -1,4 +1,10 @@
+import type { Metadata } from "next";
 import DashboardHeader from "@/components/layout/DashboardHeader";
+
+export const metadata: Metadata = {
+  title: "Refunds",
+  description: "Track and process customer refund transactions, settlement status, and financial payouts.",
+};
 import ButtonsSearch from "@/components/shared/DataTable/ButtonsSearch";
 import { DataTable } from "@/components/shared/DataTable/data-table";
 import { SelectFilter } from "@/components/shared/DataTable/SelectFilter";

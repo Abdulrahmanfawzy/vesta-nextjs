@@ -12,7 +12,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               <AppSidebar />
             </div>
 
-            <main className="md:ml-31 min-h-screen w-full md:w-[calc(100%-124px)] px-4 pb-4">
+            <main className="md:ml-31 min-h-screen w-full md:w-[calc(100%-124px)] md:px-4 px-2 pb-4">
               {children}
             </main>
           </div>

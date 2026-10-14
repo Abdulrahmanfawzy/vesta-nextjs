@@ -3,12 +3,15 @@
 import * as React from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
+import { signIn } from "next-auth/react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Button } from "@/components/ui/button"
 import { FormField } from "@/components/forms/form-field"
 import { FormStatus } from "@/components/forms/form-status"
 import { loginSchema, type LoginValues } from "@/schemas/auth"
+
+const HOME_ROUTE = "/"
 
 export function LoginForm() {
   const router = useRouter()
@@ -25,12 +28,17 @@ export function LoginForm() {
 
   const onSubmit = async (values: LoginValues) => {
     setServerError(null)
-    try {
-       
-      router.push("/verify-otp")
-    } catch (e) {
-      setServerError(e instanceof Error ? e.message : "Something went wrong")
+
+    const res = await signIn("credentials", { ...values, redirect: false })
+
+    if (res?.error) {
+      // wrong credentials: show the backend message, stay on this page
+      setServerError(res.code ?? "Invalid email or password")
+      return
     }
+
+    router.push(HOME_ROUTE)
+    router.refresh()
   }
 
   return (
@@ -59,7 +67,7 @@ export function LoginForm() {
         />
         <Link
           href="/forgot-password"
-          className="absolute right-0 top-full mt-[calc(var(--u)*8)] text-[length:max(calc(var(--u)*16),12px)] text-muted-foreground hover:underline"
+          className="absolute right-0 top-full mt-[calc(var(--u)*8)] text-[length:calc(var(--u)*16)] text-muted-foreground hover:underline"
         >
           Forgot password?
         </Link>
@@ -70,7 +78,7 @@ export function LoginForm() {
       <Button
         type="submit"
         disabled={isSubmitting}
-        className="mx-auto mt-[calc(var(--u)*37)] h-[max(calc(var(--u)*80),48px)] w-[calc(var(--u)*345)] min-w-40 max-w-full rounded-[calc(var(--u)*20)] bg-brand-navy font-[family-name:var(--font-open-sans)] text-[length:max(calc(var(--u)*24),16px)] font-bold text-white hover:bg-brand-navy/90"
+        className="mx-auto mt-[calc(var(--u)*37)] h-[calc(var(--u)*80)] w-[calc(var(--u)*345)] max-w-full rounded-[calc(var(--u)*20)] bg-brand-navy font-[family-name:var(--font-open-sans)] text-[length:calc(var(--u)*24)] font-bold text-white hover:bg-brand-navy/90"
       >
         {isSubmitting ? "Logging in..." : "Login"}
       </Button>
