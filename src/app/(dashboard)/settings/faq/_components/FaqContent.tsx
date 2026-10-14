@@ -5,54 +5,22 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-
-const faqData = [
-  {
-    id: 1,
-    question: "How do I Process a return?",
-    answer:
-      "",
-  },
-  {
-    id: 2,
-    question: "How long does a refund take?",
-    answer:
-      "Refunds are usually processed within 5–7 business days after the return is approved.",
-  },
-  {
-    id: 3,
-    question: "How can I track my return rate?",
-    answer:
-      "",
-  },
-  {
-    id: 4,
-    question: "How can I export my return data?",
-    answer:
-      "",
-  },
-   {
-    id: 5,
-    question: "How do I manage user permissions?",
-    answer:
-      "",
-  }, {
-    id: 6,
-    question: "How do integrations work?",
-    answer:
-      "",
-  },
-];
+import { FAQ } from "@/types/faq.types";
 
 
-const FaqList = () => {
+interface FaqContentProps {
+  faqs: FAQ[];
+}
+
+
+const FaqContent = ({ faqs }: FaqContentProps) => {
   return (
     <Accordion
       type="single"
       collapsible
       className="w-full space-y-4"
     >
-      {faqData.map((faq) => (
+      {faqs.map((faq) => (
         <AccordionItem
           key={faq.id}
           value={`faq-${faq.id}`}
@@ -71,4 +39,4 @@ const FaqList = () => {
   );
 };
 
-export default FaqList;
+export default FaqContent;

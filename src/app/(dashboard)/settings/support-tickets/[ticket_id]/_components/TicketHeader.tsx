@@ -1,20 +1,29 @@
 import { Ticket } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
+import { TicketDetailsResponse } from "@/types/support-ticket.types";
+import { formatTicketDate } from "@/lib/format-date";
 
 interface TicketHeaderProps {
-    ticketId: string;
-    subject: string;
-    description: string;
-    status: "open" | "in_progress" | "resolved" | "closed";
-    createdAt: string;
-    updatedAt: string;
-    
+    ticket: TicketDetailsResponse;
 }
 
-export default function TicketHeader({ ticketId,subject,description,status,createdAt, updatedAt,
-   
-}: TicketHeaderProps) {
+const getStatusVariant = (status: TicketDetailsResponse["data"]["status"]) => {
+    switch (status) {
+        case "open":
+            return "pending";
+        case "in_progress":
+            return "inprogress";
+        case "resolved":
+            return "success";
+        default:
+            return "closed";
+    }
+};
+
+export default function TicketHeader({ ticket }: TicketHeaderProps) {
+    const status = ticket.data.status;
+
     return (
         <div className="min-w-0 space-y-4">
             {/* Ticket Card */}
@@ -30,14 +39,14 @@ export default function TicketHeader({ ticketId,subject,description,status,creat
                             {/* ID, subject, and description */}
                             <div className="min-w-0 flex-1">
                                 <p className="text-xs font-medium text-muted-foreground">
-                                    #{ticketId}
+                                    {`#TKT-${String(ticket.data.id).padStart(6, "0")}`}
                                 </p>
 
                                 <h1 className="mt-1 wrap-break text-lg font-semibold tracking-tight text-app-primary sm:text-xl">
-                                    {subject}
+                                    {ticket.data.subject}
                                 </h1>
                                 <p className="max-w-3xl wrap-break text-sm leading-6 text-muted-foreground">
-                                    {description}
+                                    {ticket.data.description??'when backend added desc will appear in this place'}
                                 </p>
                             </div>
                         </div>
@@ -45,22 +54,22 @@ export default function TicketHeader({ ticketId,subject,description,status,creat
                         {/* Right */}
                         <div className="flex min-w-0 flex-col items-start gap-3  pt-4 sm:w-[38%]  sm:pl-5 sm:pt-0">
                             <Badge
-                                variant="outline"
-                                className="shrink-0 border-amber-200 bg-amber-50 px-3 py-1 text-amber-700"
+                                variant={getStatusVariant(status)}
+                                className="shrink-0 px-3 py-1 capitalize"
                             >
-                                {status}
+                                {status.replace("_", " ")}
                             </Badge>
                             <div className="grid w-full min-w-0 gap-3">
                                 <div className="min-w-0">
                                     <p className="text-xs text-muted-foreground">Created</p>
                                     <p className="wrap-break text-sm font-medium text-app-primary">
-                                        {createdAt}
+                                        {formatTicketDate(ticket.data.created_at)}
                                     </p>
                                 </div>
                                 <div className="min-w-0">
                                     <p className="text-xs text-muted-foreground">Last updated</p>
                                     <p className="wrap-break text-sm font-medium text-app-primary">
-                                        {updatedAt}
+                                        {formatTicketDate(ticket.data.updated_at)}
                                     </p>
                                 </div>
                             </div>

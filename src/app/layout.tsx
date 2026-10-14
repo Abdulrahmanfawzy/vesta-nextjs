@@ -3,6 +3,8 @@ import "@/app/globals.css";
 import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 import NextTopLoader from "nextjs-toploader";
+import QueryProvider from "./(dashboard)/settings/_components/providers/QueryProvider";
+import { Toaster } from "@/components/ui/sonner";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 export const metadata: Metadata = {
@@ -24,7 +26,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           speed={200}
           showSpinner={false}
         />
-        {children}
+        <Toaster position="top-right" />
+        <QueryProvider>
+          {children}
+        </QueryProvider>
       </body>
     </html>
   );

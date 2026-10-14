@@ -1,38 +1,27 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import NotificationSettings from "./NotificationSettings";
 import ProfileSettings from "./ProfileSettings";
 import ReturnRefundSettings from "./ReturnRefundSettings";
 import SettingSidebar, { type SettingSection } from "./SettingSidebar";
+import { useGetReturnPolicy } from "@/hooks/useGetReturnPloicy";
+import { toast } from "sonner";
 
-import {
-  useQuery,
-
-} from '@tanstack/react-query'
-
-const fetchReturnPolicies = async () => {
-  const response = await fetch("api/settings/return-policies");
-
-  if (!response.ok) {
-    throw new Error("Failed to fetch return policies");
-  }
-
-  return response.json();
-};
 
 const SettingTab = () => {
   const [selectedSetting, setSelectedSetting] = useState<SettingSection>("profile");
-  const {
-    data,
-    isPending,
-    isError,
-    error,
-  } = useQuery({
-    queryKey: ["return-policies"],
-    queryFn: fetchReturnPolicies,
-    enabled: selectedSetting === "return_refund",
-  });
+  const { data,isPending,isError,error} = useGetReturnPolicy()
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(
+        error instanceof Error
+          ? error.message
+          : "Failed to load return policies.",
+      );
+    }
+  }, [isError, error]);
 
 
 
@@ -51,12 +40,6 @@ const SettingTab = () => {
           <>
             {isPending && (
               <p>Policies loading...</p>
-            )}
-
-            {isError && (
-              <p className="text-red-500">
-                {error.message}
-              </p>
             )}
 
             {data && (

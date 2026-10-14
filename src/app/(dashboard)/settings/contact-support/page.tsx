@@ -5,8 +5,8 @@ export const metadata: Metadata = {
   title: "Contact Support",
   description: "Get in touch with the Vesta support team for assistance with return management operations.",
 };
-import GetInTouchComponent from "./getInTouchComponent"
-import SendUsMessage from "./sendUsMessage"
+import GetInTouchComponent from "./_components/getInTouchComponent"
+import SendUsMessage from "./_components/sendUsMessage"
 
 interface IProps {
 
