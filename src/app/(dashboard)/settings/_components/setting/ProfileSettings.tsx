@@ -2,7 +2,7 @@ import Image from "next/image";
 import { ImagePlus, Eye, EyeOff } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import manImage from "../../../../../assets/images/man.jpg";
+import anonymousPhoto from "../../../../../assets/images/known.png";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ProfileFormData, profileSchema } from "../../../../../schemas/profile.schema";
@@ -166,7 +166,7 @@ const ProfileSettings = ({ isActive }: ProfileSettingsProps) => {
     <div className={isActive ? "flex w-full min-w-0 gap-8" : "hidden"}>
       <div className="relative h-24 w-24 shrink-0">
         <Image
-          src={profileImage || manImage}
+          src={profileImage || anonymousPhoto}
           alt="Profile"
           width={96}
           height={96}
