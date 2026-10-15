@@ -27,29 +27,11 @@ import {
   Package,
   ShieldCheck,
 } from "lucide-react";
+import { RefundOrder } from "../types/types";
 
-export type RefundDetails = {
-  id?: string;
-  orderId: string;
-  productName?: string;
-  image?: string | { src: string };
-  refundReason?: string;
-  refundAmount?: number;
-  status: string;
-  RequestDate?: string;
-  OrderDate?: string;
-  refundDate?: string;
-  ReturnRequestID?: string;
-  itemID?: string;
-  customer?: {
-    name: string;
-    email?: string;
-    image?: string | { src: string };
-  };
-};
 
 export interface RefundDetailsDialogProps {
-  refund: RefundDetails;
+  refund: RefundOrder ;
   trigger?: React.ReactNode;
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
@@ -58,14 +40,14 @@ export interface RefundDetailsDialogProps {
 const getStatusBadge = (status?: string) => {
   const normalized = (status || "").toLowerCase().trim();
   if (
-    normalized === "accepted" ||
+    normalized === "refunded" ||
     normalized === "completed" ||
     normalized === "approved"
   ) {
     return {
-      variant: "success" as const,
+      variant: "refunded" as const,
       icon: CheckCircle2,
-      label: status || "Accepted",
+      label: status || "refunded",
     };
   }
   if (normalized === "pending" || normalized === "inprogress") {
@@ -75,11 +57,11 @@ const getStatusBadge = (status?: string) => {
       label: status || "Pending",
     };
   }
-  if (normalized === "rejected" || normalized === "closed") {
+  if (normalized === "cancelled" || "rejected" || normalized === "closed") {
     return {
-      variant: "closed" as const,
+      variant: "rejected" as const,
       icon: AlertCircle,
-      label: status || "Rejected",
+      label: status || "rejected",
     };
   }
   return {
@@ -102,37 +84,37 @@ const RefundDetailsDialog = ({
 
   const handleCopyOrderId = (e: React.MouseEvent) => {
     e.stopPropagation();
-    if (!refund.orderId) return;
-    navigator.clipboard.writeText(refund.orderId);
+    if (!refund.order_id) return;
+    navigator.clipboard.writeText(String(refund.order_id));
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
 
   const imageSrc =
-    typeof refund.image === "object" &&
-    refund.image !== null &&
-    "src" in refund.image
-      ? (refund.image as { src: string }).src
-      : typeof refund.image === "string"
-        ? refund.image
+    typeof refund.customer.avatar_url === "object" &&
+    refund.customer.avatar_url !== null &&
+    "src" in refund.customer.avatar_url
+      ? (refund.customer.avatar_url as { src: string }).src
+      : typeof refund.customer.avatar_url === "string"
+        ? refund.customer.avatar_url
         : "";
 
   const customerImageSrc =
     refund.customer &&
-    typeof refund.customer.image === "object" &&
-    refund.customer.image !== null &&
-    "src" in refund.customer.image
-      ? (refund.customer.image as { src: string }).src
-      : typeof refund.customer?.image === "string"
-        ? refund.customer.image
+    typeof refund.customer.avatar_url === "object" &&
+    refund.customer.avatar_url !== null &&
+    "src" in refund.customer.avatar_url
+      ? (refund.customer.avatar_url as { src: string }).src
+      : typeof refund.customer?.avatar_url === "string"
+        ? refund.customer.avatar_url
         : "";
 
-  const requestDateValue = refund.RequestDate || refund.OrderDate || "N/A";
-  const refundDateValue = refund.refundDate || "Not processed yet";
+  const requestDateValue = refund.order_date || "N/A";
+  const refundDateValue = refund.refund_date || "Not processed yet";
   const displayProductName =
-    refund.productName && refund.productName !== refund.orderId
-      ? refund.productName
-      : `Order #${refund.orderId.replace(/^#/, "")}`;
+    refund.order_id && refund.order_id !== refund.order_id
+      ? refund.order_id
+      : `Order #${refund.order_id}` ; 
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -207,7 +189,7 @@ const RefundDetailsDialog = ({
                   className="group inline-flex items-center gap-1.5 rounded-md border border-border/60 bg-background px-2 py-0.5 font-mono text-xs text-muted-foreground transition-all hover:border-primary/40 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                   title="Click to copy order ID"
                 >
-                  <span>{refund.orderId}</span>
+                  <span>{refund.order_id}</span>
                   {copied ? (
                     <Check className="h-3 w-3 text-emerald-600" />
                   ) : (
@@ -227,8 +209,8 @@ const RefundDetailsDialog = ({
               </span>
               <span className="text-lg font-bold tracking-tight text-foreground sm:text-xl">
                 $
-                {typeof refund.refundAmount === "number"
-                  ? refund.refundAmount.toFixed(2)
+                {typeof refund.refund_amount === "number"
+                  ? refund.refund_amount.toFixed(2)
                   : "0.00"}
               </span>
             </div>
@@ -244,7 +226,7 @@ const RefundDetailsDialog = ({
               <span>Refund Reason</span>
             </div>
             <p className="mt-1.5 text-sm font-medium text-foreground leading-relaxed">
-              {refund.refundReason || "Standard return & refund request"}
+              {refund.refund_reason || "Standard return & refund request"}
             </p>
           </div>
 
@@ -315,22 +297,22 @@ const RefundDetailsDialog = ({
           )}
 
           {/* Identifiers (Return ID / Item ID) */}
-          {(refund.ReturnRequestID || refund.itemID) && (
+          {(refund.order_id || refund.id) && (
             <div className="flex flex-wrap items-center gap-2 pt-1 text-xs text-muted-foreground">
-              {refund.ReturnRequestID && (
+              {refund.order_id && (
                 <span className="inline-flex items-center gap-1 rounded-md border border-border/50 bg-muted/30 px-2 py-0.5 font-mono text-[11px]">
                   <span className="font-semibold text-foreground/70">
                     Return ID:
                   </span>
-                  {refund.ReturnRequestID}
+                  {refund.order_id}
                 </span>
               )}
-              {refund.itemID && (
+              {refund.id && (
                 <span className="inline-flex items-center gap-1 rounded-md border border-border/50 bg-muted/30 px-2 py-0.5 font-mono text-[11px]">
                   <span className="font-semibold text-foreground/70">
                     Item ID:
                   </span>
-                  {refund.itemID}
+                  {refund.id}
                 </span>
               )}
             </div>

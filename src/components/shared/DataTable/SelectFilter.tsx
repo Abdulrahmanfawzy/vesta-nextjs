@@ -11,25 +11,22 @@ import { useUpdateSearchParams } from "@/features/refund/hooks/UpdateSearchParam
 
 const SelectFilter = () => {
   const { searchParams, updateSearchParams } = useUpdateSearchParams();
-  const param = searchParams.get("status") ?? "";
-  console.log(param);
 
   const STATUS_FILTERS = [
-    { label: "All", value: "" },
+    { label: "All", value: "all" },
     { label: "Pending", value: "pending" },
     { label: "Rejected", value: "rejected" },
-    { label: "Accepted", value: "accepted" },
+    { label: "completed", value: "completed" },
   ] as const;
-  const handelValue = (value: string) => {
-    updateSearchParams({
-      status: value,
-    });
+
+  const handleValue = (value: string) => {
+    updateSearchParams({ status: value === "all" ? null : value });
   };
+
+  const selectValue = searchParams.get("status") || "all";
+
   return (
-    <Select
-      value={searchParams.get("status") || ""}
-      onValueChange={handelValue}
-    >
+    <Select value={selectValue} onValueChange={handleValue}>
       <SelectTrigger className="h-10 w-45 rounded-lg bg-white text-sm text-muted-foreground">
         <SelectValue placeholder="All Status" />
       </SelectTrigger>

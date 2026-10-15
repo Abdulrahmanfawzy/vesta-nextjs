@@ -23,13 +23,14 @@ const ReturnRefundSettingsSkeleton = () => (
         <Skeleton className="h-4 w-48 max-w-[70%]" />
         <Skeleton className="size-9 rounded-md" />
       </div>
-    ))}
+    ))}]
   </div>
 );
 
 const SettingTab = () => {
-  const [selectedSetting, setSelectedSetting] = useState<SettingSection>("profile");
-  const { data,isPending,isError,error} = useGetReturnPolicy()
+  const [selectedSetting, setSelectedSetting] =
+    useState<SettingSection>("profile");
+  const { data, isPending, isError, error } = useGetReturnPolicy();
 
   useEffect(() => {
     if (isError) {
@@ -41,10 +42,7 @@ const SettingTab = () => {
     }
   }, [isError, error]);
 
-
-
   return (
-
     <div className="flex w-full min-w-0 gap-8">
       <SettingSidebar
         selectedSetting={selectedSetting}
@@ -60,11 +58,7 @@ const SettingTab = () => {
               <ReturnRefundSettingsSkeleton />
             )}
 
-            {data && (
-              <ReturnRefundSettings
-                policies={data.data}
-              />
-            )}
+            {data && <ReturnRefundSettings policies={data.data} />}
           </>
         )}
       </div>
