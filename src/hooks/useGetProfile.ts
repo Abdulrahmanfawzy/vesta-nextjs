@@ -1,6 +1,6 @@
 "use client";
 
-import { getProfileAction } from "@/actions/profile";
+import { getProfileAction } from "@/actions/profile.actions";
 import { useQuery } from "@tanstack/react-query";
 
 

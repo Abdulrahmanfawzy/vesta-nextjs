@@ -15,3 +15,19 @@ export interface GetProfileResponse {
     user: ProfileUser;
   };
 }
+
+
+export interface UpdateProfileResponse {
+  success: boolean;
+  message: string;
+  data: {
+    user: ProfileUser;
+  } | null;
+}
+
+export interface UpdateProfileInput {
+  name: string;
+  phone: string;
+  password?: string;
+  avatar?: File;
+}
