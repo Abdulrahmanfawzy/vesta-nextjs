@@ -113,7 +113,7 @@ const ProfileSettings = ({ isActive }: ProfileSettingsProps) => {
     formData.append("phone", data.phone);
 
     if (selectedImage) {
-      formData.append("avatar_url", selectedImage);
+      formData.append("avatar", selectedImage);
     }
 
     if (data.password?.trim()) {
@@ -168,7 +168,7 @@ const ProfileSettings = ({ isActive }: ProfileSettingsProps) => {
           width={96}
           height={96}
           className="h-full w-full rounded-full object-cover"
-          unoptimized={!!previewImage}
+          unoptimized
         />
         <input
           ref={fileInputRef}

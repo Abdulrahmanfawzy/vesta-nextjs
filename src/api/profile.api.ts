@@ -3,6 +3,45 @@ import "server-only";
 import { getToken } from "@/lib/get-token";
 import type { GetProfileResponse, UpdateProfileResponse } from "@/types/profile.types";
 
+function normalizeAvatarUrl(
+  avatarUrl: string | null,
+  baseUrl: string,
+): string | null {
+  if (!avatarUrl) {
+    return null;
+  }
+
+  if (/^https?:\/\//i.test(avatarUrl)) {
+    return avatarUrl;
+  }
+
+  const imagePath = avatarUrl.replace(/^\/+/, "");
+  const storagePath = imagePath.startsWith("storage/")
+    ? imagePath
+    : `storage/${imagePath}`;
+
+  return new URL(storagePath, `${baseUrl.replace(/\/+$/, "")}/`).toString();
+}
+
+function normalizeProfileAvatar<T extends GetProfileResponse | UpdateProfileResponse>(
+  response: T,
+  baseUrl: string,
+): T {
+  if (!response.data?.user) {
+    return response;
+  }
+
+  return {
+    ...response,
+    data: {
+      user: {
+        ...response.data.user,
+        avatar_url: normalizeAvatarUrl(response.data.user.avatar_url, baseUrl),
+      },
+    },
+  };
+}
+
 export async function getProfileApi(): Promise<GetProfileResponse> {
   const token = await getToken();
 
@@ -29,7 +68,8 @@ export async function getProfileApi(): Promise<GetProfileResponse> {
     throw new Error("Failed to fetch profile");
   }
 
-  return response.json() as Promise<GetProfileResponse>;
+  const result = (await response.json()) as GetProfileResponse;
+  return normalizeProfileAvatar(result, baseUrl);
 }
 
 export async function updateProfileApi(
@@ -64,5 +104,5 @@ export async function updateProfileApi(
     throw new Error(result.message || "Failed to update profile");
   }
 
-  return result as UpdateProfileResponse;
+  return normalizeProfileAvatar(result as UpdateProfileResponse, baseUrl);
 }
