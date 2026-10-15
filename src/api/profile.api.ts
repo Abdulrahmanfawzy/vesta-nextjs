@@ -47,8 +47,10 @@ export async function updateProfileApi(
     throw new Error("API environment variable is missing");
   }
 
+  formData.set("_method", "PUT");
+
   const response = await fetch(`${baseUrl}/api/user`, {
-    method: "PUT",
+    method: "POST",
     headers: {
       Authorization: `Bearer ${token}`,
       Accept: "application/json",

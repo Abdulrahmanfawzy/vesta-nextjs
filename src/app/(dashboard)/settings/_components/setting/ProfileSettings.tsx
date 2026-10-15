@@ -119,7 +119,7 @@ const ProfileSettings = ({ isActive }: ProfileSettingsProps) => {
     if (data.password?.trim()) {
       formData.append("password", data.password);
     }
- console.log("FormData:", Array.from(formData.entries()));
+
     try {
       const result = await updateProfile(formData);
 
