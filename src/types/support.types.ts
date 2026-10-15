@@ -31,6 +31,7 @@ export interface SupportTicket {
 export type TicketStatus =
   | "open"
   | "in_progress"
+  | "awaiting_seller"
   | "resolved"
   | "closed";
 
