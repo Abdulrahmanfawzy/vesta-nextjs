@@ -11,6 +11,7 @@ import { useGetProfile } from "@/hooks/useGetProfile";
 import { useUpdateProfile } from "@/hooks/useUpdateProfile";
 import { useQueryClient } from "@tanstack/react-query";
 import { Skeleton } from "@/components/ui/skeleton";
+
 interface ProfileSettingsProps {
   isActive?: boolean;
 }
@@ -80,6 +81,8 @@ const ProfileSettings = ({ isActive }: ProfileSettingsProps) => {
     mutateAsync: updateProfile,
     isPending: isUpdating,
   } = useUpdateProfile();
+ 
+
   const queryClient = useQueryClient();
 
   const user = profileResponse?.data?.user;
@@ -229,7 +232,8 @@ const ProfileSettings = ({ isActive }: ProfileSettingsProps) => {
                   type="email"
                   placeholder="Enter your email"
                   {...register("email")}
-                  className="w-full"
+                  readOnly
+                  className="w-full cursor-not-allowed bg-muted"
                 />
                 {errors.email && (
                   <p className="mt-1 text-sm text-app-error">
