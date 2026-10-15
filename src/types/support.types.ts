@@ -28,6 +28,26 @@ export interface SupportTicket {
   updated_at: string;
 }
 
+export interface TicketAttachment {
+  id: number;
+  type?: string | null;
+  url: string;
+  mime_type?: string | null;
+  size?: number | null;
+  name?: string | null;
+  file_name?: string | null;
+  original_name?: string | null;
+  created_at?: string | null;
+}
+
+export interface TicketAttachmentsResponse {
+  success: boolean;
+  message: string;
+  data: {
+    attachments: TicketAttachment[];
+  };
+}
+
 export type TicketStatus =
   | "open"
   | "in_progress"

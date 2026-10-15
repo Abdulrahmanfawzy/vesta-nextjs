@@ -28,7 +28,7 @@ const QuickActions = ({ ticketId, status }: IProps) => {
         mutate: changeStatus,
         isPending: isUpdatingStatus,
     } = useUpdateTicketStatus(ticketId);
-    const isPending = isClosing || isUpdatingStatus;
+    // const isPending = isClosing || isUpdatingStatus;
     return (
         <Card>
             <CardHeader className="px-5 pb-3 pt-5">
@@ -41,11 +41,11 @@ const QuickActions = ({ ticketId, status }: IProps) => {
                         <DropdownMenuTrigger asChild>
                             <button
                                 type="button"
-                                disabled={isPending}
+                                disabled={isUpdatingStatus}
                                 className="flex h-9 w-full items-center justify-center gap-2 rounded-full border border-[#5E6061] bg-app-primary px-3 text-sm font-medium text-white transition hover:opacity-90"
                             >
-                                <span>{isPending ? "updating..." :"Change Status"}</span>
-                                {!isPending &&<ChevronDown size={16} />}
+                                <span>{isUpdatingStatus ? "updating..." :"Change Status"}</span>
+                                {!isUpdatingStatus &&<ChevronDown size={16} />}
                             </button>
                         </DropdownMenuTrigger>
 
@@ -57,7 +57,7 @@ const QuickActions = ({ ticketId, status }: IProps) => {
                             {statuses.map((statusOption) => (
                                 <DropdownMenuItem
                                     key={statusOption.value}
-                                    disabled={isPending || statusOption.value === status}
+                                    disabled={isUpdatingStatus || statusOption.value === status}
                                     onSelect={() => changeStatus(statusOption.value)}
                                     className="flex cursor-pointer items-center justify-between rounded-lg px-3 py-2.5 text-sm text-app-primary focus:bg-gray-100"
                                 >
@@ -82,7 +82,7 @@ const QuickActions = ({ ticketId, status }: IProps) => {
 
                     <button
                         type="button"
-                        disabled={isPending}
+                        disabled={isClosing}
                         onClick={() => closeTicket()}
                         className="flex h-9 w-full items-center justify-center gap-2 rounded-full border border-[#5E6061] bg-white text-sm font-medium text-[#161C36] transition hover:bg-gray-50"
                     >

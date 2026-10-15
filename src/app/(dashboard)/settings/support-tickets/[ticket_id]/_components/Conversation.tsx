@@ -71,14 +71,12 @@ export default function Conversation({ ticketId }: ConversationProps) {
                     <p className="text-sm font-semibold text-app-primary">
                       {chatResponse.data.ticket.subject}
                     </p>
-                    <p className="text-xs text-muted-foreground">
+                    {/* <p className="text-xs text-muted-foreground">
                       {chatResponse.data.ticket.category} · Chat #
                       {chatResponse.data.id}
-                    </p>
+                    </p> */}
                   </div>
-                  <span className="text-xs capitalize text-muted-foreground">
-                    {chatResponse.data.ticket.status.replace("_", " ")}
-                  </span>
+                 
                 </div>
 
                 {areMessagesPending ? (
@@ -145,7 +143,7 @@ export default function Conversation({ ticketId }: ConversationProps) {
     {
       value: "Attachments",
       label: "Attachments",
-      content: <Attachments />,
+      content: <Attachments ticketId={ticketId} />,
     },
   ];
 
