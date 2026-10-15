@@ -51,7 +51,7 @@ export default function TicketDetailsView({
       <div className="flex min-w-0 flex-col gap-3">
         <TicketHeader ticket={response} />
 
-        <Conversation />
+        <Conversation ticketId={response.data.id} />
       </div>
 
       <aside className="min-w-0 space-y-2.5">
