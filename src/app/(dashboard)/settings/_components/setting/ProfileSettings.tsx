@@ -6,7 +6,8 @@ import manImage from "../../../../../assets/images/man.jpg";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ProfileFormData, profileSchema } from "../../../../../schemas/profile.schema";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useGetProfile } from "@/hooks/useGetProfile";
 
 interface ProfileSettingsProps {
   isActive?: boolean;
@@ -15,30 +16,87 @@ interface ProfileSettingsProps {
 const ProfileSettings = ({ isActive }: ProfileSettingsProps) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [previewImage, setPreviewImage] = useState<string | null>(null);
+
+  const {
+    data: profileResponse,
+    isPending,
+    isError,
+    error,
+  } = useGetProfile();
+
+  const user = profileResponse?.data?.user;
+  const profileImage = previewImage || user?.avatar_url || null;
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<ProfileFormData>({
     resolver: zodResolver(profileSchema),
     mode: "onBlur",
   });
-
+  useEffect(() => {
+    if (user) {
+      reset({
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        identity: String(user.id),
+        password: "",
+        confirmPassword: "",
+      })
+    }
+  }, [user, reset])
   const onSubmit = (data: ProfileFormData) => {
     console.log(data);
   };
+if (isPending) {
+  return <p>Loading profile...</p>;
+}
 
+if (isError) {
+  return (
+    <p role="alert">
+      {error instanceof Error
+        ? error.message
+        : "Failed to load profile"}
+    </p>
+  );
+}
   return (
     <div className={isActive ? "flex w-full min-w-0 gap-8" : "hidden"}>
       <div className="relative h-24 w-24 shrink-0">
         <Image
-          src={manImage}
+          src={profileImage || manImage}
           alt="Profile"
+           width={96}
+            height={96}
           className="h-full w-full rounded-full object-cover"
+           unoptimized={!!previewImage}
+        />
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept="image/*"
+          className="hidden"
+          onChange={(event) => {
+            const file = event.target.files?.[0];
+
+            if (!file) return;
+
+            setSelectedImage(file);
+
+            const imageUrl = URL.createObjectURL(file);
+            setPreviewImage(imageUrl);
+          }}
         />
         <button
           type="button"
           aria-label="Change profile image"
+           onClick={() => fileInputRef.current?.click()}
           className="absolute bottom-0 right-0 cursor-pointer rounded-full bg-white p-1 text-black"
         >
           <ImagePlus className="h-5 w-5" />
