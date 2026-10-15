@@ -9,17 +9,17 @@ const helpCenterTextClass =
 const HelpCenterTab = () => {
   return (
     <div className="flex flex-col gap-6 mt-8">
-      <Link href="/settings/faq" className={helpCenterLinkClass}>
+      <Link href="/settings/faq?tab=help" className={helpCenterLinkClass}>
         <h4 className={helpCenterTextClass}>
           FAQ
         </h4>
       </Link>
-      <Link href="/settings/contact-support" className={helpCenterLinkClass}>
+      <Link href="/settings/contact-support?tab=help" className={helpCenterLinkClass}>
         <h4 className={helpCenterTextClass}>
           Contact Support
         </h4>
       </Link>
-      <Link href="/settings/support-tickets" className={helpCenterLinkClass}>
+      <Link href="/settings/support-tickets?tab=help" className={helpCenterLinkClass}>
         <h4 className={helpCenterTextClass}>
           My Support Tickets
         </h4>
