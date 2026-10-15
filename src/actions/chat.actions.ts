@@ -8,15 +8,15 @@ import {
   sendChatMessageApi,
   updateChatMessageApi,
 } from "@/api/chat.api";
-import { getSessionUserId } from "@/lib/get-token";
+import { auth } from "@/lib/auth/auth";
 
 export async function openTicketChatAction(ticketId: number) {
-  const [chat, currentUserId] = await Promise.all([
+  const [chat, session] = await Promise.all([
     openTicketChatApi(ticketId),
-    getSessionUserId(),
+    auth(),
   ]);
 
-  return { ...chat, currentUserId };
+  return { ...chat, currentUserId: session?.user.id ?? null };
 }
 
 export async function getChatMessagesAction(

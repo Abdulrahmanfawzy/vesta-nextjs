@@ -1,4 +1,4 @@
-import NextAuth, { CredentialsSignin } from "next-auth"
+import NextAuth, { CredentialsSignin, type DefaultSession } from "next-auth"
 import Credentials from "next-auth/providers/credentials"
 import { loginSchema } from "@/schemas/auth"
 
@@ -8,6 +8,9 @@ declare module "next-auth" {
   }
   interface Session {
     accessToken?: string
+    user: {
+      id: string
+    } & DefaultSession["user"]
   }
 }
 
@@ -71,6 +74,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     },
     session({ session, token }) {
       session.accessToken = token.accessToken as string | undefined
+      session.user.id = token.sub ?? ""
       return session
     },
   },
