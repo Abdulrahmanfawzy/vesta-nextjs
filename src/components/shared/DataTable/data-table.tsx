@@ -30,7 +30,9 @@ interface DataTableProps<TData extends RowData> {
   currentPage?: number;
   totalPages?: number;
   totalRows?: number;
+  pageSize?: number;
   onPageChange?: (page: number) => void;
+  onPageSizeChange?: (pageSize: number) => void;
 }
 
 export function DataTable<TData extends RowData>({
@@ -38,7 +40,9 @@ export function DataTable<TData extends RowData>({
   data, currentPage,
   totalPages,
   totalRows,
+  pageSize,
   onPageChange,
+  onPageSizeChange,
 }: DataTableProps<TData>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -70,6 +74,9 @@ export function DataTable<TData extends RowData>({
     state: {
       sorting,
       columnFilters,
+      ...(pageSize !== undefined
+        ? { pagination: { pageIndex: 0, pageSize } }
+        : {}),
     },
   });
 
@@ -145,7 +152,9 @@ export function DataTable<TData extends RowData>({
         <DataTablePagination table={table} currentPage={currentPage}
           totalPages={totalPages}
           totalRows={totalRows}
-          onPageChange={onPageChange} />
+          pageSize={pageSize}
+          onPageChange={onPageChange}
+          onPageSizeChange={onPageSizeChange} />
       </div>
     </div>
   );

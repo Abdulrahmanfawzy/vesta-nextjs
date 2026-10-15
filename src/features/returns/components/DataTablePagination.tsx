@@ -21,20 +21,32 @@ import { type DataTableFeatures } from "./data-table-features";
 
 interface DataTablePaginationProps<TData extends RowData> {
   table: ReactTable<DataTableFeatures, TData>;
-    currentPage?: number;
+  currentPage?: number;
   totalPages?: number;
   totalRows?: number;
+  pageSize?: number;
   onPageChange?: (page: number) => void;
+  onPageSizeChange?: (pageSize: number) => void;
 }
 
 export function DataTablePagination<TData extends RowData>({
-  table,currentPage,totalPages,totalRows:apiTotalRows,onPageChange
+  table,
+  currentPage,
+  totalPages,
+  totalRows: apiTotalRows,
+  pageSize: apiPageSize,
+  onPageChange,
+  onPageSizeChange,
 }: DataTablePaginationProps<TData>) {
-  const pageIndex =currentPage?currentPage-1: table.state.pagination?.pageIndex ?? 0;
-  const pageSize = table.state.pagination?.pageSize ?? 10;
-  const pageCount = Math.max(1,totalPages?? table.getPageCount());
-  const totalRows =apiTotalRows ?? table.getFilteredRowModel().rows.length;
- const startRow =
+  const pageIndex = currentPage !== undefined
+    ? currentPage - 1
+    : table.state.pagination?.pageIndex ?? 0;
+  const pageSize = apiPageSize ?? table.state.pagination?.pageSize ?? 10;
+  const pageCount = Math.max(1, totalPages ?? table.getPageCount());
+  const totalRows = apiTotalRows ?? table.getFilteredRowModel().rows.length;
+  const canGoPrevious = pageIndex > 0;
+  const canGoNext = pageIndex + 1 < pageCount;
+  const startRow =
     totalRows === 0 ? 0 : (pageIndex * pageSize) + 1;
 
   const endRow = Math.min(
@@ -85,7 +97,12 @@ export function DataTablePagination<TData extends RowData>({
           <Select
             value={`${pageSize}`}
             onValueChange={(val) => {
-              table.setPageSize(Number(val));
+              const nextPageSize = Number(val);
+              if (onPageSizeChange) {
+                onPageSizeChange(nextPageSize);
+              } else {
+                table.setPageSize(nextPageSize);
+              }
             }}
           >
             <SelectTrigger className="h-7 w-16 text-xs">
@@ -110,17 +127,17 @@ export function DataTablePagination<TData extends RowData>({
                 onClick={(e) => {
                   e.preventDefault();
                   // table.previousPage();
-                  if(pageIndex > 0){
-                    if(onPageChange){
-                      onPageChange(pageIndex)
-                    }else{
-                      table.previousPage()
+                  if (canGoPrevious) {
+                    if (onPageChange) {
+                      onPageChange(pageIndex);
+                    } else {
+                      table.previousPage();
                     }
                   }
                 }}
-                aria-disabled={!table.getCanPreviousPage()}
+                aria-disabled={!canGoPrevious}
                 className={
-                  !table.getCanPreviousPage()
+                  !canGoPrevious
                     ? "pointer-events-none opacity-50"
                     : ""
                 }
@@ -140,9 +157,9 @@ export function DataTablePagination<TData extends RowData>({
                     onClick={(e) => {
                       e.preventDefault();
                       // table.setPageIndex(page);
-                      if(onPageChange){
-                        onPageChange(page+1);
-                      }else{
+                      if (onPageChange) {
+                        onPageChange(page + 1);
+                      } else {
                         table.setPageIndex(page);
                       }
                     }}
@@ -160,7 +177,7 @@ export function DataTablePagination<TData extends RowData>({
                 onClick={(e) => {
                   e.preventDefault();
                   // table.nextPage();
-                  if (pageIndex + 1 < pageCount) {
+                  if (canGoNext) {
                     if (onPageChange) {
                       onPageChange(pageIndex + 2);
                     } else {
@@ -168,9 +185,9 @@ export function DataTablePagination<TData extends RowData>({
                     }
                   }
                 }}
-                aria-disabled={!table.getCanNextPage()}
+                aria-disabled={!canGoNext}
                 className={
-                  !table.getCanNextPage()
+                  !canGoNext
                     ? "pointer-events-none opacity-50"
                     : ""
                 }
