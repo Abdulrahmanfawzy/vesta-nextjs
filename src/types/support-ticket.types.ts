@@ -13,6 +13,7 @@ export interface Ticket {
   return_id: number | null;
   category: string;
   subject: string;
+  type:string|null;
   description: string | null;
   status: TicketStatus;
   priority: string | null;

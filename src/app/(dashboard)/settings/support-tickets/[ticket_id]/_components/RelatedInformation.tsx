@@ -7,7 +7,7 @@ const RelatedInformation = ({ticket}:RelatedInformationProps) => {
     return (
         <InformationCard title="Related Information">
             <InformationRow label="Type">
-                <p className="font-medium text-app-primary">Report Issue</p>
+                <p className="font-medium text-app-primary">{ticket.data.type ??'unknown'}</p>
             </InformationRow>
             <InformationRow label="Category">
                 <p className="font-medium text-app-primary">{ticket.data.category}</p>
