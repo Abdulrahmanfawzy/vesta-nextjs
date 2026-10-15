@@ -14,22 +14,25 @@ const columnHelper = createColumnHelper<DataTableFeatures, ReturnRequest>();
 export const columns = columnHelper.columns([
   // Product image
   columnHelper.accessor((row) => row.items?.[0]?.product_image_url ?? "", {
-    id: "image", 
+    id: "image",
     header: "Product Image",
     cell: ({ getValue }) => {
       const image = getValue();
       return (
-        <div className="flex items-center justify-center mr-15">
+        <div className="flex items-center justify-center">
           {image ? (
-            <Image
-              src={image}
-              alt="Order item"
-              width={48}
-              height={48}
-              className="h-12 w-12 rounded-md object-cover"
-            />
+            <div className="relative h-11 w-11 shrink-0 overflow-hidden rounded-lg border border-border/70 bg-muted/40 shadow-2xs">
+              <Image
+                src={image}
+                alt="Order item"
+                width={44}
+                height={44}
+                unoptimized
+                className="h-full w-full object-cover"
+              />
+            </div>
           ) : (
-            <div className="flex h-12 w-12 items-center justify-center rounded-md bg-muted text-xs">
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-muted text-xs font-medium text-muted-foreground">
               N/A
             </div>
           )}
@@ -41,11 +44,21 @@ export const columns = columnHelper.columns([
   // Return request ID
   columnHelper.accessor("rma_no", {
     header: "Return Request ID",
+    cell: ({ getValue }) => (
+      <span className="font-mono text-xs font-semibold text-foreground/90">
+        {getValue() || "-"}
+      </span>
+    ),
   }),
 
   // Order ID
   columnHelper.accessor("order_id", {
     header: "Order ID",
+    cell: ({ getValue }) => (
+      <span className="font-mono text-xs text-muted-foreground">
+        #{getValue() || "-"}
+      </span>
+    ),
   }),
 
   // Item ID
@@ -57,6 +70,11 @@ export const columns = columnHelper.columns([
     {
       id: "itemID",
       header: "Item ID",
+      cell: ({ getValue }) => (
+        <span className="font-mono text-xs text-muted-foreground">
+          {getValue()}
+        </span>
+      ),
     },
   ),
 
@@ -65,8 +83,11 @@ export const columns = columnHelper.columns([
     header: "Request Date",
     cell: ({ getValue }) => {
       const date = getValue();
-
-      return date ? new Date(date).toLocaleDateString("en-GB") : "-";
+      return (
+        <span className="text-xs text-muted-foreground">
+          {date ? new Date(date).toLocaleDateString("en-GB") : "-"}
+        </span>
+      );
     },
   }),
 
