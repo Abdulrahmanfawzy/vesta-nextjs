@@ -49,9 +49,9 @@ const SendUsMessage = () => {
     };
 
     return (
-        <div className="flex w-[64%] flex-col gap-6 border border-app-neutral-light shadow-xs rounded-xl p-6">
+        <div className="flex  flex-col gap-6 border border-app-neutral-light shadow-xs rounded-xl p-4 sm:p-6 lg:flex-1">
             <h3 className="text-2xl font-normal text-app-primary leading-[150%] tracking-[-2.2%]">Sent Us a Message</h3>
-            <form className="flex flex-col gap-6" onSubmit={handleSubmit(onSubmit)}>
+            <form className="flex min-w-0 flex-col gap-5  sm:gap-6" onSubmit={handleSubmit(onSubmit)}>
                 <div className="flex flex-col gap-2">
                     <label
                         htmlFor="subject"
@@ -97,7 +97,7 @@ const SendUsMessage = () => {
                 <button
                     type="submit"
                     disabled={isPending || !selectedCategory}
-                    className="bg-app-primary  mx-auto text-white font-semibold py-3 px-12 rounded-lg hover:bg-app-primary/80 transition-all duration-300">
+                    className="w-full bg-app-primary  mx-auto text-white font-semibold py-3 px-6 rounded-lg hover:bg-app-primary/80 transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto sm:px-12">
                     {isPending ? "Sending..." : "Send Message"}
                 </button>
             </form>

@@ -267,6 +267,7 @@ const ProfileSettings = ({ isActive }: ProfileSettingsProps) => {
                   type="number"
                   placeholder="Enter your Id"
                   {...register("identity")}
+                  readOnly
                   className="w-full"
                 />
                 {errors.identity && (
