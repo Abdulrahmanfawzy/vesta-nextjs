@@ -67,8 +67,8 @@ const NotificationSettings = () => {
         </p>
       </div>
 
-      <div className="flex items-center justify-between rounded-lg border border-[#CFCFCF] p-4">
-        <div className="pr-6">
+      <div className="flex flex-col gap-4 rounded-lg border border-[#CFCFCF] p-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="min-w-0 sm:pr-6">
           <label
             htmlFor="notifications-enabled"
             className="cursor-pointer text-sm font-medium"
@@ -84,7 +84,7 @@ const NotificationSettings = () => {
           checked={enabled}
           onCheckedChange={handleNotificationChange}
           disabled={isLoading || isPending}
-          className="data-[state=checked]:bg-app-primary"
+          className="shrink-0 data-[state=checked]:bg-app-primary"
           aria-label="Enable notifications"
         />
       </div>
