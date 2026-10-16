@@ -17,12 +17,14 @@ const faqSections: { value: FAQSection; label: string }[] = [
 ];
 const FaqSidebar = ({selectedSection,onSectionChange,}: FaqSidebarProps) => {
   return(
-  <aside className="w-60 shrink-0 border-r  pr-6 border-app-neutral-light">
+  <aside className="w-full min-w-0 border-b border-app-neutral-light pb-3 lg:border-b-0 lg:border-r lg:pb-0 lg:pr-6">
+    <h2 className="mb-2 mt-2 text-lg font-bold leading-[150%] text-app-primary sm:text-2xl lg:mb-4">
+      Categories
+    </h2>
     <nav
       aria-label="FAQ sections"
-      className="mt-4 flex w-full flex-col items-stretch gap-1"
+      className="settings-sidebar-scrollbar p-4 flex w-full flex-row items-stretch gap-1 overflow-x-auto lg:mt-4 lg:flex-col lg:overflow-visible"
     >
-        <h1 className="text-2xl font-bold text-app-primary leading-[150%] tracking-[-2.2%] mb-6">Categories</h1>
       {faqSections.map((item) => (
         <button
           key={item.value}
@@ -31,7 +33,7 @@ const FaqSidebar = ({selectedSection,onSectionChange,}: FaqSidebarProps) => {
             selectedSection === item.value ? "page" : undefined
           }
           onClick={() => onSectionChange(item.value)}
-          className={`box-border w-full self-stretch rounded-lg px-4 py-3 text-start text-sm transition-colors
+          className={`box-border w-auto shrink-0 self-stretch whitespace-nowrap rounded-lg px-4 py-3 text-start text-sm transition-colors lg:w-full
             focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-app-primary/40 ${
               selectedSection === item.value
                 ? "border border-accent-orange bg-app-accent-peach/10 font-semibold text-app-accent-peach"

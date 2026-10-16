@@ -11,8 +11,8 @@ export const metadata: Metadata = {
 
 const Page = () => {
   return (
-    <div className="w-full min-w-0 px-4.5">
-      <DashboardHeader pageName="Settings" />
+    <div className="w-full min-w-0 px-4 sm:px-6">
+      <DashboardHeader pageName="Settings" className="text-2xl sm:text-4xl" />
 
       <QueryProvider>
         <Suspense fallback={<div>Loading settings...</div>}>

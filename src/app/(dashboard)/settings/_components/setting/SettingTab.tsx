@@ -43,7 +43,7 @@ const SettingTab = () => {
   }, [isError, error]);
 
   return (
-    <div className="flex w-full min-w-0 gap-8">
+    <div className="flex w-full min-w-0 flex-col gap-6 lg:flex-row lg:gap-8">
       <SettingSidebar
         selectedSetting={selectedSetting}
         onSettingChange={setSelectedSetting}
