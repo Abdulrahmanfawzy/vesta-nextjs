@@ -26,10 +26,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           speed={200}
           showSpinner={false}
         />
-        <Toaster position="top-right" />
-        <QueryProvider>
-          {children}
-        </QueryProvider>
+        <Toaster position="top-right" richColors />
+        <QueryProvider>{children}</QueryProvider>
       </body>
     </html>
   );
