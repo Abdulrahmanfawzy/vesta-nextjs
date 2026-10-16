@@ -114,18 +114,22 @@ export default function SupportTicketsView() {
 
   // Read the filters and page number from the URL.
   const status = searchParams.get("status") ?? "all";
-  const page = Math.max(
-    1,
-    Number(searchParams.get("page")) || 1,
-  );
+  const parsedPage = Number(searchParams.get("page"));
+  const page =
+    Number.isSafeInteger(parsedPage) && parsedPage > 0 ? parsedPage : 1;
+  const allowedPageSizes = [10, 20, 25, 50];
+  const parsedPageSize = Number(searchParams.get("per_page"));
+  const perPage = allowedPageSizes.includes(parsedPageSize)
+    ? parsedPageSize
+    : 10;
 
   const params = useMemo(
     () => ({
       page,
-      per_page: 10,
+      per_page: perPage,
       ...(status !== "all" ? { status } : {}),
     }),
-    [page, status],
+    [page, perPage, status],
   );
   const { data, isPending, isError, error, isFetching } =
     useSupportTickets(params);
@@ -137,6 +141,7 @@ export default function SupportTicketsView() {
   const updateQueryParams = (updates: {
     status?: string;
     page?: number;
+    perPage?: number;
   }) => {
     const nextParams = new URLSearchParams(searchParams.toString());
 
@@ -153,6 +158,11 @@ export default function SupportTicketsView() {
 
     if (updates.page !== undefined) {
       nextParams.set("page", String(updates.page));
+    }
+
+    if (updates.perPage !== undefined) {
+      nextParams.set("per_page", String(updates.perPage));
+      nextParams.delete("page");
     }
 
     const query = nextParams.toString();
@@ -192,6 +202,16 @@ export default function SupportTicketsView() {
             <DataTable<SupportTicket>
               columns={columns}
               data={tickets}
+              currentPage={pagination?.current_page ?? page}
+              totalPages={pagination?.last_page ?? 1}
+              totalRows={pagination?.total ?? 0}
+              pageSize={pagination?.per_page ?? perPage}
+              onPageChange={(nextPage) =>
+                updateQueryParams({ page: nextPage })
+              }
+              onPageSizeChange={(nextPageSize) =>
+                updateQueryParams({ perPage: nextPageSize })
+              }
             />
           </>
         )}

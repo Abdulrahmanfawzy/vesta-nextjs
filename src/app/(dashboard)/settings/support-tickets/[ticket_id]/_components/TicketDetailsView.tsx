@@ -51,14 +51,18 @@ export default function TicketDetailsView({
       <div className="flex min-w-0 flex-col gap-3">
         <TicketHeader ticket={response} />
 
-        <Conversation />
+        <Conversation ticketId={response.data.id} />
       </div>
 
       <aside className="min-w-0 space-y-2.5">
         <TicketInformation  ticket={response}   />
 
         <RelatedInformation ticket={response} />
-        <QuickActions ticketId={response.data.id} />
+        <QuickActions
+          ticketId={response.data.id}
+          status={response.data.status}
+          assignedAgentId={response.data.assigned_agent_id}
+        />
       </aside>
     </main>
   );

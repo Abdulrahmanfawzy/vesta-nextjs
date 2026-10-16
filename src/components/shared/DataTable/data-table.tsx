@@ -174,4 +174,4 @@ export function DataTable<TData extends RowData>({
       </Suspense>
     </div>
   );
-}
+}
