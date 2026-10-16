@@ -26,7 +26,7 @@ const CustomTabs = ({tabs,value,defaultValue,className,onValueChange}: CustomTab
        onValueChange={onValueChange}
       className={`w-full min-w-0 ${className ?? ""}`}
     >
-      <TabsList className="flex h-auto w-full justify-start! gap-8 rounded-none border-0 bg-transparent p-0">
+      <TabsList className="flex h-auto w-full flex-wrap justify-start! gap-x-4 gap-y-1 rounded-none border-0 bg-transparent p-0 sm:gap-x-8">
         {tabs.map((tab) => (
           <TabsTrigger
             key={tab.value}
@@ -39,12 +39,14 @@ const CustomTabs = ({tabs,value,defaultValue,className,onValueChange}: CustomTab
               bg-transparent
               px-0
               pb-3
-              text-[20px]
+              whitespace-nowrap
+              text-base
               font-normal
               text-[#5E6061]
               shadow-none
 
               hover:text-gray-500
+              sm:text-[20px]
               data-[state=active]:border-b-2
               data-[state=active]:font-semibold
               data-[state=active]:border-b-[#161C36]
