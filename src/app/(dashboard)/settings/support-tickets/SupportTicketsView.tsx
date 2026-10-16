@@ -202,16 +202,16 @@ export default function SupportTicketsView() {
             <DataTable<SupportTicket>
               columns={columns}
               data={tickets}
-              currentPage={pagination?.current_page ?? page}
+              // currentPage={pagination?.current_page ?? page}
               totalPages={pagination?.last_page ?? 1}
               totalRows={pagination?.total ?? 0}
-              pageSize={pagination?.per_page ?? perPage}
-              onPageChange={(nextPage) =>
-                updateQueryParams({ page: nextPage })
-              }
-              onPageSizeChange={(nextPageSize) =>
-                updateQueryParams({ perPage: nextPageSize })
-              }
+              // pageSize={pagination?.per_page ?? perPage}
+              // onPageChange={(nextPage) =>
+              //   updateQueryParams({ page: nextPage })
+              // }
+              // onPageSizeChange={(nextPageSize) =>
+              //   updateQueryParams({ perPage: nextPageSize })
+              // }
             />
           </>
         )}
