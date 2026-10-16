@@ -26,7 +26,7 @@ export function InformationCard({ title, children }: InformationCardProps) {
 
 export function InformationRow({ label, children }: InformationRowProps) {
     return (
-        <div className="grid grid-cols-2 items-start gap-4">
+        <div className="grid grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] items-start gap-2 sm:grid-cols-2 sm:gap-4">
             <p className="font-medium text-muted-foreground">{label}</p>
             <div className="min-w-0 wrap-break">{children}</div>
         </div>

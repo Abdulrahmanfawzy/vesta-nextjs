@@ -25,10 +25,10 @@ const SettingSidebar = ({
   selectedSetting,
   onSettingChange,
 }: SettingSidebarProps) => (
-  <aside className="min-h-screen w-60 shrink-0 border-r pr-6  border-app-neutral-light">
+  <aside className="w-full shrink-0 border-b border-app-neutral-light pb-3 lg:min-h-screen lg:w-60 lg:border-b-0 lg:border-r lg:pb-0 lg:pr-6">
     <nav
       aria-label="Settings sections"
-      className="mt-4 flex w-full flex-col items-stretch gap-1"
+      className="settings-sidebar-scrollbar flex w-full flex-row items-stretch p-4 gap-1 overflow-x-auto lg:mt-4 lg:flex-col lg:overflow-visible"
     >
       {settingItems.map((item) => (
         <button
@@ -36,7 +36,7 @@ const SettingSidebar = ({
           type="button"
           aria-current={selectedSetting === item.value ? "page" : undefined}
           onClick={() => onSettingChange(item.value)}
-          className={`box-border w-full self-stretch rounded-lg px-4 py-3 text-start text-sm transition-colors
+          className={`box-border w-auto shrink-0 self-stretch whitespace-nowrap rounded-lg px-4 py-3 text-start text-sm transition-colors lg:w-full
              focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-app-primary/40 ${
             selectedSetting === item.value
               ? "border border-accent-orange bg-app-accent-peach/10 font-semibold text-app-accent-peach"

@@ -44,7 +44,7 @@ const columns = columnHelper.columns([
     cell: ({ getValue }) => {
       const status = getValue();
       const variant =
-        status === "open"
+        status === "open" || status === "awaiting_seller"
           ? "pending"
           : status === "in_progress"
             ? "inprogress"
@@ -175,12 +175,12 @@ export default function SupportTicketsView() {
 
 
   return (
-    <div className="container mx-auto flex flex-col gap-4 px-3 py-2 sm:px-6 sm:py-4">
-      <DashboardHeader pageName="My Support Tickets" className="text-2xl" />
-      <div className="border border-app-neutral-light shadow-xs rounded-2xl p-3">
+    <div className="container mx-auto flex w-full min-w-0 flex-col gap-4 px-3 py-2 sm:px-6 sm:py-4">
+      <DashboardHeader pageName="My Support Tickets" className="text-lg sm:text-2xl" />
+      <div className="min-w-0 rounded-2xl border border-app-neutral-light p-2 shadow-xs sm:p-3">
         <CustomTabs
           tabs={tabs}
-          className="px-4 pt-4 border-b border-app-neutral-light mb-6"
+          className="mb-6 border-b border-app-neutral-light px-2 pt-3 sm:px-4 sm:pt-4"
           onValueChange={(value) => updateQueryParams({ status: value })}
         />
         {isPending ? (
@@ -202,16 +202,16 @@ export default function SupportTicketsView() {
             <DataTable<SupportTicket>
               columns={columns}
               data={tickets}
-              currentPage={pagination?.current_page ?? page}
+              // currentPage={pagination?.current_page ?? page}
               totalPages={pagination?.last_page ?? 1}
               totalRows={pagination?.total ?? 0}
-              pageSize={pagination?.per_page ?? perPage}
-              onPageChange={(nextPage) =>
-                updateQueryParams({ page: nextPage })
-              }
-              onPageSizeChange={(nextPageSize) =>
-                updateQueryParams({ perPage: nextPageSize })
-              }
+              // pageSize={pagination?.per_page ?? perPage}
+              // onPageChange={(nextPage) =>
+              //   updateQueryParams({ page: nextPage })
+              // }
+              // onPageSizeChange={(nextPageSize) =>
+              //   updateQueryParams({ perPage: nextPageSize })
+              // }
             />
           </>
         )}

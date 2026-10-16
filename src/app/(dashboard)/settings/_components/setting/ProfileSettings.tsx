@@ -20,7 +20,7 @@ const ProfileFormSkeleton = () => {
   return (
     <>
       {/* Name & Email */}
-      <div className="flex w-full gap-4">
+      <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2">
         <div className="flex min-w-0 flex-1 flex-col gap-2">
           <Skeleton className="h-5 w-16" />
           <Skeleton className="h-10 w-full rounded-md" />
@@ -33,7 +33,7 @@ const ProfileFormSkeleton = () => {
       </div>
 
       {/* Phone & ID */}
-      <div className="flex w-full gap-4">
+      <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2">
         <div className="flex min-w-0 flex-1 flex-col gap-2">
           <Skeleton className="h-5 w-16" />
           <Skeleton className="h-10 w-full rounded-md" />
@@ -46,7 +46,7 @@ const ProfileFormSkeleton = () => {
       </div>
 
       {/* Passwords */}
-      <div className="flex w-full gap-4">
+      <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2">
         <div className="flex min-w-0 flex-1 flex-col gap-2">
           <Skeleton className="h-5 w-20" />
           <Skeleton className="h-10 w-full rounded-md" />
@@ -59,7 +59,7 @@ const ProfileFormSkeleton = () => {
       </div>
 
       {/* Save Button */}
-      <Skeleton className="h-10 w-42 rounded-md" />
+      <Skeleton className="h-10 w-full rounded-md sm:w-42" />
     </>
   );
 };
@@ -163,7 +163,13 @@ const ProfileSettings = ({ isActive }: ProfileSettingsProps) => {
     );
   }
   return (
-    <div className={isActive ? "flex w-full min-w-0 gap-8" : "hidden"}>
+    <div
+      className={
+        isActive
+          ? "flex w-full min-w-0 flex-col gap-6 md:flex-row md:gap-8"
+          : "hidden"
+      }
+    >
       <div className="relative h-24 w-24 shrink-0">
         <Image
           src={profileImage || anonymousPhoto}
@@ -208,7 +214,7 @@ const ProfileSettings = ({ isActive }: ProfileSettingsProps) => {
         ) : (
           <>
             {/* ---name & email------------------------------------------- */}
-            <div className="flex w-full gap-4">
+            <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2">
               <div className="flex min-w-0 flex-1 flex-col gap-2">
                 <label htmlFor="name">Name</label>
                 <Input
@@ -243,7 +249,7 @@ const ProfileSettings = ({ isActive }: ProfileSettingsProps) => {
               </div>
             </div>
             {/* ---phone & id----------------------------------------- */}
-            <div className="flex w-full gap-4">
+            <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2">
               <div className="flex min-w-0 flex-1 flex-col gap-2">
                 <label htmlFor="phone">Phone</label>
                 <Input
@@ -267,6 +273,7 @@ const ProfileSettings = ({ isActive }: ProfileSettingsProps) => {
                   type="number"
                   placeholder="Enter your Id"
                   {...register("identity")}
+                  readOnly
                   className="w-full"
                 />
                 {errors.identity && (
@@ -277,7 +284,7 @@ const ProfileSettings = ({ isActive }: ProfileSettingsProps) => {
               </div>
             </div>
             {/* ---password------------------------------------------- */}
-            <div className="flex w-full gap-4">
+            <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2">
               <div className="flex min-w-0 flex-1 flex-col gap-2">
                 <label htmlFor="password">Password</label>
                 <div className="relative">
@@ -347,7 +354,7 @@ const ProfileSettings = ({ isActive }: ProfileSettingsProps) => {
             <Button
               type="submit"
               disabled={isUpdating}
-              className="w-42 bg-app-primary text-white hover:bg-app-primary/90"
+              className="w-full bg-app-primary text-white hover:bg-app-primary/90 sm:w-42"
             >
               {isUpdating ? "Saving..." : "Save Changes"}
             </Button>
