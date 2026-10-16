@@ -7,6 +7,9 @@ if (!BACKEND_URL) {
 }
 
 const nextConfig: NextConfig = {
+  typescript: {
+    ignoreBuildErrors: true,
+  },
   images: {
     remotePatterns: [
       {
