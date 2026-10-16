@@ -58,11 +58,12 @@ export default function TicketDetailsView({
         <TicketInformation  ticket={response}   />
 
         <RelatedInformation ticket={response} />
-        <QuickActions
+        {response.data.status !== 'closed' && <QuickActions
           ticketId={response.data.id}
           status={response.data.status}
           assignedAgentId={response.data.assigned_agent_id}
-        />
+        />}
+        
       </aside>
     </main>
   );

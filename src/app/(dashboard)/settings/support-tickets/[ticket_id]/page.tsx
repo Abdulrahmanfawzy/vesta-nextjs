@@ -42,7 +42,7 @@ const TicketDetailsPage = async ({ params }: PageProps) => {
             aria-label="Back to support tickets"
             className="flex shrink-0 items-center"
           >
-            <ArrowLeft className="size-5 sm:size-[30px]" />
+            <ArrowLeft className="size-5 sm:size-7.5" />
           </Link>
         }
       />
