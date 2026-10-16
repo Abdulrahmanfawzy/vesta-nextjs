@@ -18,7 +18,7 @@ function ReturnSummary({
 
   return (
     <ChartsCard title="return summary">
-      <div className="flex items-start justify-evenly">
+      <div className="flex items-start justify-evenly w-full">
         {/* Return Icon */}
         <div className="flex h-24 w-24 shrink-0 items-center justify-center rounded-3xl bg-white shadow-card-shadow">
           <Handbag size={52} strokeWidth={2.5} className="text-orange-500" />
