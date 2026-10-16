@@ -79,56 +79,60 @@ export default function Conversation({ ticketId }: ConversationProps) {
                  
                 </div>
 
-                {areMessagesPending ? (
-                  <p className="mt-4 border-t border-app-neutral-light pt-3 text-sm text-muted-foreground">
-                    Loading messages...
-                  </p>
-                ) : messagesError && !messagesResponse ? (
-                  <p
-                    role="alert"
-                    className="mt-4 border-t border-app-neutral-light pt-3 text-sm text-destructive"
-                  >
-                    {messagesError instanceof Error
-                      ? messagesError.message
-                      : "Failed to load chat messages."}
-                  </p>
-                ) : messages.length === 0 ? (
-                  <p className="mt-4 border-t border-app-neutral-light pt-3 text-sm text-muted-foreground">
-                    No messages in this conversation yet.
-                  </p>
-                ) : (
-                  <div className="mt-4 space-y-5 border-t border-app-neutral-light pt-4">
-                    {messagesError && (
-                      <p role="alert" className="text-sm text-destructive">
-                        {messagesError instanceof Error
-                          ? messagesError.message
-                          : "Failed to load older messages."}
-                      </p>
-                    )}
-                    {hasNextPage && (
-                      <div className="text-center">
-                        <button
-                          type="button"
-                          onClick={() => fetchNextPage()}
-                          disabled={isFetchingNextPage}
-                          className="text-sm font-medium text-app-primary hover:underline disabled:opacity-50"
-                        >
-                          {isFetchingNextPage
-                            ? "Loading older messages..."
-                            : "Load older messages"}
-                        </button>
-                      </div>
-                    )}
-                    {messages.map((message) => (
-                      <MessageBubble
-                        key={message.id}
-                        message={message}
-                        chatId={chatResponse.data.id}
-                        currentUserId={chatResponse.currentUserId}
-                      />
-                    ))}
-                  </div>
-                )}
+                <div
+                  role="region"
+                  aria-label="Conversation messages"
+                  tabIndex={0}
+                  className="mt-4 h-72 overflow-y-auto border-t border-app-neutral-light pt-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-app-primary/40 sm:h-96"
+                >
+                  {areMessagesPending ? (
+                    <p className="text-sm text-muted-foreground">
+                      Loading messages...
+                    </p>
+                  ) : messagesError && !messagesResponse ? (
+                    <p role="alert" className="text-sm text-destructive">
+                      {messagesError instanceof Error
+                        ? messagesError.message
+                        : "Failed to load chat messages."}
+                    </p>
+                  ) : messages.length === 0 ? (
+                    <p className="text-sm text-muted-foreground">
+                      No messages in this conversation yet.
+                    </p>
+                  ) : (
+                    <div className="space-y-5">
+                      {messagesError && (
+                        <p role="alert" className="text-sm text-destructive">
+                          {messagesError instanceof Error
+                            ? messagesError.message
+                            : "Failed to load older messages."}
+                        </p>
+                      )}
+                      {hasNextPage && (
+                        <div className="text-center">
+                          <button
+                            type="button"
+                            onClick={() => fetchNextPage()}
+                            disabled={isFetchingNextPage}
+                            className="text-sm font-medium text-app-primary hover:underline disabled:opacity-50"
+                          >
+                            {isFetchingNextPage
+                              ? "Loading older messages..."
+                              : "Load older messages"}
+                          </button>
+                        </div>
+                      )}
+                      {messages.map((message) => (
+                        <MessageBubble
+                          key={message.id}
+                          message={message}
+                          chatId={chatResponse.data.id}
+                          currentUserId={chatResponse.currentUserId}
+                        />
+                      ))}
+                    </div>
+                  )}
+                </div>
               </div>
               <MessageComposer chatId={chatResponse.data.id} />
             </>

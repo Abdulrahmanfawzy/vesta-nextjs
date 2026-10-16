@@ -18,19 +18,19 @@ const FaqContent = ({ faqs }: FaqContentProps) => {
     <Accordion
       type="single"
       collapsible
-      className="w-full space-y-4"
+      className="w-full min-w-0 space-y-4"
     >
       {faqs.map((faq) => (
         <AccordionItem
           key={faq.id}
           value={`faq-${faq.id}`}
-          className="rounded-xl border border-[#E5E7EB] px-5"
+          className="min-w-0 rounded-xl border border-[#E5E7EB] px-4 sm:px-5"
         >
-          <AccordionTrigger className="py-5 text-start text-base font-medium text-primary hover:no-underline">
+          <AccordionTrigger className="min-w-0 break-words py-5 text-start text-sm font-medium text-primary hover:no-underline sm:text-base">
             {faq.question}
           </AccordionTrigger>
 
-          <AccordionContent className="pb-5 text-sm leading-6 text-gray-500">
+          <AccordionContent className="break-words pb-5 text-sm leading-6 text-gray-500">
             {faq.answer}
           </AccordionContent>
         </AccordionItem>
