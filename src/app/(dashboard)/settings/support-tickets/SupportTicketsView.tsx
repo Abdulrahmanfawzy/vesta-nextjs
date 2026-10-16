@@ -44,7 +44,7 @@ const columns = columnHelper.columns([
     cell: ({ getValue }) => {
       const status = getValue();
       const variant =
-        status === "open"
+        status === "open" || status === "awaiting_seller"
           ? "pending"
           : status === "in_progress"
             ? "inprogress"
