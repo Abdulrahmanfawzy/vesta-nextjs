@@ -1,16 +1,20 @@
 import { cn } from "@/lib/utils";
 import DashboardSidebarInMobile from "./DashboardSidebarInMobile";
 import Link from "next/link";
+import { getProfileApi } from "@/api/profile.api";
+import Image from "next/image";
 interface DashboardHeaderProps {
   pageName: string;
   icon?: React.ReactNode;
   className?: string;
 }
-export default function DashboardHeader({
+export default async function DashboardHeader({
   pageName,
   icon,
   className,
 }: DashboardHeaderProps) {
+  const { data } = await getProfileApi();
+
   return (
     <header
       className={`flex h-20 w-full items-center border-b border-app-neutral-light justify-between mb-6 bg-white `}
@@ -45,8 +49,17 @@ export default function DashboardHeader({
         {/* Avatar */}
 
         <Link href={"/settings"}>
-          <div className="flex cursor-pointer size-9 items-center justify-center rounded-full bg-[#19203D] text-sm font-medium text-white">
-            M
+          <div className="flex cursor-pointer size-9 items-center justify-center rounded-full bg-[#19203D] text-sm font-medium text-white relative">
+            {data?.user?.avatar_url ? (
+              <Image
+                className="object-cover rounded-full"
+                src={data?.user?.avatar_url || ""}
+                alt={data.user.name}
+                fill
+              />
+            ) : (
+              data?.user?.name?.slice(0, 2).toUpperCase()
+            )}
           </div>
         </Link>
       </div>
