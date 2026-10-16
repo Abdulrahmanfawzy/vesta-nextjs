@@ -32,17 +32,21 @@ const TicketDetailsPage = async ({ params }: PageProps) => {
   const decodedId = decodeURIComponent(ticket_id);
 
   return (
-    <div>
+    <div className="w-full min-w-0 px-3 sm:px-6">
       <DashboardHeader
-        className="cursor-pointer text-2xl font-medium"
+        className="max-w-[55vw] truncate text-sm font-medium sm:max-w-none sm:text-2xl"
         pageName="Back To My Support Tickets"
         icon={
-          <Link href="/settings/support-tickets">
-            <ArrowLeft size={30} />
+          <Link
+            href="/settings/support-tickets"
+            aria-label="Back to support tickets"
+            className="flex shrink-0 items-center"
+          >
+            <ArrowLeft className="size-5 sm:size-[30px]" />
           </Link>
         }
       />
-     <TicketDetailsView  ticketId={ticket_id} />
+      <TicketDetailsView ticketId={ticket_id} />
     </div>
   );
 };

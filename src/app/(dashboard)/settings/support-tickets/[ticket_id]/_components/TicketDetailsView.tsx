@@ -20,7 +20,7 @@ export default function TicketDetailsView({
 
   if (isPending) {
     return (
-      <main className="grid grid-cols-1 gap-3 lg:grid-cols-[minmax(0,6.5fr)_minmax(0,3.5fr)]">
+      <main className="grid w-full min-w-0 grid-cols-1 gap-3 lg:grid-cols-[minmax(0,6.5fr)_minmax(0,3.5fr)]">
         <div className="flex flex-col gap-3">
           <div className="h-48 animate-pulse rounded-xl bg-muted" />
           <div className="h-64 animate-pulse rounded-xl bg-muted" />
