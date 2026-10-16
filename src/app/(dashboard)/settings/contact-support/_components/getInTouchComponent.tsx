@@ -11,10 +11,10 @@ const supportItems = [
         icon: MessagesSquare,
         title: "Live Chat",
         description: "Available 9 AM - 6 PM (Mon-Fri)",
-        action: {
-            label: "Live Chat",
-            href: "/live-chat",
-        },
+        // action: {
+        //     label: "Live Chat",
+        //     href: "/live-chat",
+        // },
     },
     {
         icon: Phone,
@@ -25,11 +25,11 @@ const supportItems = [
 
 const GetInTouchComponent = () => {
     return (
-        <div className="flex w-[34%] flex-col gap-6 border border-app-neutral-light shadow-xs rounded-xl p-6">
+        <div className="flex flex-col gap-6 border border-app-neutral-light shadow-xs rounded-xl p-4 sm:p-6 lg:w-[34%] lg:shrink-0">
             <h3 className="text-2xl font-normal text-app-primary leading-[150%] tracking-[-2.2%]">Get in Touch</h3>
             <p className="text-sm text-[#5E6061]">Our support teams is here to help you with any questions or iseues</p>
 
-            <div className="flex flex-col gap-12 mt-8">
+            <div className="mt-4 flex flex-col gap-6 sm:mt-8 sm:gap-8">
                 {supportItems.map((item, index) => {
                     const Icon = item.icon;
                     return (
@@ -39,14 +39,14 @@ const GetInTouchComponent = () => {
                                 <p className="text-base text-app-primary font-bold">{item.title}</p>
                                 <p className="text-sm text-[#5E6061] font-medium">{item.description}</p>
                             </div>
-                            {item.action && (
+                            {/* {item.action && (
                                 <Link
                                     href={item.action.href}
                                     className="text-sm font-bold text-app-primary"
                                 >
                                     {item.action.label}
                                 </Link>
-                            )}
+                            )} */}
                         </div>
                     );
                 })}
