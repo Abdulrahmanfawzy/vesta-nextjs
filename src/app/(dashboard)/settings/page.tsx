@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import DashboardHeader from "@/components/layout/DashboardHeader";
 import QueryProvider from "./_components/providers/QueryProvider";
 import SettingsTabs from "./_components/setting/SettingsTabs";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Settings",
@@ -14,7 +15,10 @@ const Page = () => {
       <DashboardHeader pageName="Settings" />
 
       <QueryProvider>
-        <SettingsTabs />
+        <Suspense fallback={<div>Loading settings...</div>}>
+          <SettingsTabs />
+        </Suspense>
+
       </QueryProvider>
 
     </div>
