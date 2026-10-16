@@ -7,13 +7,13 @@ const RelatedInformation = ({ticket}:RelatedInformationProps) => {
     return (
         <InformationCard title="Related Information">
             <InformationRow label="Type">
-                <p className="font-medium text-app-primary"></p>
+                <p className="font-medium text-app-primary">{ticket.data.type ??'unknown'}</p>
             </InformationRow>
             <InformationRow label="Category">
                 <p className="font-medium text-app-primary">{ticket.data.category}</p>
             </InformationRow>
             <InformationRow label="Assign To">
-                <p className="font-medium text-app-primary"></p>
+                <p className="font-medium text-app-primary">{ticket.data.assigned_to?.name ?? 'Support Team'}</p>
             </InformationRow>
         </InformationCard>
     );

@@ -11,6 +11,7 @@ interface TicketHeaderProps {
 const getStatusVariant = (status: TicketDetailsResponse["data"]["status"]) => {
     switch (status) {
         case "open":
+        case "awaiting_seller":
             return "pending";
         case "in_progress":
             return "inprogress";

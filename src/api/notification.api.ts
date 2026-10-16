@@ -47,3 +47,42 @@ export async function registerDeviceToken(
   return result.data;
 }
 
+export async function deleteDeviceToken(
+  deviceToken: string,
+) {
+  const TOKEN = await getToken();
+
+  const body = new URLSearchParams({
+    token: deviceToken,
+    
+  });
+
+  const response = await fetch(
+    `${process.env.API}/api/notifications/device-token`,
+    {
+      method: "DELETE",
+      cache: "no-store",
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${TOKEN}`,
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body,
+    },
+  );
+
+  if (!response.ok) {
+    throw new Error("Failed to delete device token");
+  }
+
+  const result: RegisterDeviceTokenResponse =
+    await response.json();
+
+  if (!result.success) {
+    throw new Error(
+      result.message || "Failed to delete device token",
+    );
+  }
+
+  return result.data;
+}

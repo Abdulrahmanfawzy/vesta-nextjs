@@ -18,10 +18,6 @@ const FqaPage = () => {
   return (
     <div>
       <FaqView />
-
-     
-
-
     </div>
   )
 }

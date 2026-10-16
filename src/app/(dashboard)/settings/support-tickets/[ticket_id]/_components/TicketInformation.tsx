@@ -9,6 +9,7 @@ interface TicketInformationProps {
 const getStatusVariant = (status: TicketDetailsResponse["data"]["status"]) => {
     switch (status) {
         case "open":
+        case "awaiting_seller":
             return "pending";
         case "in_progress":
             return "inprogress";
@@ -36,13 +37,13 @@ export default function TicketInformation({ ticket}: TicketInformationProps) {
                 </Badge>
             </InformationRow>
             <InformationRow label="Created At">
-                <p className="text-foreground">{formatTicketDate(ticket.data.created_at)}</p>
+                <p className="font-medium text-app-primary">{formatTicketDate(ticket.data.created_at)}</p>
             </InformationRow>
             <InformationRow label="Last Updated">
-                <p className="text-foreground">{formatTicketDate(ticket.data.updated_at)}</p>
+                <p className="font-medium text-app-primary">{formatTicketDate(ticket.data.updated_at)}</p>
             </InformationRow>
             <InformationRow label="Priority">
-                <span className="flex items-center gap-1.5 text-foreground">
+                <span className="flex items-center gap-1.5 font-medium text-app-primary">
                     <span className="size-2 rounded-full bg-app-warning-medium" />
                     {ticket.data.priority ?? "Not specified"}
                 </span>

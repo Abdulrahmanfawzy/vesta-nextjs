@@ -3,6 +3,8 @@ export interface TicketUser {
   name: string;
 }
 
+import type { TicketStatus } from "@/types/support.types";
+
 export interface Ticket {
   id: number;
   seller_id: number;
@@ -11,8 +13,9 @@ export interface Ticket {
   return_id: number | null;
   category: string;
   subject: string;
+  type:string|null;
   description: string | null;
-  status: "open" | "in_progress" | "resolved" | "closed";
+  status: TicketStatus;
   priority: string | null;
   rating: number | null;
   messages_count: number;
@@ -28,3 +31,20 @@ export interface TicketDetailsResponse {
   message: string;
   data: Ticket;
 }
+// for update status-------------------------
+export interface UpdateTicketStatusRequest {
+  status: TicketStatus;
+}
+
+export interface UpdateTicketStatusResponse {
+  success: boolean;
+  message: string;
+  data: {
+    id: number;
+    status: TicketStatus;
+    subject: string;
+    updated_at: string;
+    [key: string]: unknown;
+  };
+}
+// ------------------------------------------------

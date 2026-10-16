@@ -1,7 +1,12 @@
 "use server";
 
-import { getReturnPolicies } from "@/api/settings.api";
+import { getReturnPolicies, updatePolicyDocumentApi } from "@/api/settings.api";
+
 
 export async function getReturnPoliciesAction() {
-  return  getReturnPolicies();
+  return await getReturnPolicies();
+}
+// -------------------------------------------
+export async function updatePolicyDocumentAction(fileName:string, file: File,){
+  return await updatePolicyDocumentApi(fileName, file);
 }

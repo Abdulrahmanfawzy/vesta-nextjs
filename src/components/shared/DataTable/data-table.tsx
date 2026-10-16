@@ -29,6 +29,9 @@ interface DataTableProps<TData extends RowData> {
   data: TData[];
   totalPages?: number;
   totalRows?: number;
+  pageSize?: number;
+  onPageChange?: (page: number) => void;
+  onPageSizeChange?: (pageSize: number) => void;
 }
 
 export function DataTable<TData extends RowData>({
@@ -36,6 +39,9 @@ export function DataTable<TData extends RowData>({
   data,
   totalPages = 1,
   totalRows,
+  pageSize,
+  onPageChange,
+  onPageSizeChange,
 }: DataTableProps<TData>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const searchParams = useSearchParams();
@@ -48,7 +54,13 @@ export function DataTable<TData extends RowData>({
     data,
     columns,
     onSortingChange: setSorting,
-    state: { sorting },
+    state: {
+      sorting,
+      columnFilters,
+      ...(pageSize !== undefined
+        ? { pagination: { pageIndex: 0, pageSize } }
+        : {}),
+    },
   });
 
   const rows = table.getRowModel().rows;
@@ -123,10 +135,11 @@ export function DataTable<TData extends RowData>({
         <ServerPagination
           currentPage={currentPage}
           totalPages={totalPages}
-          totalRows={totalRows ?? data.length}
-          perPage={perPage}
-        />
-      </Suspense>
+          totalRows={totalRows}
+          pageSize={pageSize}
+          onPageChange={onPageChange}
+          onPageSizeChange={onPageSizeChange} />
+      </div>
     </div>
   );
 }
