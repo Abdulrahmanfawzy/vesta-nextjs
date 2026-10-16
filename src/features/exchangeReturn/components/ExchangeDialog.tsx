@@ -27,7 +27,7 @@ import {
   Package,
   ShieldCheck,
 } from "lucide-react";
-import { RefundOrder } from "../types/types";
+import { RefundOrder } from "@/features/refund/types/types";
 
 
 export interface RefundDetailsDialogProps {

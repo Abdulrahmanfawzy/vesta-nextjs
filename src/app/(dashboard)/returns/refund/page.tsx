@@ -8,7 +8,6 @@ export const metadata: Metadata = {
 import ButtonsSearch from "@/components/shared/DataTable/ButtonsSearch";
 import { DataTable } from "@/components/shared/DataTable/data-table";
 import { SelectFilter } from "@/components/shared/DataTable/SelectFilter";
-import { ServerPagination } from "@/components/shared/DataTable/ServerPagination";
 import { RefundStats } from "@/features/refund/components/RefundCards";
 import { refundColumns } from "@/features/refund/components/RefundColumns";
 import TabReturn from "@/features/returns/components/TabsReturn";
