@@ -9,10 +9,11 @@ const badgeVariants = cva(
     variants: {
       variant: {
         completed: "border border-emerald-600 bg-emerald-50 text-emerald-700",
-        refunded: "border border-emerald-600 bg-emerald-50 text-emerald-700",
-        approved: "border border-emerald-600 bg-emerald-50 text-emerald-700",
-        pending:
-          "border border-orange-500 bg-orange-50 text-orange-600",
+          success: "border border-emerald-600 bg-emerald-50 text-emerald-700",
+          refunded: "border border-emerald-600 bg-emerald-50 text-emerald-700",
+          approved: "border border-emerald-600 bg-emerald-50 text-emerald-700",
+          pending:
+            "border border-orange-500 bg-orange-50 text-orange-600",
         rejected:
           "border border-red-500 bg-red-200 text-red-600",
         closed:

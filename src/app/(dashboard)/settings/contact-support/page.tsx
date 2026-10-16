@@ -18,7 +18,7 @@ const ContactSupportPage=({}:IProps)=> {
   return (
     <div>
         <DashboardHeader pageName="Contact Support" className="text-2xl" />
-        <div className="flex w-full min-w-0 gap-8 mb-8">
+        <div className="mb-8 flex w-full min-w-0 flex-col gap-5 lg:flex-row lg:items-stretch  lg:gap-8">
           
           <GetInTouchComponent />
           <SendUsMessage />
