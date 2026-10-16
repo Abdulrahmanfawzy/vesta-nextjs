@@ -29,16 +29,16 @@ export default function FaqView() {
   }, [isError, error]);
 
   return (
-    <div>
+    <div className="w-full min-w-0 px-3 sm:px-6">
       <DashboardHeader pageName="FAQ" className="text-2xl" />
 
-      <div className="flex w-full min-w-0 gap-8">
+      <div className="grid w-full min-w-0 grid-cols-1 gap-6 lg:grid-cols-[15rem_minmax(0,1fr)] lg:gap-8">
         <FaqSidebar
           selectedSection={selectedSection}
           onSectionChange={setSelectedSection}
         />
-        <div className="flex w-full flex-col gap-6">
-          <h1 className="text-2xl font-bold text-app-primary leading-[150%] tracking-[-2.2%] mb-6 mt-3">
+        <div className="flex min-w-0 flex-1 flex-col gap-6">
+          <h1 className="mb-1 mt-1 text-xl font-bold leading-[150%] tracking-[-2.2%] text-app-primary sm:text-2xl">
             Frequently Asked Questions
           </h1>
 
@@ -53,7 +53,7 @@ export default function FaqView() {
             <FaqContent faqs={faqs}  />
           )}
           
-          <div className="my-12">
+          <div className="my-8 sm:my-12">
             <p className="text-base font-bold text-app-black-80">Still have questions ?</p>
             <p className="text-sm text-app-neutral-dark-60">
               Contact our
