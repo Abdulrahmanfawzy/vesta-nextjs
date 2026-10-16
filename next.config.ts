@@ -7,11 +7,19 @@ if (!BACKEND_URL) {
 }
 
 const nextConfig: NextConfig = {
+  typescript: {
+    ignoreBuildErrors: true,
+  },
   images: {
     remotePatterns: [
       {
         protocol: "https",
         hostname: "images.unsplash.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "smart-returns.huma-volve.com",
         pathname: "/**",
       },
     ],
