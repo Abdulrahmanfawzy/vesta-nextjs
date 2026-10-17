@@ -1,5 +1,5 @@
 'use client';
-import DashboardHeader from "@/components/layout/DashboardHeader";
+
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { FAQSection } from "@/types/faq.types";
@@ -10,7 +10,7 @@ import FaqSkeleton from "./FaqSkeleton";
 import FaqContent from "./FaqContent";
 import { toast } from "sonner";
 
-export default function FaqView() {
+export default function FaqView({ header }: { header?: React.ReactNode }) {
  
  const [selectedSection, setSelectedSection] = useState<FAQSection>("All");
   const {
@@ -30,7 +30,7 @@ export default function FaqView() {
 
   return (
     <div className="w-full min-w-0 px-3 sm:px-6">
-      <DashboardHeader pageName="FAQ" className="text-2xl" />
+      {header}
 
       <div className="grid w-full min-w-0 grid-cols-1 gap-6 lg:grid-cols-[15rem_minmax(0,1fr)] lg:gap-8">
         <FaqSidebar
