@@ -1,12 +1,12 @@
 "use client";
 
 import CustomTabs from "@/components/common/CustomTabs";
-import DashboardHeader from "@/components/layout/DashboardHeader";
 import { DataTable } from "@/components/shared/DataTable/data-table";
 import { Badge } from "@/components/ui/badge";
 import { useSupportTickets } from "@/hooks/useSupportTickets";
 import type { SupportTicket } from "@/types/support.types";
 import type { DataTableFeatures } from "@/features/returns/components/data-table-features";
+import type { ReactNode } from "react";
 
 import { createColumnHelper } from "@tanstack/react-table";
 import { Eye } from "lucide-react";
@@ -107,7 +107,7 @@ const tabs = [
   },
 ];
 
-export default function SupportTicketsView() {
+export default function SupportTicketsView({ header }: { header?: ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -176,7 +176,7 @@ export default function SupportTicketsView() {
 
   return (
     <div className="container mx-auto flex w-full min-w-0 flex-col gap-4 px-3 py-2 sm:px-6 sm:py-4">
-      <DashboardHeader pageName="My Support Tickets" className="text-lg sm:text-2xl" />
+      {header}
       <div className="min-w-0 rounded-2xl border border-app-neutral-light p-2 shadow-xs sm:p-3">
         <CustomTabs
           tabs={tabs}
